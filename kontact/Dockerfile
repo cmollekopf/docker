@@ -6,6 +6,7 @@ RUN yum install -y oxygen-icon-theme oxygen-mono-fonts oxygen-sans-font
 RUN yum install -y xerces-c boost
 RUN yum install -y kwallet
 RUN yum install -y sudo
+RUN yum install -y cyrus-sasl cyrus-sasl-plain
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
@@ -20,6 +21,9 @@ ADD kdeenv.sh /home/developer/kdeenv.sh
 ADD setupdbus.sh /home/developer/setupdbus.sh
 ADD entrypoint.sh /home/developer/entrypoint.sh
 ADD bashrc /home/developer/.bashrc
+
+ADD home/developer/.kde4src /home/developer/.kde4src
+RUN chown developer:developer /home/developer/.kde4src -R
 
 USER developer
 ENV HOME /home/developer

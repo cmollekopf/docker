@@ -1,3 +1,4 @@
 #!/bin/bash
-docker build -t kolab1 .
+source ./config.sh
+docker build -t $TMPREPO .
 ./setupkolab.sh

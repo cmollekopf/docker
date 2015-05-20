@@ -1,0 +1,20 @@
+A CentOS7 based container running kolab
+
+== Build ==
+To build the container with all packages installed run the build.sh script.
+This will produce an image called kolab1:latest.
+
+Because we can't setup-kolab in the initial image building this needs to be done separately:
+* use setupkolab.sh to run a container, run setup-kolab in that container, and commit the result to a new image called kolab1:setup
+
+You now have an image kolab1:setup that you can run using run.sh and then access using localhost/roundcube.
+
+To login to kolab-webadmin use:
+    Name: cn=Directory Manager
+    Password: test
+
+== Run ==
+Once you have built kolab1:setup, you can use the run.sh script to start the container.
+To avoid the container from being destryed once stopped, remove the --rm option from the script.
+
+Use the getshell.sh script for an interactive shell.

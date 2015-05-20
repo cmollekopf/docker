@@ -1,0 +1,19 @@
+dn: uid=doe,ou=People,dc=example,dc=org
+alias: doe@example.org
+alias: j.doe@example.org
+givenName: John
+mailQuota: 1048576
+preferredLanguage: en_US
+sn: Doe
+cn: John Doe
+displayName: Doe, John
+mail: john.doe@example.org
+uid: doe
+objectClass: top
+objectClass: inetorgperson
+objectClass: kolabinetorgperson
+objectClass: mailrecipient
+objectClass: organizationalperson
+objectClass: person
+userPassword:: e1NTSEF9VTBrUWc5U3NmWHhLM3A4dGxPb1grbDJxdDJrY3M0bk1MVFg3R2c9PQ==
+mailHost: localhost

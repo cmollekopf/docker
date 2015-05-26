@@ -1,0 +1,69 @@
+# See the kdesrc-buildrc-sample for explanations of what the options do, or
+# view the manpage or kdesrc-build documentation at
+# http://kdesrc-build.kde.org/documentation/
+global
+    qtdir /usr
+
+    source-dir /work/source
+    build-dir /work/build
+    kdedir /work/install
+
+    cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=return-type -Wno-variadic-macros -Wlogical-op
+    # WARNING: opensuse users need -DLIB_SUFFIX=64 here, as long as FindKDE4Internal.cmake is used
+    #          if you're using a distro without "lib64", remove the option.
+    # cmake-options -DKDE4_BUILD_TESTS=TRUE -DLIB_SUFFIX=64
+    cmake-options -DBUILD_TESTING=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_LIBDIR=lib -DLIB_SUFFIX=64
+
+    make-options -j5
+    stop-on-failure true
+end global
+
+module kdelibs
+    repository https://git.kolab.org/diffusion/KL/kdelibs.git
+    branch kolab/integration/4.14.0
+end module
+
+module akonadi
+    repository https://git.kolab.org/diffusion/A/akonadi.git
+    branch kolab/integration/1.12.0
+end module
+
+module kdepimlibs
+    repository https://git.kolab.org/diffusion/KPL/kdepimlibs.git
+    branch kolab/integration/4.13.0
+end module
+
+module kfilemetadata
+    repository git://anongit.kde.org/kfilemetadata
+    branch KDE/4.14
+end module
+
+module baloo
+    repository https://git.kolab.org/diffusion/KB/baloo.git
+    branch kolab/integration/4.13.0
+end module
+module libkolabxml
+    repository https://git.kolab.org/diffusion/LKX/libkolabxml.git
+    branch libkolabxml-1.1
+end module
+
+module libkolab
+    repository https://git.kolab.org/diffusion/LK/libkolab.git
+    branch master
+end module
+
+module kdepim-runtime
+    repository https://git.kolab.org/diffusion/KPR/kdepim-runtime.git
+    branch kolab/integration/4.13.0
+end module
+
+module kdepim
+    cmake-options -DKDEPIM_BUILD_MOBILE=FALSE -DBUILD_blogilo=FALSE -DBUILD_akregator=FALSE
+    repository https://git.kolab.org/diffusion/KP/kdepim.git
+    branch kolab/integration/4.13.0
+end module
+
+module zanshin
+    repository https://git.kolab.org/diffusion/Z/zanshin.git
+    branch kolab/integration/3.0
+end module

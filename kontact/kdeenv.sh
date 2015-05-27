@@ -19,12 +19,11 @@ export KDETMP=/tmp/$USER-kde4src
 mkdir -p $KDETMP
 export KDESYCOCA=/var/tmp/kdesycoca-custom
 
-export KDEDIRS=$KDEDIR
+export KDEDIRS=$KDEDIR:/usr
 export PATH=$KDEDIR/bin:$PATH
 export LD_LIBRARY_PATH=$KDEDIR/lib:$KDEDIR/lib64
 export PKG_CONFIG_PATH=$KDEDIR/lib/pkgconfig
 export QT_PLUGIN_PATH=$KDEDIR/lib/kde4/plugins:$KDEDIR/lib64/kde4/plugins
-export KDE4_AUTH_POLICY_FILES_INSTALL_DIR=$KDEDIR/usr/share/polkit-1/actions
 
 # XDG
 export XDG_CONFIG_HOME=$KDEHOME/.config

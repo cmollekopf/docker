@@ -42,6 +42,7 @@ module baloo
     repository https://git.kolab.org/diffusion/KB/baloo.git
     branch kolab/integration/4.13.0
 end module
+
 module libkolabxml
     repository https://git.kolab.org/diffusion/LKX/libkolabxml.git
     branch libkolabxml-1.1

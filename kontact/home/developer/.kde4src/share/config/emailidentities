@@ -1,0 +1,28 @@
+[$Version]
+update_info=kmail.upd:3.3-move-identities-to-own-file,kmail.upd:3.3-aegypten-emailidentities-split-sign-encr-keys
+
+[General]
+Default Identity=1580146192
+
+[Identity #0]
+Attach Vcard=false
+Default Domain=d1175b059ffc
+Dictionary=English ()
+Disable Fcc=false
+Drafts=31
+Email Address=doe@example.org
+Email Aliases=
+Fcc=5
+Identity=Developer
+Image Location=
+Inline Signature=
+Inlined Html=false
+Name=John Doe
+Pgp Auto Sign=false
+Preferred Crypto Message Format=auto
+Signature Enabled=false
+Signature Type=inline
+Templates=33
+VCardFile=/home/developer/.kde4src/share/apps/kmail2/Developer.vcf
+X-FaceEnabled=false
+uoid=1580146192

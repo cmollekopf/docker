@@ -54,17 +54,25 @@ module libkolab
 end module
 
 module kdepim-runtime
+    cmake-options -DDISABLE_ALL_OPTIONAL_SUBDIRECTORIES=TRUE -DBUILD_kolab=TRUE -DBUILD_mixedmaildir=TRUE -DBUILD_maildir=TRUE
     repository https://git.kolab.org/diffusion/KPR/kdepim-runtime.git
     branch kolab/integration/4.13.0
 end module
 
 module kdepim
-    cmake-options -DKDEPIM_BUILD_MOBILE=FALSE -DBUILD_blogilo=FALSE -DBUILD_akregator=FALSE
+    cmake-options -DKDEPIM_BUILD_MOBILE=FALSE -DKDEPIM_MOBILE_UI=FALSE -DDISABLE_ALL_OPTIONAL_SUBDIRECTORIES=TRUE \
+                  -DBUILD_korganizer=TRUE -DBUILD_kmail=TRUE -DBUILD_korgac=TRUE -DBUILD_kaddressbook=TRUE \
+                  -DBUILD_kontact=TRUE -DBUILD_kaddressbook=TRUE -DBUILD_doc=TRUE -DBUILD_akonadiconsole=TRUE \
+                  -DBUILD_messagecomposer=TRUE -DBUILD_mailimporter=TRUE -DBUILD_sieveeditor=TRUE -DBUILD_importwizard=TRUE \
+                  -DBUILD_agents=TRUE -DBUILD_sendlateragent=TRUE -DBUILD_archivemailagent=TRUE -DBUILD_mailfilteragent=TRUE \
+                  -DBUILD_kleopatra=TRUE -DDISABLE_ALL_OPTIONAL_PLUGINS=TRUE
+
     repository https://git.kolab.org/diffusion/KP/kdepim.git
     branch kolab/integration/4.13.0
 end module
 
 module zanshin
+    cmake-options -DBUILD_ZANSHIN_NEXT=FALSE
     repository https://git.kolab.org/diffusion/Z/zanshin.git
     branch kolab/integration/3.0
 end module

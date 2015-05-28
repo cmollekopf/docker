@@ -9,6 +9,7 @@ RUN yum install -y sudo
 RUN yum install -y cyrus-sasl cyrus-sasl-plain
 RUN yum install -y gtk2
 RUN yum install -y qt-common vim
+RUN yum install -y libnotify xdg-basedir
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

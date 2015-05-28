@@ -8,3 +8,4 @@ sudo setfacl -m user:developer:rw /dev/dri/card0
 
 kwalletd&
 akonadictl start &> /tmp/akonadi.output
+dbus-monitor --session interface='org.freedesktop.Notifications',member='Notify' &> /tmp/notifications.output &

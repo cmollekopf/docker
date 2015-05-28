@@ -2,7 +2,7 @@
 
 #Local kde install directory
 # KDEROOT=/opt/devel/kolab
-KDEROOT=/home/chrigi/kdebuild/fedora/install
+KDEROOT=~/kdebuild/fedora/install
 
 #Setup X11 authorization
 XAUTH=/tmp/.docker.xauth

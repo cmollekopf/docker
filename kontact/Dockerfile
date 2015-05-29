@@ -10,6 +10,9 @@ RUN yum install -y cyrus-sasl cyrus-sasl-plain
 RUN yum install -y gtk2
 RUN yum install -y qt-common vim
 RUN yum install -y libnotify libxdg-basedir
+#So we have at least some icons in zanshin until we manage to figure out how to configure the theme properly
+#Qt probably thinks we're gnome for some reason, which breaks QIconLoader
+RUN yum install -y gnome-icon-theme
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

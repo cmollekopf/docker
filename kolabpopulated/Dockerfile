@@ -1,0 +1,1 @@
+FROM kolab/kolabtestcontainer:base

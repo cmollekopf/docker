@@ -7,8 +7,8 @@ preferredLanguage: en_US
 sn: {name}
 cn: {givenName} {name}
 displayName: {name}, {givenName}
-mail: {givenName}.{name}@{domain}.{domainExtension}
-uid: doe
+mail: {givenNameLower}.{nameLower}@{domain}.{domainExtension}
+uid: {uid}
 objectClass: top
 objectClass: inetorgperson
 objectClass: kolabinetorgperson

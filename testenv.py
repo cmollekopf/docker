@@ -20,7 +20,7 @@ def buildImage(repo, tag, rebuild, builder):
         print("building image: " + repo + ":" + tag)
         builder()
         image = dockerutils.findImage(repo, tag)
-    print("Image is ready: {}:{}".format(repo, tag))
+    print("Image is ready: {}:{} {}".format(repo, tag, image))
     return image
 
 def startContainer(name, runner):

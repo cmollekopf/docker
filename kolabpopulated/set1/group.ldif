@@ -1,0 +1,9 @@
+# LocalUsers, Groups, example.org
+dn: cn=LocalUsers,ou=Groups,dc=example,dc=org
+cn: LocalUsers
+uniqueMember: uid=doe2,ou=People,dc=example,dc=org
+uniqueMember: uid=doe,ou=People,dc=example,dc=org
+mail: localusers@example.org
+objectClass: top
+objectClass: groupofuniquenames
+objectClass: kolabgroupofuniquenames

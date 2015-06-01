@@ -28,7 +28,9 @@ def main(dataset):
 
     generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/john.ldif".format(basedir), dict(
         name = "Doe",
+        nameLower = "doe",
         givenName="John",
+        givenNameLower="john",
         uid="doe",
         secondaryUid="j.doe",
         domain="example",
@@ -37,7 +39,9 @@ def main(dataset):
 
     generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/jane.ldif".format(basedir), dict(
         name = "Doe",
+        nameLower = "doe",
         givenName="Jane",
+        givenNameLower="jane",
         uid="doe2",
         secondaryUid="j.doe2",
         domain="example",
@@ -46,7 +50,9 @@ def main(dataset):
 
     generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/anna.ldif".format(basedir), dict(
         name = "Test",
+        nameLower = "test",
         givenName="Anna",
+        givenNameLower="anna",
         uid="test",
         secondaryUid="a.test",
         domain="example",
@@ -55,7 +61,9 @@ def main(dataset):
 
     generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/rolf.ldif".format(basedir), dict(
         name = "Meier",
+        nameLower = "meier",
         givenName="Rolf",
+        givenNameLower="rolf",
         uid="meier",
         secondaryUid="r.meier",
         domain="example",
@@ -64,7 +72,9 @@ def main(dataset):
 
     generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/franck.ldif".format(basedir), dict(
         name = "Bodum",
-        givenName="Franck",
+        nameLower = "bodum",
+        givenName ="Franck",
+        givenNameLower = "franck",
         uid="bodum",
         secondaryUid="f.bodum",
         domain="example",
@@ -80,7 +90,7 @@ def main(dataset):
     print("Running populate.sh...")
     docker("exec", container,  "/data/populate.sh", _out=process_output)
 
-    print("Comitting results...")
+    print("Comitting results to: {}".format(imagename))
     docker.commit(container, imagename)
     docker.stop(container)
     docker.rm(container)

@@ -3,7 +3,7 @@ LDAPPW=test
 
 for f in /data/*.ldif; do
     echo "Adding default user $f"
-    ldapadd -x -h localhost -D "cn=Directory Manager" -w $LDAPPW -f $f;
+    ldapadd -x -h localhost -D "cn=Directory Manager" -w $LDAPPW -f $f || echo "error on create";
 done
 
 echo "Creating a bunch of shared mailboxes"

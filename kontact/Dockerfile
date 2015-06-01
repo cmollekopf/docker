@@ -31,6 +31,8 @@ ADD bashrc /home/developer/.bashrc
 #Fix ping
 RUN sudo setcap cap_net_raw+ep /usr/bin/ping
 
+RUN sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
 USER developer
 ENV HOME /home/developer
 CMD /bin/bash

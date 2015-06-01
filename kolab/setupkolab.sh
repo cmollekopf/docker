@@ -16,18 +16,6 @@ echo "Fixing roundcube"
 docker exec $CONTAINER bash /usr/share/roundcubemail/fixRoundcubeT243.sh
 docker exec $CONTAINER systemctl restart httpd
 
-echo "Adding default user: doe@example.org Welcome2KolabSystems"
-docker exec $CONTAINER ldapadd -x -h localhost -D "cn=Directory Manager" -w $LDAPPW -f $LDIFFILE
-echo "Adding a second user: doe2@example.org (it's Jane!) Welcome2KolabSystems"
-docker exec $CONTAINER ldapadd -x -h localhost -D "cn=Directory Manager" -w $LDAPPW -f $LDIFFILE2
-
-echo "Creating a bunch of shared mailboxes"
-docker exec $CONTAINER kolab create-mailbox shared/notype@example.org
-docker exec $CONTAINER kolab create-mailbox shared/notype/mail@example.org
-docker exec $CONTAINER kolab set-mailbox-metadata shared/notype/mail@example.org /shared/vendor/kolab/folder-type mail
-docker exec $CONTAINER kolab add-user-subscription john.doe@example.org "Shared Folders/shared/notype"
-docker exec $CONTAINER kolab add-user-subscription john.doe@example.org "Shared Folders/shared/notype/mail"
-
 docker commit $CONTAINER $REPONAME:$TAG
 docker stop $CONTAINER
 docker rm $CONTAINER

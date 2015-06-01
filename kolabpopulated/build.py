@@ -4,6 +4,7 @@ import subprocess
 import time
 import os
 import sys
+import traceback
 
 import settings
 
@@ -18,14 +19,7 @@ def generateUserFiles(template, outputfile, templateParams):
         data = data.format(**templateParams)
         f.write(data)
 
-def main(dataset):
-    tmpname="kolab/kolabtestcontainer:tmppopulated"
-    imagename="kolab/kolabtestcontainer:populated-"+dataset
-    basedir =  "{}/kolabpopulated".format(settings.SCRIPT_DIR)
-
-    print("Building tmpcontainer...")
-    docker.build("-t", tmpname, "{}/kolabpopulated/.".format(settings.SCRIPT_DIR))
-
+def prepareEnv(basedir):
     generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/john.ldif".format(basedir), dict(
         name = "Doe",
         nameLower = "doe",
@@ -81,16 +75,37 @@ def main(dataset):
         domainExtension="org"
     ))
 
+
+def main(dataset):
+    tmpname="kolab/kolabtestcontainer:tmppopulated"
+    imagename="kolab/kolabtestcontainer:populated-"+dataset
+    basedir =  "{}/kolabpopulated".format(settings.SCRIPT_DIR)
+
+    print("Building tmpcontainer...")
+    docker.build("-t", tmpname, "{}/kolabpopulated/.".format(settings.SCRIPT_DIR))
+
+    prepareEnv(basedir)
+
     print("Starting tmpcontainer...")
     container = docker.run("-d", "-h", settings.HOSTNAME, "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "-v", "{}/{}/:/data/".format(basedir, dataset), tmpname).rstrip()
+    try:
+        # Wait for imap to become available on imaps://localhost:993
+        time.sleep(5)
 
-    # Wait for imap to become available on imaps://localhost:993
-    time.sleep(5)
+        print("Running populate.sh...")
+        docker("exec", container,  "/data/populate.sh", _out=process_output)
+        #Set invitation policy
+        docker("exec", container, "sed", "-i", "s/kolab_invitation_policy = .*/kolab_invitation_policy = ALL_SAVE_AND_FORWARD/", "/etc/kolab/kolab.conf", _out=process_output)
 
-    print("Running populate.sh...")
-    docker("exec", container,  "/data/populate.sh", _out=process_output)
+        # Give kolabd some time to create all mailboxes
+        time.sleep(5)
 
-    print("Comitting results to: {}".format(imagename))
-    docker.commit(container, imagename)
+        print("Comitting results to: {}".format(imagename))
+        docker.commit(container, imagename)
+    except:
+        print("Unexpected error:", sys.exc_info()[0])
+        traceback.print_exc(file=sys.stdout)
+        print("Failed to setup container")
+
     docker.stop(container)
     docker.rm(container)

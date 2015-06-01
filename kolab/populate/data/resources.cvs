@@ -1,0 +1,138 @@
+cn=Audi A4,ou=Resources,ou=Purchasing,dc=lhm,dc=klab,dc=cc	resource-car-audia4@lhm.klab.cc	Audi A4
+cn=Audi A4+nsuniqueid=112bf901-456711e4-b2718ee3-1126311f,ou=Resources,ou=Purchasing,dc=lhm,dc=klab,dc=cc	resource-car-audia4@lhm.klab.cc	Audi A4
+cn=VW Passat,ou=Resources,ou=Purchasing,dc=lhm,dc=klab,dc=cc	resource-car-vwpassat@lhm.klab.cc	VW Passat
+cn=Porsche Boxter S,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-porscheboxters@lhm.klab.cc	Porsche Boxter S
+cn=honda-test,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-honda-test@lhm.klab.cc	honda-test
+cn=Ebony Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-ebonyclaw@lhm.klab.cc	Ebony Claw
+cn=Diamond Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-diamondclaw@lhm.klab.cc	Diamond Claw
+cn=Sinding's Skin,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-sindingsskin@lhm.klab.cc	Sinding's Skin
+cn=Golden Ship Model,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-goldenshipmodel@lhm.klab.cc	Golden Ship Model
+cn=Torc of Labyrinthian,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-torcoflabyrinthian@lhm.klab.cc	Torc of Labyrinthian
+cn=Tolfdir's Alembic,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-tolfdirsalembic@lhm.klab.cc	Tolfdir's Alembic
+cn=Emerald Dragon Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-emeralddragonclaw@lhm.klab.cc	Emerald Dragon Claw
+cn=Shards of Mehrunes' Razor,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-shardsofmehrunesrazor@lhm.klab.cc	Shards of Mehrunes' Razor
+cn=Andurs' Amulet of Arkay,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-andursamuletofarkay@lhm.klab.cc	Andurs' Amulet of Arkay
+cn=Amren's Family Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-amrensfamilysword@lhm.klab.cc	Amren's Family Sword
+cn=Golden Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-goldenclaw@lhm.klab.cc	Golden Claw
+cn=Fjola's Wedding Band,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-fjolasweddingband@lhm.klab.cc	Fjola's Wedding Band
+cn=Crown of Barenziah,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-crownofbarenziah@lhm.klab.cc	Crown of Barenziah
+cn=Fragments of Wuuthrad,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-fragmentsofwuuthrad@lhm.klab.cc	Fragments of Wuuthrad
+cn=Sigil Stone,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-sigilstone@lhm.klab.cc	Sigil Stone
+cn=Saerek's Skull Key,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-saereksskullkey@lhm.klab.cc	Saerek's Skull Key
+cn=Lexicon,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-lexicon@lhm.klab.cc	Lexicon
+cn=Glenmoril Witch Head,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-glenmorilwitchhead@lhm.klab.cc	Glenmoril Witch Head
+cn=Strange Amulet,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-strangeamulet@lhm.klab.cc	Strange Amulet
+cn=Blank Lexicon,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-blanklexicon@lhm.klab.cc	Blank Lexicon
+cn=Attunement Sphere,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-attunementsphere@lhm.klab.cc	Attunement Sphere
+cn=Werewolf Totem,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-werewolftotem@lhm.klab.cc	Werewolf Totem
+cn=Warped Soul Gem,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-warpedsoulgem@lhm.klab.cc	Warped Soul Gem
+cn=Runed Lexicon,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-runedlexicon@lhm.klab.cc	Runed Lexicon
+cn=Scabbard of Mehrunes' Razor,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-scabbardofmehrunesrazor@lhm.klab.cc	Scabbard of Mehrunes' Razor
+cn=Hrolfdir's Shield,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-hrolfdirsshield@lhm.klab.cc	Hrolfdir's Shield
+cn=Hilt of Mehrunes' Razor,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-hiltofmehrunesrazor@lhm.klab.cc	Hilt of Mehrunes' Razor
+cn=Coral Dragon Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-coraldragonclaw@lhm.klab.cc	Coral Dragon Claw
+cn=Golden Urn,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-goldenurn@lhm.klab.cc	Golden Urn
+cn=Kahvozein's Fang,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-kahvozeinsfang@lhm.klab.cc	Kahvozein's Fang
+cn=Opaque Vessel,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-opaquevessel@lhm.klab.cc	Opaque Vessel
+cn=Lisbet's Dibella Statue,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-lisbetsdibellastatue@lhm.klab.cc	Lisbet's Dibella Statue
+cn=Wylandriah's Spoon,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-wylandriahsspoon@lhm.klab.cc	Wylandriah's Spoon
+cn=Mehrunes' Razor Gem,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-mehrunesrazorgem@lhm.klab.cc	Mehrunes' Razor Gem
+cn=Barenziah's Crown,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-barenziahscrown@lhm.klab.cc	Barenziah's Crown
+cn=Reyda's Necklace,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-reydasnecklace@lhm.klab.cc	Reyda's Necklace
+cn=Mehrunes' Razor Blade,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-mehrunesrazorblade@lhm.klab.cc	Mehrunes' Razor Blade
+cn=Pelagius' Hip Bone,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-pelagiushipbone@lhm.klab.cc	Pelagius' Hip Bone
+cn=Bust of the Gray Fox,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-bustofthegrayfox@lhm.klab.cc	Bust of the Gray Fox
+cn=Torygg's War Horn,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-toryggswarhorn@lhm.klab.cc	Torygg's War Horn
+cn=Rusty Mace,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-rustymace@lhm.klab.cc	Rusty Mace
+cn=Queen Bee Statue,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-queenbeestatue@lhm.klab.cc	Queen Bee Statue
+cn=Horn of Jurgen Windcaller,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-hornofjurgenwindcaller@lhm.klab.cc	Horn of Jurgen Windcaller
+cn=Mark of Dibella,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-markofdibella@lhm.klab.cc	Mark of Dibella
+cn=Alessandra's Dagger,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-alessandrasdagger@lhm.klab.cc	Alessandra's Dagger
+cn=Jagged Crown,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-jaggedcrown@lhm.klab.cc	Jagged Crown
+cn=Finn's Lute,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-finnslute@lhm.klab.cc	Finn's Lute
+cn=Treoy's Ornamental Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-treoysornamentalring@lhm.klab.cc	Treoy's Ornamental Ring
+cn=Ceremonial Axe,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-ceremonialaxe@lhm.klab.cc	Ceremonial Axe
+cn=Torsten's Skull Key,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-torstensskullkey@lhm.klab.cc	Torsten's Skull Key
+cn=Eldergleam Sapling,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-eldergleamsapling@lhm.klab.cc	Eldergleam Sapling
+cn=Potema's Skull,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-potemasskull@lhm.klab.cc	Potema's Skull
+cn=Cursed Ring of Hircine,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-cursedringofhircine@lhm.klab.cc	Cursed Ring of Hircine
+cn=Model Ship,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-modelship@lhm.klab.cc	Model Ship
+cn=Olava's Token,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-olavastoken@lhm.klab.cc	Olava's Token
+cn=East Empire Shipping Map,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-eastempireshippingmap@lhm.klab.cc	East Empire Shipping Map
+cn=Sealed Scroll,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-sealedscroll@lhm.klab.cc	Sealed Scroll
+cn=Dravin's Bow,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-dravinsbow@lhm.klab.cc	Dravin's Bow
+cn=Nurelion's Mixture,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-nurelionsmixture@lhm.klab.cc	Nurelion's Mixture
+cn=Map of Dragon Burials,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-mapofdragonburials@lhm.klab.cc	Map of Dragon Burials
+cn=Eldergleam Sap,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-eldergleamsap@lhm.klab.cc	Eldergleam Sap
+cn=Essence Extractor,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-essenceextractor@lhm.klab.cc	Essence Extractor
+cn=Phantom Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-phantomsword@lhm.klab.cc	Phantom Sword
+cn=Imperial Documents,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-imperialdocuments@lhm.klab.cc	Imperial Documents
+cn=Viola's Gold Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-violasgoldring@lhm.klab.cc	Viola's Gold Ring
+cn=Balgruuf's Greatsword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-balgruufsgreatsword@lhm.klab.cc	Balgruuf's Greatsword
+cn=Unusual Gem,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-unusualgem@lhm.klab.cc	Unusual Gem
+cn=Quill of Gemination,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-quillofgemination@lhm.klab.cc	Quill of Gemination
+cn=Orichalcum Ingot,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-orichalcumingot@lhm.klab.cc	Orichalcum Ingot
+cn=Pest Poison,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-pestpoison@lhm.klab.cc	Pest Poison
+cn=Fragment of Wuuthrad,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-fragmentofwuuthrad@lhm.klab.cc	Fragment of Wuuthrad
+cn=Broken Azura's Star,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-brokenazurasstar@lhm.klab.cc	Broken Azura's Star
+cn=Dragon Heartscales,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-dragonheartscales@lhm.klab.cc	Dragon Heartscales
+cn=Fjotli's Silver Locket,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-fjotlissilverlocket@lhm.klab.cc	Fjotli's Silver Locket
+cn=Sapphire Dragon Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-sapphiredragonclaw@lhm.klab.cc	Sapphire Dragon Claw
+cn=Shagrol's Warhammer,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-shagrolswarhammer@lhm.klab.cc	Shagrol's Warhammer
+cn=Queen Freydis's Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-queenfreydisssword@lhm.klab.cc	Queen Freydis's Sword
+cn=Ornate Drinking Horn,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-ornatedrinkinghorn@lhm.klab.cc	Ornate Drinking Horn
+cn=Ruby Dragon Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-rubydragonclaw@lhm.klab.cc	Ruby Dragon Claw
+cn=Black-Briar Mead Keg,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-black-briarmeadkeg@lhm.klab.cc	Black-Briar Mead Keg
+cn=Statue of Dibella,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-statueofdibella@lhm.klab.cc	Statue of Dibella
+cn=Focusing Crystal,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-focusingcrystal@lhm.klab.cc	Focusing Crystal
+cn=Ceremonial Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-ceremonialsword@lhm.klab.cc	Ceremonial Sword
+cn=Iron Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-ironclaw@lhm.klab.cc	Iron Claw
+cn=Quicksilver Ore,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-quicksilverore@lhm.klab.cc	Quicksilver Ore
+cn=Wedding Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-weddingring@lhm.klab.cc	Wedding Ring
+cn=Pantea's Flute,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-panteasflute@lhm.klab.cc	Pantea's Flute
+cn=Noster's Helmet,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-nostershelmet@lhm.klab.cc	Noster's Helmet
+cn=Honningbrew Decanter,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-honningbrewdecanter@lhm.klab.cc	Honningbrew Decanter
+cn=Curious Silver Mold,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-curioussilvermold@lhm.klab.cc	Curious Silver Mold
+cn=Helm of Winterhold,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-helmofwinterhold@lhm.klab.cc	Helm of Winterhold
+cn=Shahvee's Amulet of Zenithar,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-shahveesamuletofzenithar@lhm.klab.cc	Shahvee's Amulet of Zenithar
+cn=Asgeir's Wedding Band,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-asgeirsweddingband@lhm.klab.cc	Asgeir's Wedding Band
+cn=Grimsever,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-grimsever@lhm.klab.cc	Grimsever
+cn=Calcelmo's Stone Rubbing,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-calcelmosstonerubbing@lhm.klab.cc	Calcelmo's Stone Rubbing
+cn=Balwen's Ornamental Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-balwensornamentalring@lhm.klab.cc	Balwen's Ornamental Ring
+cn=Ring of Pure Mixtures,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-ringofpuremixtures@lhm.klab.cc	Ring of Pure Mixtures
+cn=Mystic Tuning Gloves,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-mystictuninggloves@lhm.klab.cc	Mystic Tuning Gloves
+cn=Jeweled Goblet,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-jeweledgoblet@lhm.klab.cc	Jeweled Goblet
+cn=Firebrand Wine Case,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-firebrandwinecase@lhm.klab.cc	Firebrand Wine Case
+cn=Roggi's Ancestral Shield,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-roggisancestralshield@lhm.klab.cc	Roggi's Ancestral Shield
+cn=Sylgja's Satchel,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-sylgjassatchel@lhm.klab.cc	Sylgja's Satchel
+cn=Mehrunes' Razor Scabbard,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-mehrunesrazorscabbard@lhm.klab.cc	Mehrunes' Razor Scabbard
+cn=Cracked White Phial,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-crackedwhitephial@lhm.klab.cc	Cracked White Phial
+cn=Madesi's Silver Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-madesissilverring@lhm.klab.cc	Madesi's Silver Ring
+cn=Glass Claw,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-glassclaw@lhm.klab.cc	Glass Claw
+cn=Gauldur Amulet Fragment,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-gaulduramuletfragment@lhm.klab.cc	Gauldur Amulet Fragment
+cn=Message from General Tullius,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-messagefromgeneraltullius@lhm.klab.cc	Message from General Tullius
+cn=Katarina's Ornamental Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-katarinasornamentalring@lhm.klab.cc	Katarina's Ornamental Ring
+cn=Red Eagle's Fury,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-redeaglesfury@lhm.klab.cc	Red Eagle's Fury
+cn=Moon Amulet,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-moonamulet@lhm.klab.cc	Moon Amulet
+cn=Mercer's Plans,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-mercersplans@lhm.klab.cc	Mercer's Plans
+cn=Satchel of Moon Sugar,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-satchelofmoonsugar@lhm.klab.cc	Satchel of Moon Sugar
+cn=Jeweled Amulet,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-jeweledamulet@lhm.klab.cc	Jeweled Amulet
+cn=Vilkas's Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-vilkasssword@lhm.klab.cc	Vilkas's Sword
+cn=Pithi's Ornamental Ring,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-pithisornamentalring@lhm.klab.cc	Pithi's Ornamental Ring
+cn=Habd's Remains,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-habdsremains@lhm.klab.cc	Habd's Remains
+cn=Dragon Priest Staff,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-dragonprieststaff@lhm.klab.cc	Dragon Priest Staff
+cn=Jeweled Candlestick,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-jeweledcandlestick@lhm.klab.cc	Jeweled Candlestick
+cn=Pommel Stone of Mehrunes' Razor,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-pommelstoneofmehrunesrazor@lhm.klab.cc	Pommel Stone of Mehrunes' Razor
+cn=Rjorn's Drum,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-rjornsdrum@lhm.klab.cc	Rjorn's Drum
+cn=Mehrunes' Razor Hilt,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-mehrunesrazorhilt@lhm.klab.cc	Mehrunes' Razor Hilt
+cn=Hjalti's Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-footballtickets-hjaltissword@lhm.klab.cc	Hjalti's Sword
+cn=Jeweled Flagon,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-jeweledflagon@lhm.klab.cc	Jeweled Flagon
+cn=Raerek's Inscribed Amulet of Talos,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-raereksinscribedamuletoftalos@lhm.klab.cc	Raerek's Inscribed Amulet of Talos
+cn=Klimmek's Supplies,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-klimmekssupplies@lhm.klab.cc	Klimmek's Supplies
+cn=The Forgemaster's Fingers,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-theforgemastersfingers@lhm.klab.cc	The Forgemaster's Fingers
+cn=Ogmund's Amulet of Talos,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-ogmundsamuletoftalos@lhm.klab.cc	Ogmund's Amulet of Talos
+cn=Steel Sword,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-steelsword@lhm.klab.cc	Steel Sword
+cn=Left Eye of the Falmer,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-lefteyeofthefalmer@lhm.klab.cc	Left Eye of the Falmer
+cn=Mammoth Tusk Powder,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-car-mammothtuskpowder@lhm.klab.cc	Mammoth Tusk Powder
+cn=Dwemer Puzzle Cube,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-projector-dwemerpuzzlecube@lhm.klab.cc	Dwemer Puzzle Cube
+cn=Unmelting Snow,ou=Resources,dc=lhm,dc=klab,dc=cc	resource-confroom-unmeltingsnow@lhm.klab.cc	Unmelting Snow

@@ -28,6 +28,9 @@ ADD setupdbus.sh /home/developer/setupdbus.sh
 ADD entrypoint.sh /home/developer/entrypoint.sh
 ADD bashrc /home/developer/.bashrc
 
+#Fix ping
+RUN sudo setcap cap_net_raw+ep /usr/bin/ping
+
 USER developer
 ENV HOME /home/developer
 CMD /bin/bash

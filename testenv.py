@@ -50,6 +50,10 @@ def main(command, argv):
         kontact.run.main(container, clientconfigset)
         sh.docker.kill(container)
         sh.docker.rm(container)
+    if command == "shell":
+        dataset = "set1"
+        container = dockerutils.findContainer("{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset)))
+        subprocess.call("docker exec -i -t {} bash".format(container), shell=True)
 
 
 if __name__ == "__main__":

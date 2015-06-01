@@ -1,0 +1,11 @@
+for populaating the docker you have to mount this repo into the docker:
+
+docker run ... -v $(pwd):/populate ...
+
+afterwards get a shell:
+
+./getshell.sh
+
+cd /populate
+python populate_users.py
+python populate_resources.py

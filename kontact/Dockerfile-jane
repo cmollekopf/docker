@@ -1,0 +1,4 @@
+FROM kontact:latest
+
+ADD jane/.kde4src /home/developer/.kde4src
+RUN sudo chown developer:developer /home/developer/.kde4src -R

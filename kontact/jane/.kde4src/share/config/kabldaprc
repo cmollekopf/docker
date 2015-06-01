@@ -1,0 +1,15 @@
+[LDAP]
+NumHosts=0
+NumSelectedHosts=1
+SelectedAuth0=Simple
+SelectedBase0=dc=example,dc=org
+SelectedBind0=uid=doe2,ou=People,dc=example,dc=org
+SelectedHost0=kolab
+SelectedMech0=DIGEST-MD5
+SelectedPageSize0=0
+SelectedPort0=389
+SelectedSecurity0=None
+SelectedSizeLimit0=0
+SelectedTimeLimit0=0
+SelectedUser0=
+SelectedVersion0=3

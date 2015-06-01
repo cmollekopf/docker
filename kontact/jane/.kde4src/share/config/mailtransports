@@ -1,0 +1,21 @@
+[$Version]
+update_info=mailtransports.upd:initial-kmail-migration,mailtransports.upd:initial-knode-migration
+
+[General]
+default-transport=1351475431
+
+[Transport 1351475431]
+auth=true
+authtype=1
+encryption=TLS
+host=kolab
+id=1351475431
+name=kolab
+storepass=true
+user=doe2@example.org
+
+[Transport kmail-1]
+host=/usr/sbin/sendmail
+id=1926944445
+name=Sendmail
+type=sendmail

@@ -5,7 +5,7 @@ import subprocess
 def findContainer(name):
     container=""
     try:
-        container = sh.awk("{print $1}", _in=sh.head("-n 1", _in=sh.grep(name, _in=sh.docker("ps", "-a"))))
+        container = sh.awk("{print $1}", _in=sh.head("-n 1", _in=sh.grep(name, _in=sh.docker.ps())))
     except:
         print "container not available"
     return container.rstrip()

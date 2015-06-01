@@ -30,3 +30,9 @@ export XDG_CONFIG_HOME=$KDEHOME/.config
 export XDG_DATA_HOME=$KDEHOME/.local/share
 export XDG_CONFIG_DIRS=$KDEDIR/share/config
 export XDG_DATA_DIRS=$KDEDIR/share/:/usr/share
+
+export KDE_FULL_SESSION=true
+export KDE_SESSION_UID=`id -ru`
+export KDE_SESSION_VERSION=4
+export XDG_CURRENT_DESKTOP=KDE
+

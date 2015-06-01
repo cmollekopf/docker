@@ -1,13 +1,13 @@
-dn: uid=doe,ou=People,dc=example,dc=org
-alias: doe@example.org
-alias: j.doe@example.org
-givenName: John
+dn: uid={uid},ou=People,dc={domain},dc={domainExtension}
+alias: {uid}@{domain}.org
+alias: {secondaryUid}@{domain}.org
+givenName: {givenName}
 mailQuota: 1048576
 preferredLanguage: en_US
-sn: Doe
-cn: John Doe
-displayName: Doe, John
-mail: john.doe@example.org
+sn: {name}
+cn: {givenName} {name}
+displayName: {name}, {givenName}
+mail: {givenName}.{name}@{domain}.{domainExtension}
 uid: doe
 objectClass: top
 objectClass: inetorgperson

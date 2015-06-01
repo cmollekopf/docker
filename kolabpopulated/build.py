@@ -10,16 +10,69 @@ import settings
 def process_output(line):
     print(line)
 
+def generateUserFiles(template, outputfile, templateParams):
+    with open(template) as f:
+        data = f.read()
+
+    with open(outputfile, "w") as f:
+        data = data.format(**templateParams)
+        f.write(data)
+
 def main(dataset):
     tmpname="kolab/kolabtestcontainer:tmppopulated"
     imagename="kolab/kolabtestcontainer:populated-"+dataset
-
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
+    basedir =  "{}/kolabpopulated".format(settings.SCRIPT_DIR)
 
     print("Building tmpcontainer...")
-    docker.build("-t", tmpname, SCRIPT_DIR+"/kolabpopulated/.")
+    docker.build("-t", tmpname, "{}/kolabpopulated/.".format(settings.SCRIPT_DIR))
+
+    generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/john.ldif".format(basedir), dict(
+        name = "Doe",
+        givenName="John",
+        uid="doe",
+        secondaryUid="j.doe",
+        domain="example",
+        domainExtension="org"
+    ))
+
+    generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/jane.ldif".format(basedir), dict(
+        name = "Doe",
+        givenName="Jane",
+        uid="doe2",
+        secondaryUid="j.doe2",
+        domain="example",
+        domainExtension="org"
+    ))
+
+    generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/anna.ldif".format(basedir), dict(
+        name = "Test",
+        givenName="Anna",
+        uid="test",
+        secondaryUid="a.test",
+        domain="example",
+        domainExtension="org"
+    ))
+
+    generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/rolf.ldif".format(basedir), dict(
+        name = "Meier",
+        givenName="Rolf",
+        uid="meier",
+        secondaryUid="r.meier",
+        domain="example",
+        domainExtension="org"
+    ))
+
+    generateUserFiles("{}/user.ldif".format(basedir), "{}/set1/franck.ldif".format(basedir), dict(
+        name = "Bodum",
+        givenName="Franck",
+        uid="bodum",
+        secondaryUid="f.bodum",
+        domain="example",
+        domainExtension="org"
+    ))
+
     print("Starting tmpcontainer...")
-    container = docker.run("-d", "-h", settings.HOSTNAME, "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "-v", SCRIPT_DIR+"/kolabpopulated/"+dataset+"/:/data/", tmpname).rstrip()
+    container = docker.run("-d", "-h", settings.HOSTNAME, "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "-v", "{}/{}/:/data/".format(basedir, dataset), tmpname).rstrip()
 
     # Wait for imap to become available on imaps://localhost:993
     time.sleep(5)

@@ -28,9 +28,6 @@ ADD setupdbus.sh /home/developer/setupdbus.sh
 ADD entrypoint.sh /home/developer/entrypoint.sh
 ADD bashrc /home/developer/.bashrc
 
-ADD home/developer/.kde4src /home/developer/.kde4src
-RUN chown developer:developer /home/developer/.kde4src -R
-
 USER developer
 ENV HOME /home/developer
 CMD /bin/bash

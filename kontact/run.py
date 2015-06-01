@@ -18,10 +18,9 @@ def setupX11Authorization(xauthFile, display):
         print("touch failed")
     sh.xauth(sh.sed(sh.xauth("nlist", display), "-e", 's/^..../ffff/'), "-f", xauthFile, "nmerge", "-")
 
-def main(kolabcontainer):
+def main(kolabcontainer, configset):
     containername="kontact"
 
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
     DISPLAY = os.environ.get('DISPLAY')
     XAUTH="/tmp/.docker.xauth"
     setupX11Authorization(XAUTH, DISPLAY)
@@ -37,7 +36,7 @@ def main(kolabcontainer):
         "-v", "{}:{}".format(XAUTH, XAUTH),
         "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
         "-v", "{}:/opt/kde".format(settings.KDEROOT),
-        "kontact:latest",
+        "{}:{}".format(containername, configset),
         "/bin/bash"
     )
     # docker.run(*runargs, _out=process_output, _tty_out=True, _tty_in=True)

@@ -39,12 +39,13 @@ def main(command, argv):
             baseimage = buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main)
             populatedbuild = buildImage(settings.REPOSITORY, settings.populatedTag(dataset), False, lambda: kolabpopulated.build.main(dataset))
         if target == "client":
-            buildImage("kontact", "latest", False, lambda: kontact.build.main)
+            buildImage("kontact", "john", False, lambda: kontact.build.main("john"))
     if command == "start":
         print("start")
         dataset = argv[2]
+        clientconfigset = argv[3]
         container = startContainer("{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset)), lambda: kolabpopulated.run.main(dataset))
-        kontact.run.main(container)
+        kontact.run.main(container, clientconfigset)
         sh.docker.kill(container)
         sh.docker.rm(container)
 

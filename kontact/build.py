@@ -12,7 +12,8 @@ def process_output(line):
 def main(dataset):
     containername="kontact"
 
-    SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
-
     print("Building kontact...")
-    docker("build", "-t", containername, SCRIPT_DIR+"/kontact/.")
+    docker.build("-t", containername, "{}/kontact/.".format(settings.SCRIPT_DIR))
+
+    print("Building {}'s kontact...".format(dataset))
+    docker.build("-t", "{}:{}".format(containername, dataset), "-f", "{}/kontact/Dockerfile-{}".format(settings.SCRIPT_DIR, dataset), "{}/kontact/.".format(settings.SCRIPT_DIR))

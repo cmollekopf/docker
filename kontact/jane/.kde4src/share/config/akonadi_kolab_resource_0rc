@@ -12,4 +12,4 @@ IdleRidPath=/INBOX,imap://doe2@example.org@kolab/
 
 [network]
 ImapServer=kolab
-UserName=doe2@example.org
+UserName=jane.doe@example.org

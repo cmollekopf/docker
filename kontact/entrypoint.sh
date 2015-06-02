@@ -9,3 +9,7 @@ sudo setfacl -m user:developer:rw /dev/dri/card0
 kwalletd&
 akonadictl start &> /tmp/akonadi.output
 dbus-monitor --session interface='org.freedesktop.Notifications',member='Notify' &> /tmp/notifications.output &
+
+# Block until akonadi is started so we don't accidentaly start akonadi again
+while ! qdbus org.freedesktop.Akonadi.Control / org.freedesktop.DBus.Peer.Ping; do sleep 1 && echo sleep; done; echo "done"
+while ! qdbus org.freedesktop.Akonadi.Resource.akonadi_kolab_resource_0 / org.freedesktop.DBus.Peer.Ping; do sleep 1 && echo sleep; done; echo "done"

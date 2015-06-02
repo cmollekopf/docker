@@ -58,7 +58,6 @@ class Client:
 
             if isinstance(attr_details, dict):
                 if not attr_details.has_key('optional') or attr_details['optional'] == False or resource_details.has_key(attribute):
-                    print params, attribute, resource_details
                     params[attribute] = resource_details[attribute]
             elif isinstance(attr_details, list):
                 params[attribute] = resource_details[attribute]
@@ -155,6 +154,10 @@ class Client:
         return result
 
     @wap
+    def ous_list(self, search):
+        return self.wap_client.ous_list(search)
+
+    @wap
     def random_ou(self, params={}):
         import math
         import random
@@ -176,29 +179,9 @@ class Client:
         for (k,v) in params.iteritems():
             search['search']['params'][k] = { 'value': v, 'type': 'exact' }
 
-        #print "search:", search
-
-        ous = self.wap_client.ous_list(search)
-
-        #print "ous:", '\n'.join(ous['list'].keys())
-
-        num_ous = ous['count']
-
-        #print "num_ous:", num_ous
-
-        page_ous = len(ous['list'])
-
-        #print "page_ous:", page_ous
-
-        num_pages = (int)(math.floor(float(num_ous) / float(page_ous)))
-
-        #print "num_pages:", num_pages
-
-        # Continue stabbing at it.
         while True:
             try:
-                page = random.randint(1, num_pages)
-                ous = self.wap_client.ous_list(search)
+                ous = self.ous_list(search)
                 #print "ous:", '\n'.join(ous['list'].keys())
                 ou = ous['list'].keys()[random.randint(0, (len(ous['list'])-1))]
                 #print "ou:", ou
@@ -211,4 +194,6 @@ class Client:
         #print "ou_info:", ou_info
         return ou_info
 
-
+    @wap
+    def ou_add(self, ou):
+        self.wap_client.ou_add(ou)

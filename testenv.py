@@ -36,8 +36,8 @@ def main(command, argv):
         target = argv[2]
         if target == "server":
             dataset = argv[3]
-            baseimage = buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main)
-            populatedbuild = buildImage(settings.REPOSITORY, settings.populatedTag(dataset), False, lambda: kolabpopulated.build.main(dataset))
+            buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main)
+            buildImage(settings.REPOSITORY, settings.populatedTag(dataset), True, lambda: kolabpopulated.build.main(dataset))
         if target == "client":
             # buildImage("kontact", "john", False, lambda: kontact.build.main("john"))
             kontact.build.main("john")

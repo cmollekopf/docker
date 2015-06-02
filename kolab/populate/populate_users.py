@@ -1,3 +1,4 @@
+import json
 import os
 import random
 
@@ -12,7 +13,7 @@ max_multiplier = 5
 # This means three in four entries is a contact, and not a kolab user
 ratio_contacts = 0
 
-def create_users(client):
+def createUsersList(client):
     bfp = open(os.path.join(os.path.dirname(__file__), 'data/de-boys.txt'), 'r')
     gfp = open(os.path.join(os.path.dirname(__file__), 'data/de-girls.txt'), 'r')
     sfp = open(os.path.join(os.path.dirname(__file__), 'data/de-surnames.txt'), 'r')
@@ -24,6 +25,8 @@ def create_users(client):
     bfp.close()
     gfp.close()
     sfp.close()
+
+    ulist=[]
 
     for g in range(0, (len(girls)-1)):
         if g >= max_multiplier and not max_multiplier < 0:
@@ -55,14 +58,32 @@ def create_users(client):
                         'ou': ou_info['entrydn']
                     }
 
-            client.add_user(
-                    givenname,
-                    sn,
-                    preferredlanguage='de_DE',
-                    type_key = type_key,
-                    attrs = attrs
-                )
+            ulist.append({
+                'givenname':givenname,
+                'sn':sn,
+                'preferredlanguage': 'de_DE',
+                'type_key': type_key,
+                'attrs': attrs
+                })
 
-c = Client()
+    return ulist
 
-create_users(c)
+def create_users(client, ulist):
+
+    for u in ulist:
+            client.add_user(**u)
+
+if __name__ == "__main__":
+    c = Client()
+
+    ulist = []
+    try:
+        f = open('/data/users.list').read()
+        ulist = json.loads(f)['ulist']
+        create_users(c, ulist)
+    except IOError:
+        print "create ulist"
+        ulist = createUsersList(c)
+        with open('/data/users.list','w') as f:
+            f.write(json.dumps({"ulist":ulist}))
+        create_users(c, ulist)

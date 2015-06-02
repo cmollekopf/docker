@@ -7,6 +7,7 @@ import sys
 import traceback
 
 import settings
+from settings import config
 
 def process_output(line):
     print(line)
@@ -79,18 +80,31 @@ def prepareEnv(basedir):
 def main(dataset):
     tmpname="kolab/kolabtestcontainer:tmppopulated"
     imagename="kolab/kolabtestcontainer:populated-"+dataset
-    basedir =  "{}/kolabpopulated".format(settings.SCRIPT_DIR)
+    basedir =  "{c.SCRIPT_DIR}/kolabpopulated".format(c=config)
 
     print("Building tmpcontainer...")
-    docker.build("-t", tmpname, "{}/kolabpopulated/.".format(settings.SCRIPT_DIR))
+    docker.build("-t", tmpname, "{basedir}/.".format(basedir=basedir))
 
     prepareEnv(basedir)
 
     print("Starting tmpcontainer...")
-    container = docker.run("-d", "-h", settings.HOSTNAME, "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "-v", "{}/{}/:/data/".format(basedir, dataset), tmpname).rstrip()
+    container = docker.run("-d", "-h", settings.HOSTNAME,
+            "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro",
+            "-v", "{basedir}/{dataset}/:/data/".format(basedir=basedir, dataset=dataset),
+            '-v',  "{c.SCRIPT_DIR}/kolab/populate/:/populate".format(c=config),
+            tmpname).rstrip()
     try:
         # Wait for imap to become available on imaps://localhost:993
         time.sleep(5)
+
+        print "Running populate_ou.py"
+        docker("exec", container, "python2", "/populate/populate_ou.py", _out=process_output)
+
+        print "Running populate_users.py"
+        docker("exec", container, "python2", "/populate/populate_users.py", _out=process_output)
+
+        print "Running populate_resources.py"
+        docker("exec", container, "python2", "/populate/populate_resources.py", _out=process_output)
 
         print("Running populate.sh...")
         docker("exec", container,  "/data/populate.sh", _out=process_output)

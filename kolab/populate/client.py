@@ -102,7 +102,7 @@ class Client:
         user_details['sn'] = sn
 
         if not attrs.has_key('userpassword'):
-            user_details['userpassword'] = '123456'
+            user_details['userpassword'] = 'Welcome2KolabSystems'
 
         if not attrs.has_key('ou'):
             user_details['ou'] = self.conf.get('ldap', 'user_base_dn')

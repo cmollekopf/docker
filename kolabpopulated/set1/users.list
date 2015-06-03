@@ -1,0 +1,10 @@
+{"ulist": [
+{"preferredlanguage": "en_US", "givenname": "John", "type_key": "kolab", "sn": "Doe", "attrs": {"ou": "ou=People,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Jane", "type_key": "kolab", "sn": "Doe", "attrs": {"ou": "ou=People,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Dora", "type_key": "kolab", "sn": "Bohm", "attrs": {"ou": "ou=People,ou=Sales,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Ida", "type_key": "kolab", "sn": "Schulze", "attrs": {"ou": "ou=People,ou=Services,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Ida", "type_key": "kolab", "sn": "Schulze", "attrs": {"ou": "ou=People,ou=Engineering,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Brunhilde", "type_key": "kolab", "sn": "Baer", "attrs": {"ou": "ou=People,ou=Engineering,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Traude", "type_key": "kolab", "sn": "Austerlitz", "attrs": {"ou": "ou=People,ou=Supply Chain Management,dc=example,dc=org"}},
+{"preferredlanguage": "de_DE", "givenname": "Lotte", "type_key": "kolab", "sn": "Lang", "attrs": {"ou": "ou=People,ou=IT,dc=example,dc=org"}}
+]}

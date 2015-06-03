@@ -4,7 +4,7 @@ import subprocess
 import os
 import sys
 
-import settings
+from settings import config
 
 def process_output(line):
     print(line)
@@ -12,8 +12,12 @@ def process_output(line):
 def main(dataset):
     containername="kontact"
 
-    print("Building kontact...")
-    docker.build("-t", containername, "{}/kontact/.".format(settings.SCRIPT_DIR))
+    fdict = {"c": config,
+            "dataset": dataset,
+            "containername": containername}
 
-    print("Building {}'s kontact...".format(dataset))
-    docker.build("-t", "{}:{}".format(containername, dataset), "-f", "{}/kontact/Dockerfile-{}".format(settings.SCRIPT_DIR, dataset), "{}/kontact/.".format(settings.SCRIPT_DIR))
+    print("Building kontact...")
+    docker.build("-t", containername, "{c.SCRIPT_DIR}/kontact/.".format(**fdict))
+
+    print("Building {dataset}'s kontact...".format(**fdict))
+    docker.build("-t", "{containername}:{dataset}".format(**fdict), "-f", "{c.SCRIPT_DIR}/kontact/Dockerfile-{dataset}".format(**fdict), "{c.SCRIPT_DIR}/kontact/.".format(**fdict))

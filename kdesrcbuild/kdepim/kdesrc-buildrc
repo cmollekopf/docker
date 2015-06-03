@@ -12,9 +12,9 @@ global
     # WARNING: opensuse users need -DLIB_SUFFIX=64 here, as long as FindKDE4Internal.cmake is used
     #          if you're using a distro without "lib64", remove the option.
     # cmake-options -DKDE4_BUILD_TESTS=TRUE -DLIB_SUFFIX=64
-    cmake-options -DBUILD_TESTING=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_LIBDIR=lib -DLIB_SUFFIX=64
+    cmake-options -DBUILD_TESTING=TRUE -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_LIBDIR=lib -DLIB_SUFFIX=64 -DCMAKE_C_COMPILER=/usr/libexec/icecc/bin/gcc -DCMAKE_CXX_COMPILER=/usr/libexec/icecc/bin/g++
 
-    make-options -j5
+    make-options -j6
     stop-on-failure true
 end global
 

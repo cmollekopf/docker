@@ -10,6 +10,8 @@ from kolabpopulated import run
 import kontact
 from kontact import build
 from kontact import run
+import kdesrcbuild
+from kdesrcbuild import run
 
 import settings
 import dockerutils
@@ -54,7 +56,10 @@ def main(command, argv):
         dataset = "set1"
         container = dockerutils.findContainer("{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset)))
         subprocess.call("docker exec -i -t {} bash".format(container), shell=True)
-
+    if command == "srcbuild":
+        command = argv[2]
+        project = argv[3]
+        kdesrcbuild.run.main(command, project)
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv)

@@ -76,3 +76,8 @@ module zanshin
     repository https://git.kolab.org/diffusion/Z/zanshin.git
     branch kolab/integration/3.0
 end module
+
+module akonadi-ldap-resource
+    repository https://github.com/kolab-groupware/akonadi-ldap-resource.git
+    branch master
+end module

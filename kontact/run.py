@@ -37,8 +37,11 @@ def main(kolabcontainer, configset):
     DISPLAY = os.environ.get('DISPLAY')
     XAUTH="/tmp/.docker.xauth"
     setupX11Authorization(XAUTH, DISPLAY)
-    setupConfigDirs("john", "john.doe@example.org", "doe@example.org", "John Doe", "doe")
-    setupConfigDirs("jane", "jane.doe@example.org", "doe2@example.org", "Jane Doe", "doe2")
+
+    if configset == "john":
+        setupConfigDirs("john", "john.doe@example.org", "doe@example.org", "John Doe", "doe")
+    if configset == "jane":
+        setupConfigDirs("jane", "jane.doe@example.org", "doe2@example.org", "Jane Doe", "doe2")
 
     runargs = (
         "--rm",

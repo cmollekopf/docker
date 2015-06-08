@@ -1,0 +1,9 @@
+[Login]
+ldapbinddn=uid=doe,ou=People,dc=example,dc=org
+ldappassword=Welcome2KolabSystems
+
+[Server]
+ldaphost=kolab
+
+[Synchronization]
+offlinemode=1

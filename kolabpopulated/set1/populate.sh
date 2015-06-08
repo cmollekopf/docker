@@ -12,3 +12,7 @@ kolab create-mailbox shared/notype/mail@example.org
 kolab set-mailbox-metadata shared/notype/mail@example.org /shared/vendor/kolab/folder-type mail
 kolab add-user-subscription john.doe@example.org "Shared Folders/shared/notype"
 kolab add-user-subscription john.doe@example.org "Shared Folders/shared/notype/mail"
+
+kolab create-mailbox user/jane.doe/Calendar/shared@example.org
+kolab set-mailbox-metadata "user/jane.doe/Calendar/shared@example.org" /shared/vendor/kolab/folder-type event
+kolab set-mailbox-acl "user/jane.doe/Calendar/shared@example.org" john.doe@example.org lrswipkxtecda

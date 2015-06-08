@@ -1,9 +1,0 @@
-[Defaults]
-Profile=Default
-
-[PROFILE_Default]
-EmailAddress=doe2@example.org
-FullName=Jane Doe
-Organization=
-ReplyAddr=
-ServerType=

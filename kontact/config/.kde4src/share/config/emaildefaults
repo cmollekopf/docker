@@ -2,8 +2,8 @@
 Profile=Default
 
 [PROFILE_Default]
-EmailAddress=doe@example.org
-FullName=John Doe
+EmailAddress={primaryEmail}
+FullName={name}
 Organization=
 ReplyAddr=
 ServerType=

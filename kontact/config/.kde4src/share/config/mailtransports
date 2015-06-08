@@ -12,7 +12,7 @@ host=kolab
 id=1351475431
 name=kolab
 storepass=true
-user=doe@example.org
+user={primaryEmail}
 
 [Transport kmail-1]
 host=/usr/sbin/sendmail

@@ -8,8 +8,8 @@ TrashCollection=10
 TrashCollectionMigrated=true
 
 [idle]
-IdleRidPath=/INBOX,imap://doe2@example.org@kolab/
+IdleRidPath=/INBOX,imap://{primaryEmail}@kolab/
 
 [network]
 ImapServer=kolab
-UserName=jane.doe@example.org
+UserName={fullPrimaryEmail}

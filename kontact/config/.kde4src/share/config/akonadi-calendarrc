@@ -4,4 +4,4 @@ FreeBusyRetrieveAuto=true
 FreeBusyRetrievePassword=￈ﾺﾳﾼﾰﾲﾺ￭ￔﾰﾳﾾﾽￌﾦﾬﾫﾺﾲﾬ
 FreeBusyRetrieveSavePassword=true
 FreeBusyRetrieveUrl=http://kolab/freebusy
-FreeBusyRetrieveUser=doe2@example.org
+FreeBusyRetrieveUser={primaryEmail}

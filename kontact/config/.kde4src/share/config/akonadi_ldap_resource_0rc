@@ -1,5 +1,5 @@
 [Login]
-ldapbinddn=uid=doe,ou=People,dc=example,dc=org
+ldapbinddn=uid={uid},ou=People,dc=example,dc=org
 ldappassword=Welcome2KolabSystems
 
 [Server]

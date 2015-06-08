@@ -18,30 +18,12 @@ def setupX11Authorization(xauthFile, display):
         print("touch failed")
     sh.xauth(sh.sed(sh.xauth("nlist", display), "-e", 's/^..../ffff/'), "-f", xauthFile, "nmerge", "-")
 
-def setupConfigDirs(dirname, fullPrimaryEmail, primaryEmail, name, uid):
-    basedir = settings.SCRIPT_DIR + "/kontact"
-    print(basedir);
-    try:
-        sh.rm("-R", )
-    except:
-        print("nothing to remove")
-    sh.cp("-R", "{}/config".format(basedir), "{}/{}".format(basedir, dirname))
-    sh.find("{}/{}".format(basedir, dirname), "-type", "f", "-exec", "sed", "-i", "s/{fullPrimaryEmail}/" + fullPrimaryEmail + "/g", "{}", "+")
-    sh.find("{}/{}".format(basedir, dirname), "-type", "f", "-exec", "sed", "-i", "s/{primaryEmail}/" +  primaryEmail + "/g", "{}", "+")
-    sh.find("{}/{}".format(basedir, dirname), "-type", "f", "-exec", "sed", "-i", "s/{name}/" + name + "/g", "{}", "+")
-    sh.find("{}/{}".format(basedir, dirname), "-type", "f", "-exec", "sed", "-i", "s/{uid}/" + uid + "/g", "{}", "+")
-
 def main(kolabcontainer, configset):
     containername="kontact"
 
     DISPLAY = os.environ.get('DISPLAY')
     XAUTH="/tmp/.docker.xauth"
     setupX11Authorization(XAUTH, DISPLAY)
-
-    if configset == "john":
-        setupConfigDirs("john", "john.doe@example.org", "doe@example.org", "John Doe", "doe")
-    if configset == "jane":
-        setupConfigDirs("jane", "jane.doe@example.org", "doe2@example.org", "Jane Doe", "doe2")
 
     runargs = (
         "--rm",

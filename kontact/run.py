@@ -58,4 +58,4 @@ def main(kolabcontainer, configset):
         "/bin/bash"
     )
     # docker.run(*runargs, _out=process_output, _tty_out=True, _tty_in=True)
-    # subprocess.call("docker run " + " ".join(runargs), shell=True)
+    subprocess.call("docker run " + " ".join(runargs), shell=True)

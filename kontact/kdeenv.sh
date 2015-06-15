@@ -10,7 +10,7 @@ function printKDEenv {
 }
 
 function akonadidb {
-    mysql --auto-vertical-output -S $XDG_DATA_HOME/akonadi/socket-t420s.chrigi/mysql.socket akonadi
+    mysql --auto-vertical-output -S $XDG_DATA_HOME/akonadi/socket-*/mysql.socket akonadi
 }
 
 export KDEDIR=/opt/kde

@@ -16,3 +16,6 @@ kolab add-user-subscription john.doe@example.org "Shared Folders/shared/notype/m
 kolab create-mailbox user/jane.doe/Calendar/shared@example.org
 kolab set-mailbox-metadata "user/jane.doe/Calendar/shared@example.org" /shared/vendor/kolab/folder-type event
 kolab set-mailbox-acl "user/jane.doe/Calendar/shared@example.org" john.doe@example.org lrswipkxtecda
+kolab create-mailbox user/jane.doe/Tasks/shared@example.org
+kolab set-mailbox-metadata "user/jane.doe/Tasks/shared@example.org" /shared/vendor/kolab/folder-type task
+kolab set-mailbox-acl "user/jane.doe/Tasks/shared@example.org" john.doe@example.org lrswipkxtecda

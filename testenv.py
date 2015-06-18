@@ -37,7 +37,7 @@ def startContainer(name, runner):
 def build(options):
     print("build " + options.dataset + options.target)
     if options.target == "server":
-        buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main)
+        buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
         buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
     if options.target == "client":
         # buildImage("kontact", "john", False, lambda: kontact.build.main("john"))

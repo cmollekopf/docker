@@ -1,5 +1,8 @@
 FROM kolab/kt:latest
 
+#Work around error: unpacking of archive failed on file /usr/lib/python2.7/site-packages/icalendar-3.8.2-py2.7.egg-info: cpio: rename
+RUN rm -rf /usr/lib/python2.7/site-packages/icalendar-3.8.2-py2.7.egg-info
+
 #Some base image sets nodocs, which breaks roundcube.
 RUN sed -i -e "s/tsflags=nodocs/#tsflags=nodocs/g" /etc/yum.conf
 RUN yum -y reinstall \*

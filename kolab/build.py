@@ -16,7 +16,7 @@ def main():
     SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
 
     print("Building tmpcontainer...")
-    docker("build", "-t", tmpname, SCRIPT_DIR+"/kolab/")
+    docker.build("--no-cache=true", "-t", tmpname, SCRIPT_DIR+"/kolab/", _out=process_output)
     print("Starting tmpcontainer...")
     print(SCRIPT_DIR+"/fixRoundcubeT243.sh:/usr/share/roundcubemail/fixRoundcubeT243.sh")
     container = docker.run("-d", "-h", settings.HOSTNAME, "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro", "-v", SCRIPT_DIR+"/kolab/fixRoundcubeT243.sh:/usr/share/roundcubemail/fixRoundcubeT243.sh", tmpname).rstrip()

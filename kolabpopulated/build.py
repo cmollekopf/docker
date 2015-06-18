@@ -42,8 +42,8 @@ def main(dataset):
         print("Running populate.sh...")
         docker("exec", container,  "/data/populate.sh", _out=process_output)
 
-        #Set invitation policy
-        docker("exec", container, "sed", "-i", "s/kolab_invitation_policy = .*/kolab_invitation_policy = ALL_SAVE_AND_FORWARD/", "/etc/kolab/kolab.conf", _out=process_output)
+        docker("exec", container, "cp", "/data/kolab.conf", "/etc/kolab/kolab.conf", _out=process_output)
+        docker("exec", container, "cp", "/data/roundcubemail/calendar.inc.php", "/etc/roundcubemail/", _out=process_output)
 
         # Give kolabd some time to create all mailboxes
         time.sleep(5)

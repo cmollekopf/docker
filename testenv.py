@@ -12,6 +12,7 @@ import kontact
 from kontact import build
 from kontact import run
 import kdesrcbuild
+from kdesrcbuild import build
 from kdesrcbuild import run
 
 import settings
@@ -43,6 +44,8 @@ def build(options):
         # buildImage("kontact", "john", False, lambda: kontact.build.main("john"))
         kontact.build.main("john")
         kontact.build.main("jane")
+    if options.target == "kdesrcbuild":
+        kdesrcbuild.build.main()
 
 def start(options):
     print("start " + options.dataset + options.clientconfigset)
@@ -67,7 +70,7 @@ def main():
     parser = argparse.ArgumentParser(usage)
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
-    parser_build.add_argument("target", choices=["server", "client"], help = "image to build")
+    parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild"], help = "image to build")
     parser_build.add_argument("dataset", choices=["set1"], help = "dataset to use")
     parser_build.set_defaults(func=build)
 

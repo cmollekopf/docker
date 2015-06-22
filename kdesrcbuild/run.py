@@ -24,7 +24,8 @@ def main(command, project):
     if command == "install":
         print("Installing {}".format(project))
         # docker.run(*runargs, _out=process_output);
-        subprocess.call("docker run " + " ".join(runargs), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+        #FIXME this currently spawns a shell instead simply installing
+        # subprocess.call("docker run " + " ".join(runargs), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
         subprocess.call("docker run {defaultargs} -c 'make install'".format(defaultargs=" ".join(runargs)), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     if command == "kdesrcbuild":
         subprocess.call("docker run --rm -ti --privileged -v ~/kdebuild/fedora:/work -v $(pwd)/kdesrc-buildrc:/home/developer/.kdesrc-buildrc -v $(pwd)/bashrc:/home/developer/.bashrc fedora-kdedev -c /home/developer/kdesrc-build/kdesrc-build", shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")

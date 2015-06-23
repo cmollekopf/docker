@@ -13,7 +13,14 @@ def findContainer(name):
 def findImage(repository, tag):
     container=""
     try:
-        container = sh.awk("{print $3}", _in=sh.head("-n 1", _in=sh.grep(tag, _in=sh.docker("images", repository))))
+        output = sh.awk("{print $3\":\"$2}", _in=sh.docker("images", repository))
+        print output
+        for row in output.split('\n'):
+            containerId, containerTag = row.split(':')
+            print(containerId + " " + containerTag)
+            if containerTag == tag:
+                container = containerId
+                break
     except:
         print "container not available"
     return container.rstrip()

@@ -14,10 +14,8 @@ def findImage(repository, tag):
     container=""
     try:
         output = sh.awk("{print $3\":\"$2}", _in=sh.docker("images", repository))
-        print output
         for row in output.split('\n'):
             containerId, containerTag = row.split(':')
-            print(containerId + " " + containerTag)
             if containerTag == tag:
                 container = containerId
                 break

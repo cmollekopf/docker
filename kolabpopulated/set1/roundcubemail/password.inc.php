@@ -45,7 +45,7 @@
 
     // LDAP base name (root directory)
     // Exemple: 'dc=exemple,dc=com'
-    $config['password_ldap_basedn'] = 'ou=People,dc=example,dc=org';
+    $config['password_ldap_basedn'] = 'dc=example,dc=org';
 
     // LDAP connection method
     // There is two connection method for changing a user's LDAP password.
@@ -99,7 +99,7 @@
     // If password_ldap_searchDN is set, the base to search in using the filter below.
     // Note that you should comment out the default password_ldap_userDN_mask setting
     // for this to take effect.
-    $config['password_ldap_search_base'] = 'ou=People,dc=example,dc=org';
+    $config['password_ldap_search_base'] = 'dc=example,dc=org';
 
     // LDAP search filter
     // If password_ldap_searchDN is set, the filter to use when

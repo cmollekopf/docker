@@ -28,7 +28,7 @@
             'user_specific'         => true,
             'bind_dn'               => '%dn',
             'bind_pass'             => '',
-            'search_base_dn'        => 'ou=People,dc=example,dc=org',
+            'search_base_dn'        => 'dc=example,dc=org',
             'search_bind_dn'        => 'uid=kolab-service,ou=Special Users,dc=example,dc=org',
             'search_bind_pw'        => 'b92PQ9PyWzfraJb',
             'search_filter'         => '(&(objectClass=inetOrgPerson)(mail=%fu))',

@@ -44,6 +44,10 @@ def main(dataset):
 
         docker("exec", container, "cp", "/data/kolab.conf", "/etc/kolab/kolab.conf", _out=process_output)
         docker("exec", container, "cp", "/data/roundcubemail/calendar.inc.php", "/etc/roundcubemail/", _out=process_output)
+        docker("exec", container, "cp", "/data/roundcubemail/config.inc.php", "/etc/roundcubemail/", _out=process_output)
+        docker("exec", container, "cp", "/data/roundcubemail/kolab_addressbook.inc.php", "/etc/roundcubemail/", _out=process_output)
+        docker("exec", container, "cp", "/data/roundcubemail/kolab_auth.inc.php", "/etc/roundcubemail/", _out=process_output)
+        docker("exec", container, "cp", "/data/roundcubemail/password.inc.php", "/etc/roundcubemail/", _out=process_output)
 
         # Give kolabd some time to create all mailboxes
         time.sleep(5)

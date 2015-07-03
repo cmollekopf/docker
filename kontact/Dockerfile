@@ -14,6 +14,9 @@ RUN yum install -y libnotify libxdg-basedir
 #Qt probably thinks we're gnome for some reason, which breaks QIconLoader
 RUN yum install -y gnome-icon-theme
 
+#Debug deps
+RUN yum -y install gdb
+
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/developer && \

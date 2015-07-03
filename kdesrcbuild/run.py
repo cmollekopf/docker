@@ -30,11 +30,16 @@ def main(command, environment, commandargs):
 
     if command == "shell":
         subprocess.call("docker run {defaultargs} {image} -c bash".format(defaultargs=" ".join(runargs), image=image), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+    if command == "make":
+        project = commandargs[0]
+        print("Installing {}".format(project))
+        args = ("-w", "/work/build/{project}".format(project=project))
+        command = 'make'
+        subprocess.call("docker run {defaultargs} {args} {image} -c '{command}'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     if command == "install":
         project = commandargs[0]
         print("Installing {}".format(project))
         args = ("-w", "/work/build/{project}".format(project=project))
-        # command = 'ninja-build'
         command = 'make install'
         subprocess.call("docker run {defaultargs} {args} {image} -c '{command}'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     if command == "kdesrcbuild":

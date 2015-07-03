@@ -4,21 +4,21 @@ from sh import docker
 import subprocess
 import settings
 import dockerutils
+import argparse
 
 def process_output(line):
     print(line)
 
 def srcbuild(options):
-    print "srcbuild " + options.command + options.project + options.env
-    main(options.command, options.project, options.env)
+    main(options.command, options.env, options.args)
 
 def setupSubparser(parser):
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser)")
-    parser.add_argument("project", help = "project to build")
+    parser.add_argument('args', nargs=argparse.REMAINDER)
     parser.set_defaults(func=srcbuild)
 
-def main(command, project, environment):
+def main(command, environment, commandargs):
     runargs = ( "-ti",
         "--rm",
         "--privileged",
@@ -29,16 +29,19 @@ def main(command, project, environment):
     image="fedora-kdedev"
 
     if command == "shell":
-        subprocess.call("docker run {defaultargs} -c bash".format(defaultargs=" ".join(runargs)), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+        subprocess.call("docker run {defaultargs} {image} -c bash".format(defaultargs=" ".join(runargs), image=image), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     if command == "install":
+        project = commandargs[0]
         print("Installing {}".format(project))
         args = ("-w", "/work/build/{project}".format(project=project))
-        command = 'ninja-build'
-        # command = 'make install'
+        # command = 'ninja-build'
+        command = 'make install'
         subprocess.call("docker run {defaultargs} {args} {image} -c '{command}'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     if command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
         subprocess.call("mkdir ~/kdebuild/{}".format(environment), shell=True)
         command = '/home/developer/kdesrc-build/kdesrc-build'
+        if commandargs:
+            command += ' ' + ' '.join(commandargs);
         subprocess.call("docker run {defaultargs} {args} {image} -c '{command}'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")

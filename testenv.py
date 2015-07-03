@@ -61,10 +61,6 @@ def shell(options):
     container = dockerutils.findContainer("{}:{}".format(settings.REPOSITORY, settings.populatedTag(options.dataset)))
     subprocess.call("docker exec -i -t {} bash".format(container), shell=True)
 
-def srcbuild(options):
-    print "srcbuild " + options.command + options.project
-    kdesrcbuild.run.main(options.command, options.project)
-
 def main():
     usage = "usage: %prog [options]"
     parser = argparse.ArgumentParser(usage)
@@ -84,9 +80,7 @@ def main():
     parser_shell.set_defaults(func=shell)
 
     parser_srcbuild = subparsers.add_parser('srcbuild', help = "do a sourcebuild")
-    parser_srcbuild.add_argument("command", help = "command to use (should be another subparser)")
-    parser_srcbuild.add_argument("project", help = "project to build")
-    parser_srcbuild.set_defaults(func=srcbuild)
+    kdesrcbuild.run.setupSubparser(parser_srcbuild)
 
     options = parser.parse_args()
     options.func(options)

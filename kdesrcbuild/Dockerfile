@@ -11,6 +11,12 @@ RUN yum-builddep -y kdelibs
 #PIM deps
 RUN yum -y install boost-devel sqlite prison-devel openldap-devel libical-devel libical-devel gpgme-devel
 
+#Clang + Ninja
+RUN yum -y install ninja-build clang
+
+#AkonadiNext deps
+RUN yum -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt
@@ -26,6 +32,8 @@ WORKDIR /home/developer/
 # kde anongit url alias
 RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
     git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde: && \
+    git config --global user.email "developer@example.com" && \
+    git config --global user.name "Developer" && \
     git clone git://anongit.kde.org/kdesrc-build.git
 
 VOLUME /work

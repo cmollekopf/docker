@@ -19,17 +19,17 @@ global
 end global
 
 module kdelibs
-    repository https://git.kolab.org/diffusion/KL/kdelibs.git
+    repository kolab:KL/kdelibs.git
     branch kolab/integration/4.14.0
 end module
 
 module akonadi
-    repository https://git.kolab.org/diffusion/A/akonadi.git
+    repository kolab:A/akonadi.git
     branch kolab/integration/1.12.0
 end module
 
 module kdepimlibs
-    repository https://git.kolab.org/diffusion/KPL/kdepimlibs.git
+    repository kolab:KPL/kdepimlibs.git
     branch kolab/integration/4.13.0
 end module
 
@@ -39,23 +39,23 @@ module kfilemetadata
 end module
 
 module baloo
-    repository https://git.kolab.org/diffusion/KB/baloo.git
+    repository kolab:KB/baloo.git
     branch kolab/integration/4.13.0
 end module
 
 module libkolabxml
-    repository https://git.kolab.org/diffusion/LKX/libkolabxml.git
+    repository kolab:LKX/libkolabxml.git
     branch libkolabxml-1.1
 end module
 
 module libkolab
-    repository https://git.kolab.org/diffusion/LK/libkolab.git
+    repository kolab:LK/libkolab.git
     branch master
 end module
 
 module kdepim-runtime
     cmake-options -DDISABLE_ALL_OPTIONAL_SUBDIRECTORIES=TRUE -DBUILD_kolab=TRUE -DBUILD_mixedmaildir=TRUE -DBUILD_maildir=TRUE
-    repository https://git.kolab.org/diffusion/KPR/kdepim-runtime.git
+    repository kolab:KPR/kdepim-runtime.git
     branch kolab/integration/4.13.0
 end module
 
@@ -67,13 +67,13 @@ module kdepim
                   -DBUILD_agents=TRUE -DBUILD_sendlateragent=TRUE -DBUILD_archivemailagent=TRUE -DBUILD_mailfilteragent=TRUE \
                   -DBUILD_kleopatra=TRUE -DDISABLE_ALL_OPTIONAL_PLUGINS=TRUE
 
-    repository https://git.kolab.org/diffusion/KP/kdepim.git
+    repository kolab:KP/kdepim.git
     branch kolab/integration/4.13.0
 end module
 
 module zanshin
     cmake-options -DBUILD_ZANSHIN_NEXT=FALSE
-    repository https://git.kolab.org/diffusion/Z/zanshin.git
+    repository kolab:Z/zanshin.git
     branch kolab/integration/3.0
 end module
 

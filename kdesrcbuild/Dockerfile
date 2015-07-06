@@ -32,6 +32,8 @@ WORKDIR /home/developer/
 # kde anongit url alias
 RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
     git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde: && \
+    git config --global url."https://git.kolab.org/diffusion/".insteadOf kolab: && \
+    git config --global url."ssh://git@git.kolab.org/diffusion/".pushInsteadOf kolab: && \
     git config --global user.email "developer@example.com" && \
     git config --global user.name "Developer" && \
     git clone git://anongit.kde.org/kdesrc-build.git

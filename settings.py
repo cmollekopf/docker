@@ -5,7 +5,7 @@ SCRIPT_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
 HOSTNAME = "kolab1.example.org"
 LDAPPW = "test"
 TIMEZONE = "Europe/Brussels"
-KDEROOT = os.path.expanduser('~') + '/kdebuild/fedora/install'
+KDEROOT = os.path.expanduser('~') + '/kdebuild/kdepim/install'
 REPOSITORY = "kolab/kolabtestcontainer"
 
 def kolabimagename(name):

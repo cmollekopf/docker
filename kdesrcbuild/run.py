@@ -43,4 +43,4 @@ def main(command, environment, commandargs):
         print("Installing {}".format(project))
         args = ("-w", "/work/build/{project}".format(project=project))
         command = " ".join(commandargs)
-        subprocess.call("docker run {defaultargs} {args} {image} -c '{command}' | sed 's/\/work\//~\/kdebuild\/kdepim\//g'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+        subprocess.call("docker run {defaultargs} {args} {image} -c '{command}' | sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, environment=environment), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")

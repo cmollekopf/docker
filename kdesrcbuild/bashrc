@@ -13,6 +13,12 @@ fi
 
 export QTDIR KDEDIRS PATH MANPATH LD_LIBRARY_PATH
 
+export KDEDIR=/work/install
+export PATH=$KDEDIR/bin:$PATH
+export LD_LIBRARY_PATH=$KDEDIR/lib:$KDEDIR/lib64
+export PKG_CONFIG_PATH=$KDEDIR/lib/pkgconfig
+export QT_PLUGIN_PATH=$KDEDIR/lib64/plugins:$KDEDIR/lib64/kde4/plugins
+
 function run_xvfb ()
 {
     sudo Xvfb $DISPLAY +extension RANDR -screen 0 1024x780x24 &

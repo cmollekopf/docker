@@ -3,17 +3,11 @@ import sh
 import subprocess
 import sys
 import argparse
+
 import kolab
-from kolab import build
 import kolabpopulated
-from kolabpopulated import build
-from kolabpopulated import run
 import kontact
-from kontact import build
-from kontact import run
 import kdesrcbuild
-from kdesrcbuild import build
-from kdesrcbuild import run
 
 import settings
 import dockerutils

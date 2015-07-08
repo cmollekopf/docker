@@ -16,6 +16,8 @@ def setupX11Authorization(xauthFile, display):
         sh.touch(xauthFile)
     except:
         print("touch failed")
+    if not os.path.isfile(xauthFile):
+        raise Exception("xauthfile is not a regular file")
     sh.xauth(sh.sed(sh.xauth("nlist", display), "-e", 's/^..../ffff/'), "-f", xauthFile, "nmerge", "-")
 
 def main(kolabcontainer, configset):

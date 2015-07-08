@@ -1,0 +1,8 @@
+991,993c991,993
+<         // set DTSTAMP according to RFC 5545, 3.8.7.2.
+<         $dtstamp = !empty($event['changed']) && !empty($this->method) ? $event['changed'] : new DateTime('now', new \DateTimeZone('UTC'));
+<         $ve->DTSTAMP = $dtstamp;
+---
+>         // FIXME
+>       $ve->DTSTAMP = '20111126T150202Z';
+> 

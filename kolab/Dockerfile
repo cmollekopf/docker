@@ -31,6 +31,8 @@ RUN systemctl enable amavisd.service
 #Temporary workaround for packaging error to get freebusy working
 RUN yum -y install php-Monolog
 
+RUN yum -y install patch
+
 EXPOSE 80 143 443 587 4190
 
 # We can't run setup-kolab during the building process, run the command below and then commit the result

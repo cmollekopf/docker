@@ -42,15 +42,15 @@ def main(dataset):
         print("Running populate.sh...")
         docker("exec", container,  "/data/populate.sh", _out=process_output)
 
-        docker("exec", container, "cp", "/data/kolab.conf", "/etc/kolab/kolab.conf", _out=process_output)
-        docker("exec", container, "cp", "/data/roundcubemail/calendar.inc.php", "/etc/roundcubemail/", _out=process_output)
-        docker("exec", container, "cp", "/data/roundcubemail/config.inc.php", "/etc/roundcubemail/", _out=process_output)
-        docker("exec", container, "cp", "/data/roundcubemail/kolab_addressbook.inc.php", "/etc/roundcubemail/", _out=process_output)
-        docker("exec", container, "cp", "/data/roundcubemail/kolab_auth.inc.php", "/etc/roundcubemail/", _out=process_output)
-        docker("exec", container, "cp", "/data/roundcubemail/password.inc.php", "/etc/roundcubemail/", _out=process_output)
-
         # Give kolabd some time to create all mailboxes
         time.sleep(5)
+
+        docker("exec", container, "patch", "-R", "/etc/kolab/kolab.conf", "/data/kolab.conf.diff", _out=process_output)
+        docker("exec", container, "patch", "-R", "/etc/roundcubemail/calendar.inc.php", "/data/calendar.inc.php.diff", _out=process_output)
+        docker("exec", container, "patch", "-R", "/etc/roundcubemail/config.inc.php", "/data/config.inc.php.diff", _out=process_output)
+        docker("exec", container, "patch", "-R", "/etc/roundcubemail/kolab_addressbook.inc.php", "/data/kolab_addressbook.inc.php.diff", _out=process_output)
+        docker("exec", container, "patch", "-R", "/etc/roundcubemail/kolab_auth.inc.php", "/data/kolab_auth.inc.php.diff", _out=process_output)
+        docker("exec", container, "patch", "-R", "/etc/roundcubemail/password.inc.php", "/data/password.inc.php.diff", _out=process_output)
 
         print("Comitting results to: {}".format(imagename))
         docker.commit(container, imagename)

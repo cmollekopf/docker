@@ -1,0 +1,15 @@
+*** /data/roundcubemail/kolab_auth.inc.php	2015-07-08 13:47:40.957198993 +0000
+--- /etc/roundcubemail/kolab_auth.inc.php	2015-07-08 13:35:37.000000000 +0000
+***************
+*** 8,12 ****
+          'port'                      => 389,
+          'use_tls'                   => false,
+          'user_specific'             => false,
+!         'base_dn'                   => 'dc=example,dc=org',
+          'bind_dn'                   => 'uid=kolab-service,ou=Special Users,dc=example,dc=org',
+--- 8,12 ----
+          'port'                      => 389,
+          'use_tls'                   => false,
+          'user_specific'             => false,
+!         'base_dn'                   => 'ou=People,dc=example,dc=org',
+          'bind_dn'                   => 'uid=kolab-service,ou=Special Users,dc=example,dc=org',

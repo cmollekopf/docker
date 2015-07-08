@@ -1,0 +1,21 @@
+*** /data/kolab.conf	2015-07-08 13:46:30.516578293 +0000
+--- /etc/kolab/kolab.conf	2015-07-08 13:35:36.000000000 +0000
+***************
+*** 160,167 ****
+  modules = resources, invitationpolicy, footer
+  footer_text = /etc/kolab/footer.text
+  footer_html = /etc/kolab/footer.html
+! kolab_invitation_policy = EVENT_SAVE_AND_FORWARD:example.org, EVENT_CANCEL_DELETE_AND_NOTIFY, ACT_UPDATE_AND_NOTIFY, ACT_MANUAL
+! invitationpolicy_autoupdate_other_attendees_on_reply = true
+  resource_calendar_expire_days = 100
+  
+  [example.org]
+--- 160,167 ----
+  modules = resources, invitationpolicy, footer
+  footer_text = /etc/kolab/footer.text
+  footer_html = /etc/kolab/footer.html
+! kolab_invitation_policy = ACT_ACCEPT_IF_NO_CONFLICT:example.org, ACT_MANUAL
+! invitationpolicy_autoupdate_other_attendees_on_reply = false
+  resource_calendar_expire_days = 100
+  
+  [example.org]

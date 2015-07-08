@@ -17,6 +17,9 @@ RUN yum -y install ninja-build clang
 #AkonadiNext deps
 RUN yum -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel
 
+#Test debugging
+RUN yum -y install gdb
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt

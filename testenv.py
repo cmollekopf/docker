@@ -28,7 +28,7 @@ def buildImage(repo, tag, rebuild, builder):
     return image
 
 def startContainer(name, runner):
-    container=dockerutils.findContainer(name)
+    container = dockerutils.findContainer(name)
     if not container:
         runner()
         container = dockerutils.findContainer(name)
@@ -48,13 +48,22 @@ def build(options):
         kdesrcbuild.build.main()
 
 def start(options):
-    print("start " + options.dataset + options.clientconfigset)
     dataset = options.dataset
     clientconfigset = options.clientconfigset
-    container = startContainer("{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset)), lambda: kolabpopulated.run.main(dataset))
-    kontact.run.main(container, clientconfigset)
-    sh.docker.kill(container)
-    sh.docker.rm(container)
+    standalone = clientconfigset is None
+    if standalone:
+        print("start " + dataset + " in background")
+    else:
+        print("start " + dataset + " " + clientconfigset)
+
+    cname = "{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset))
+    started = dockerutils.findContainer(cname) != ""
+    container = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
+    if not standalone:
+        kontact.run.main(container, clientconfigset)
+        if not started:
+            sh.docker.kill(container)
+            sh.docker.rm(container)
 
 def shell(options):
     print "shell " + options.dataset
@@ -72,7 +81,7 @@ def main():
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")
     parser_start.add_argument("dataset", choices=["set1"], help = "server dataset to use")
-    parser_start.add_argument("clientconfigset", choices=["john", "jane"], help = "clientconfigset to use")
+    parser_start.add_argument("clientconfigset", choices=["john", "jane"], nargs="?", default=None, help = "clientconfigset to use")
     parser_start.set_defaults(func=start)
 
     parser_shell = subparsers.add_parser('shell', help = "get a shell in a running docker environment")

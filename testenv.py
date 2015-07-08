@@ -30,8 +30,12 @@ def startContainer(name, runner):
     return container
 
 def build(options):
-    print("build " + options.dataset + options.target)
+    if options.target == "server" and options.dataset is None:
+        Exception("needs a dataset to build")
+    else:
+        print("build " + options.target)
     if options.target == "server":
+        print("build " + options.dataset + " " + options.target)
         buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
         buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
     if options.target == "client":
@@ -70,7 +74,7 @@ def main():
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
     parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild"], help = "image to build")
-    parser_build.add_argument("dataset", choices=["set1"], help = "dataset to use")
+    parser_build.add_argument("dataset", choices=["set1"], nargs="?", default=None, help = "dataset to use")
     parser_build.set_defaults(func=build)
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")

@@ -8,9 +8,6 @@ import sys
 from settings import config
 import settings
 
-def process_output(line):
-    print(line)
-
 def setupConfigDirs(dirname, fullPrimaryEmail, primaryEmail, name, uid):
     basedir = settings.SCRIPT_DIR + "/kontact"
     print(basedir);

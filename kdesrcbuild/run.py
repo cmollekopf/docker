@@ -6,9 +6,6 @@ import settings
 import dockerutils
 import argparse
 
-def process_output(line):
-    print(line)
-
 def srcbuild(options):
     main(options.command, options.env, options.args)
 

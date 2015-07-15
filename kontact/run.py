@@ -3,13 +3,9 @@ import sh
 from sh import docker
 import subprocess
 import os
-import sys
 
 import settings
 import dockerutils
-
-def process_output(line):
-    print(line)
 
 def setupX11Authorization(xauthFile, display):
     try:

@@ -24,6 +24,7 @@ def main(command, environment, commandargs):
         "-v", "{}/{}/bashrc:/home/developer/.bashrc".format(settings.SCRIPT_DIR, "kdesrcbuild"),
     )
     image="fedora-kdedev"
+    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment);
 
     if command == "shell":
         subprocess.call("docker run {defaultargs} {image} -c bash".format(defaultargs=" ".join(runargs), image=image), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
@@ -34,10 +35,10 @@ def main(command, environment, commandargs):
         command = '/home/developer/kdesrc-build/kdesrc-build'
         if commandargs:
             command += ' ' + ' '.join(commandargs);
-        subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+        subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command), translatePathsToHost=translatePathsToHost, shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     else:
         project = command
         print("Installing {}".format(project))
         args = ("-w", "/work/build/{project}".format(project=project))
         command = " ".join(commandargs)
-        subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, environment=environment), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+        subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, translatePathsToHost=translatePathsToHost), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")

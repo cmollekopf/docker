@@ -30,7 +30,7 @@ def startContainer(name, runner):
     return container
 
 def build(options):
-    if options.target == "server" and options.dataset is None:
+    if (options.target == "server" or options.target == "all") and options.dataset is None:
         Exception("needs a dataset to build")
     else:
         print("build " + options.target)
@@ -38,11 +38,11 @@ def build(options):
         print("build " + options.dataset + " " + options.target)
         buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
         buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
-    if options.target == "client":
+    if options.target == "client" or options.target == "all":
         # buildImage("kontact", "john", False, lambda: kontact.build.main("john"))
         kontact.build.main("john")
         kontact.build.main("jane")
-    if options.target == "kdesrcbuild":
+    if options.target == "kdesrcbuild" or options.target == "all":
         kdesrcbuild.build.main()
 
 def start(options):
@@ -73,7 +73,7 @@ def main():
     parser = argparse.ArgumentParser(usage)
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
-    parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild"], help = "image to build")
+    parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild", "all"], help = "image to build")
     parser_build.add_argument("dataset", choices=["set1"], nargs="?", default=None, help = "dataset to use")
     parser_build.set_defaults(func=build)
 

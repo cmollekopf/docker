@@ -30,7 +30,7 @@ def main(command, environment, commandargs):
     elif command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir ~/kdebuild/{}".format(environment), shell=True)
+        subprocess.call("mkdir -p ~/kdebuild/{}".format(environment), shell=True)
         command = '/home/developer/kdesrc-build/kdesrc-build'
         if commandargs:
             command += ' ' + ' '.join(commandargs);

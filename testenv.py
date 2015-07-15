@@ -3,17 +3,11 @@ import sh
 import subprocess
 import sys
 import argparse
+
 import kolab
-from kolab import build
 import kolabpopulated
-from kolabpopulated import build
-from kolabpopulated import run
 import kontact
-from kontact import build
-from kontact import run
 import kdesrcbuild
-from kdesrcbuild import build
-from kdesrcbuild import run
 
 import settings
 import dockerutils
@@ -28,7 +22,7 @@ def buildImage(repo, tag, rebuild, builder):
     return image
 
 def startContainer(name, runner):
-    container=dockerutils.findContainer(name)
+    container = dockerutils.findContainer(name)
     if not container:
         runner()
         container = dockerutils.findContainer(name)
@@ -36,8 +30,12 @@ def startContainer(name, runner):
     return container
 
 def build(options):
-    print("build " + options.dataset + options.target)
+    if options.target == "server" and options.dataset is None:
+        Exception("needs a dataset to build")
+    else:
+        print("build " + options.target)
     if options.target == "server":
+        print("build " + options.dataset + " " + options.target)
         buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
         buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
     if options.target == "client":
@@ -48,13 +46,22 @@ def build(options):
         kdesrcbuild.build.main()
 
 def start(options):
-    print("start " + options.dataset + options.clientconfigset)
     dataset = options.dataset
     clientconfigset = options.clientconfigset
-    container = startContainer("{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset)), lambda: kolabpopulated.run.main(dataset))
-    kontact.run.main(container, clientconfigset)
-    sh.docker.kill(container)
-    sh.docker.rm(container)
+    standalone = clientconfigset is None
+    if standalone:
+        print("start " + dataset + " in background")
+    else:
+        print("start " + dataset + " " + clientconfigset)
+
+    cname = "{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset))
+    started = dockerutils.findContainer(cname) != ""
+    container = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
+    if not standalone:
+        kontact.run.main(container, clientconfigset)
+        if not started:
+            sh.docker.kill(container)
+            sh.docker.rm(container)
 
 def shell(options):
     print "shell " + options.dataset
@@ -67,12 +74,12 @@ def main():
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
     parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild"], help = "image to build")
-    parser_build.add_argument("dataset", choices=["set1"], help = "dataset to use")
+    parser_build.add_argument("dataset", choices=["set1"], nargs="?", default=None, help = "dataset to use")
     parser_build.set_defaults(func=build)
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")
     parser_start.add_argument("dataset", choices=["set1"], help = "server dataset to use")
-    parser_start.add_argument("clientconfigset", choices=["john", "jane"], help = "clientconfigset to use")
+    parser_start.add_argument("clientconfigset", choices=["john", "jane"], nargs="?", default=None, help = "clientconfigset to use")
     parser_start.set_defaults(func=start)
 
     parser_shell = subparsers.add_parser('shell', help = "get a shell in a running docker environment")

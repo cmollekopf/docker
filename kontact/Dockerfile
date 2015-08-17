@@ -14,6 +14,9 @@ RUN yum install -y libnotify libxdg-basedir
 #Qt probably thinks we're gnome for some reason, which breaks QIconLoader
 RUN yum install -y gnome-icon-theme
 
+#we need smime support
+RUN yum install -y gnupg2-smime pinentry-qt
+
 #Debug deps
 RUN yum -y install gdb
 

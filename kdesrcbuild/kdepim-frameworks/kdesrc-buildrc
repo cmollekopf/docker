@@ -1,0 +1,40 @@
+global
+
+    qtdir /usr
+
+    source-dir /work/source
+    build-dir /work/build
+    kdedir /work/install
+
+    git-repository-base kde-projects kde:
+
+    # KDE4_BUILD_TESTS kept for now, for old kde4_add_unit_test stuff to be enabled
+    cmake-options -DCMAKE_BUILD_TYPE:STRING=debug -DKDE4_BUILD_TESTS=true
+
+    # If you want to use ninja instead of make (it's faster!), uncomment the next line
+    #custom-build-command ninja
+
+    make-options -j13
+
+    cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=format-security -Werror=return-type -Wno-variadic-macros -Wlogical-op -Wmissing-include-dirs -std=c++11
+
+    #install-session-driver true
+
+    branch-group kf5-qt5
+end global
+
+# include ~/kdesrc-build/kf5-qt5-build-include
+include ~/kdesrc-build/kf5-frameworks-build-include
+include ~/kdesrc-build/kf5-kdepim-build-include
+
+module libkolabxml
+    cmake-options -DQT5_BUILD=TRUE
+    repository kolab:LKX/libkolabxml.git
+    branch libkolabxml-1.1
+end module
+
+module libkolab
+    repository kolab:LK/libkolab.git
+    branch libkolab-1.0
+end module
+

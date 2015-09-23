@@ -22,6 +22,7 @@ def main(command, environment, commandargs):
         "-v", "~/kdebuild/{}:/work".format(environment),
         "-v", "{}/{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(settings.SCRIPT_DIR, "kdesrcbuild", environment),
         "-v", "{}/{}/bashrc:/home/developer/.bashrc".format(settings.SCRIPT_DIR, "kdesrcbuild"),
+        "-v", "{}/{}/build-de.sh:/home/developer/build-de.sh".format(settings.SCRIPT_DIR, "kdesrcbuild"),
     )
     image="fedora-kdedev"
     translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment)

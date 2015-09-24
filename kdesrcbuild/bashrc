@@ -51,4 +51,4 @@ function re_vnc ()
     run_vnc
 }
 
-source ~/.start-iceccd.sh
+# source ~/.start-iceccd.sh

@@ -23,6 +23,9 @@ RUN yum -y install gdb
 #Frameworks
 RUN yum -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
+#icecream
+RUN yum -y install icecream
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt
@@ -35,6 +38,8 @@ RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer/
+ADD bashrc /home/developer/.bashrc
+ADD start-iceccd.sh /home/developer/.start-iceccd.sh
 # kde anongit url alias
 RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
     git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde: && \

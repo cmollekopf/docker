@@ -6,6 +6,9 @@ export QT_X11_NO_MITSHM=1
 # Give access to graphics card. Alternatively add user to group video
 sudo setfacl -m user:developer:rw /dev/dri/card0
 
+# Disable KCrash, so we can get a backtrace using gdb
+export KDE_DEBUG=1
+
 gpg-agent --daemon --sh
 
 kwalletd&

@@ -5,6 +5,9 @@ import subprocess
 import settings
 import dockerutils
 import argparse
+import os
+
+BASEPATH = os.path.dirname(os.path.realpath(__file__))
 
 def srcbuild(options):
     main(options.command, options.env, options.args)
@@ -16,19 +19,24 @@ def setupSubparser(parser):
     parser.set_defaults(func=srcbuild)
 
 def main(command, environment, commandargs):
-    runargs = ( "-ti",
+    runargs = [ "-ti",
         "--rm",
         "--privileged",
         "-v", "~/kdebuild/{}:/work".format(environment),
-        "-v", "{}/{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(settings.SCRIPT_DIR, "kdesrcbuild", environment),
-        "-v", "{}/{}/bashrc:/home/developer/.bashrc".format(settings.SCRIPT_DIR, "kdesrcbuild"),
-        "-v", "{}/{}/build-de.sh:/home/developer/build-de.sh".format(settings.SCRIPT_DIR, "kdesrcbuild"),
-    )
+        "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
+        "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
+        "-v", "{}/build-de.sh:/home/developer/build-de.sh".format(BASEPATH),
+    ]
     image="fedora-kdedev"
     translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment)
 
     if command == "shell":
-        subprocess.call("docker run {defaultargs} {image} -c bash".format(defaultargs=" ".join(runargs), image=image), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+	runargs.append(image)
+	runargs.extend(["-c","bash"])
+	args = ["docker","run"]
+	args.extend(runargs)
+	print " ".join(args)
+        subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)
     elif command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
@@ -43,3 +51,6 @@ def main(command, environment, commandargs):
         args = ("-w", "/work/build/{project}".format(project=project))
         command = " ".join(commandargs)
         subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, translatePathsToHost=translatePathsToHost), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
+
+if __name__ == "__main__":
+	main("shell", "kdepim", ())

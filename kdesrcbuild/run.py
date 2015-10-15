@@ -10,37 +10,41 @@ import os
 BASEPATH = os.path.dirname(os.path.realpath(__file__))
 
 def srcbuild(options):
-    main(options.command, options.env, options.args)
+    main(options.command, options.env, options.args, options)
 
 def setupSubparser(parser):
+    parser.add_argument("--distro", default="fedora", help = "distro to use")
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser). Is used for the project in case of arbitray command.")
     parser.add_argument('args', nargs=argparse.REMAINDER)
     parser.set_defaults(func=srcbuild)
 
-def main(command, environment, commandargs):
+def main(command, environment, commandargs, options):
+    distro = ""
+    if (options.distro != "fedora"):
+	distro = "debian/"
     runargs = [ "-ti",
         "--rm",
         "--privileged",
-        "-v", "~/kdebuild/{}:/work".format(environment),
+        "-v", "~/kdebuild/{}{}:/work".format(distro, environment),
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/build-de.sh:/home/developer/build-de.sh".format(BASEPATH),
     ]
-    image="fedora-kdedev"
-    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment)
-
+    image="{}-kdedev".format(options.distro)
+    if (options.distro == "debian" and environment == "kf5"):
+        image = "debian-kf5dev"
+    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{distro}{environment}\//g'".format(distro=distro, environment=environment)
     if command == "shell":
 	runargs.append(image)
 	runargs.extend(["-c","bash"])
 	args = ["docker","run"]
 	args.extend(runargs)
-	print " ".join(args)
         subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)
     elif command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p ~/kdebuild/{}".format(environment), shell=True)
+        subprocess.call("mkdir -p ~/kdebuild/{}{}".format(distro, environment), shell=True)
         command = '/home/developer/kdesrc-build/kdesrc-build'
         if commandargs:
             command += ' ' + ' '.join(commandargs);

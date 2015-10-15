@@ -5,6 +5,7 @@ import subprocess
 import settings
 import dockerutils
 import argparse
+from x11support import X11Support
 import os
 
 BASEPATH = os.path.dirname(os.path.realpath(__file__))
@@ -13,6 +14,7 @@ def srcbuild(options):
     main(options.command, options.env, options.args, options)
 
 def setupSubparser(parser):
+    parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
     parser.add_argument("--distro", default="fedora", help = "distro to use")
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser). Is used for the project in case of arbitray command.")
@@ -31,6 +33,10 @@ def main(command, environment, commandargs, options):
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/build-de.sh:/home/developer/build-de.sh".format(BASEPATH),
     ]
+    if options.x11forward:
+	    x11 = X11Support()
+	    x11.setupX11Authorization()
+	    runargs.extend(x11.docker_args())
     image="{}-kdedev".format(options.distro)
     if (options.distro == "debian" and environment == "kf5"):
         image = "debian-kf5dev"

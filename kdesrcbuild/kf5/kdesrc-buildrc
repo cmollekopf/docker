@@ -1,0 +1,18 @@
+# See the kdesrc-buildrc-sample for explanations of what the options do, or
+# view the manpage or kdesrc-build documentation at
+# http://kdesrc-build.kde.org/documentation/
+global
+    qtdir /usr
+
+    source-dir /work/source
+    build-dir /work/build
+    kdedir /work/install
+
+    cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=return-type -Wno-variadic-macros -Wlogical-op
+    cmake-options -DBUILD_TESTING=TRUE -DCMAKE_BUILD_TYPE=Debug -DUDEV_RULES_INSTALL_DIR=/work/install/etc/udev/
+
+    make-options -j5
+end global
+
+include kdesrc-build/kf5-frameworks-build-include
+include kdesrc-build/kf5-kdepim-build-include

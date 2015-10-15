@@ -43,7 +43,7 @@ def build(options):
         kontact.build.main("john")
         kontact.build.main("jane")
     if options.target == "kdesrcbuild" or options.target == "all":
-        kdesrcbuild.build.main()
+        kdesrcbuild.build.srcbuild(options)
 
 def start(options):
     dataset = options.dataset
@@ -73,9 +73,23 @@ def main():
     parser = argparse.ArgumentParser(usage)
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
-    parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild", "all"], help = "image to build")
-    parser_build.add_argument("dataset", choices=["set1"], nargs="?", default=None, help = "dataset to use")
-    parser_build.set_defaults(func=build)
+
+    buildsubparsers = parser_build.add_subparsers(help='build variants')
+    parser_all = buildsubparsers.add_parser('server', help = "build server")
+    parser_all.add_argument("dataset", choices=["set1"], nargs="?", default="set1", help = "dataset to use")
+    parser_all.set_defaults(func=build)
+
+    parser_all = buildsubparsers.add_parser('client', help = "build client")
+    parser_all.set_defaults(func=build)
+
+    parser_srcbuild = buildsubparsers.add_parser('kdesrcbuild', help = "create a sourcebuild")
+    kdesrcbuild.build.setupSubparser(parser_srcbuild)
+
+    parser_all = buildsubparsers.add_parser('all', help = "build everything")
+    parser_all.add_argument("dataset", choices=["set1"], nargs="?", default="set1", help = "dataset to use")
+    parser.add_argument("--distro", default="fedora", help = "distro to build")
+    parser.add_argument("--env", default="kde",  help = "environment to build")
+    parser_all.set_defaults(func=build)
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")
     parser_start.add_argument("dataset", choices=["set1"], help = "server dataset to use")

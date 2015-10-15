@@ -39,8 +39,6 @@ RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer/
-ADD bashrc /home/developer/.bashrc
-ADD start-iceccd.sh /home/developer/.start-iceccd.sh
 # kde anongit url alias
 RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
     git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde: && \

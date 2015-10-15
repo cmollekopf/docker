@@ -6,9 +6,8 @@ import settings
 import dockerutils
 import argparse
 from x11support import X11Support
-import os
 
-BASEPATH = os.path.dirname(os.path.realpath(__file__))
+from . import BASEPATH
 
 def srcbuild(options):
     main(options.command, options.env, options.args, options)

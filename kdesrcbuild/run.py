@@ -14,6 +14,7 @@ def srcbuild(options):
     main(options.command, options.env, options.args, options)
 
 def setupSubparser(parser):
+    parser.add_argument("--icecream", action='store_true', help = "use icecream for compiling")
     parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
     parser.add_argument("--distro", default="fedora", help = "distro to use")
     parser.add_argument("env", help = "environment to use")
@@ -32,6 +33,8 @@ def main(command, environment, commandargs, options):
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/build-de.sh:/home/developer/build-de.sh".format(BASEPATH),
+        "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
+        "-e", "START_ICECREAM={}".format(str(options.icecream).lower()),
     ]
     if options.x11forward:
 	    x11 = X11Support()

@@ -51,4 +51,6 @@ function re_vnc ()
     run_vnc
 }
 
-# source ~/.start-iceccd.sh
+if [ "x$START_ICECREAM" = "xtrue" ]; then
+    source ~/.start-iceccd.sh
+fi

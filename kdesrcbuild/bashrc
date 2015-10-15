@@ -54,3 +54,7 @@ function re_vnc ()
 if [ "x$START_ICECREAM" = "xtrue" ]; then
     source ~/.start-iceccd.sh
 fi
+
+if [ "x$START_XVFB" = "xtrue" ]; then
+    run_xvfb
+fi

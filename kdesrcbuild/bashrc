@@ -21,6 +21,7 @@ export QT_PLUGIN_PATH=$KDEDIR/lib64/plugins:$KDEDIR/lib64/kde4/plugins
 export QML2_IMPORT_PATH=$KDEDIR/lib64/qml/
 export QML_IMPORT_PATH=$QML2_IMPORT_PATH
 export QML_INSTALL_PATH=/work/install/lib64/qml
+export CPATH=$KDEDIR/include/
 
 function run_xvfb ()
 {

@@ -32,6 +32,12 @@ RUN yum -y install kf5-kpackage-devel
 #icecream
 RUN yum -y install icecream
 
+#autotools
+RUN yum -y install autoconf libtool
+
+#pep
+RUN yum -y install sqlite-devel
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt

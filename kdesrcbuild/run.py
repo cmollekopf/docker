@@ -5,6 +5,7 @@ import subprocess
 import settings
 import dockerutils
 import argparse
+import os
 from x11support import X11Support
 
 from . import BASEPATH
@@ -25,32 +26,42 @@ def setupSubparser(parser):
 def main(command, environment, commandargs, options):
     distro = ""
     if (options.distro != "fedora"):
-	distro = "debian/"
+        distro = "debian/"
     runargs = [ "-ti",
         "--rm",
         "--privileged",
         "-v", "~/kdebuild/{}{}:/work".format(distro, environment),
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
-        "-v", "{}/build-de.sh:/home/developer/build-de.sh".format(BASEPATH),
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
         "-e", "START_ICECREAM={}".format(str(options.icecream).lower()),
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
-    ]
+        ]
+    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{distro}{environment}\//g'".format(distro=distro, environment=environment)
+
     if options.x11forward:
 	    x11 = X11Support()
 	    x11.setupX11Authorization()
 	    runargs.extend(x11.docker_args())
+
     image="{}-kdedev".format(options.distro)
     if (options.distro == "debian" and environment == "kf5"):
         image = "debian-kf5dev"
-    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{distro}{environment}\//g'".format(distro=distro, environment=environment)
+
     if command == "shell":
-	runargs.append(image)
-	runargs.extend(["-c","bash"])
-	args = ["docker","run"]
-	args.extend(runargs)
+        runargs.append(image)
+        runargs.extend(["-c","bash"])
+        args = ["docker","run"]
+        args.extend(runargs)
         subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)
+    elif command == "build":
+        args = ()
+        #Create the root dir so it is created with the correct rights
+        subprocess.call("mkdir -p ~/kdebuild/{}{}".format(distro, environment), shell=True)
+        project = commandargs[0]
+        runargs.extend(["-v", "{basepath}/{environment}/build-{project}.sh:/home/developer/build-{project}.sh".format(basepath=BASEPATH, environment=environment, project=project)])
+        command = "/home/developer/build-{project}.sh".format(project=project)
+        subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, translatePathsToHost=translatePathsToHost), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     elif command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
@@ -62,7 +73,10 @@ def main(command, environment, commandargs, options):
     else:
         project = command
         print("Installing {}".format(project))
-        args = ("-w", "/work/build/{project}".format(project=project))
+        if os.path.isabs(project):
+            args = ("-w", "{project}".format(project=project))
+        else:
+            args = ("-w", "/work/build/{project}".format(project=project))
         command = " ".join(commandargs)
         subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, translatePathsToHost=translatePathsToHost), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
 

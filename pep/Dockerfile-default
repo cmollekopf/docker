@@ -1,0 +1,6 @@
+FROM pep:latest
+
+ADD pep/.gnupg /home/developer/.gnupg
+#System db was manually built using "make db" in pEpEngine/db
+ADD pep/system.db /usr/local/share/pEp/system.db
+RUN sudo chown developer:developer /home/developer/.gnupg -R

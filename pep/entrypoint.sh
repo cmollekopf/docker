@@ -1,0 +1,1 @@
+gpg-agent --daemon --sh

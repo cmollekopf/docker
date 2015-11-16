@@ -6,6 +6,7 @@ HOSTNAME = "kolab1.example.org"
 LDAPPW = "test"
 TIMEZONE = "Europe/Brussels"
 KDEROOT = os.path.expanduser('~') + '/kdebuild/kdepim/install'
+ROOT = os.path.expanduser('~') + '/kdebuild'
 REPOSITORY = "kolab/kolabtestcontainer"
 
 def kolabimagename(name):

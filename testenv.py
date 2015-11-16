@@ -8,6 +8,7 @@ import kolab
 import kolabpopulated
 import kontact
 import kdesrcbuild
+import pep
 
 import settings
 import dockerutils
@@ -42,6 +43,8 @@ def build(options):
         # buildImage("kontact", "john", False, lambda: kontact.build.main("john"))
         kontact.build.main("john")
         kontact.build.main("jane")
+    if options.target == "pep" or options.target == "all":
+        pep.build.main()
     if options.target == "kdesrcbuild" or options.target == "all":
         kdesrcbuild.build.srcbuild(options)
 
@@ -54,12 +57,17 @@ def start(options):
     else:
         print("start " + dataset + " " + clientconfigset)
 
-    cname = "{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset))
-    started = dockerutils.findContainer(cname) != ""
-    container = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
-    if not standalone:
+    container = None
+    started = False
+    if dataset:
+        cname = "{}:{}".format(settings.REPOSITORY, settings.populatedTag(dataset))
+        started = dockerutils.findContainer(cname) == ""
+        container = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
+    if clientconfigset == "pep":
+        pep.run.main()
+    elif not standalone:
         kontact.run.main(container, clientconfigset)
-        if not started:
+        if started:
             sh.docker.kill(container)
             sh.docker.rm(container)
 
@@ -73,7 +81,7 @@ def main():
     parser = argparse.ArgumentParser(usage)
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
-    parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild", "all"], help = "image to build")
+    parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild", "pep", "all"], help = "image to build")
     parser_build.add_argument("dataset", choices=["set1"], nargs="?", default=None, help = "dataset to use")
     parser_build.set_defaults(func=build)
 

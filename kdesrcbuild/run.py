@@ -17,7 +17,7 @@ def setupSubparser(parser):
     parser.add_argument("--icecream", action='store_true', help = "use icecream for compiling")
     parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
     parser.add_argument("--xvfb", action='store_true', help = "start xvfb with start")
-    parser.add_argument("--distro", default="fedora", help = "distro to use")
+    parser.add_argument("--buildenv", default="fedora-kde", help = "distro to use")
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser). Is used for the project in case of arbitray command.")
     parser.add_argument('args', nargs=argparse.REMAINDER)
@@ -44,9 +44,7 @@ def main(command, environment, commandargs, options):
 	    x11.setupX11Authorization()
 	    runargs.extend(x11.docker_args())
 
-    image="{}-kdedev".format(options.distro)
-    if (options.distro == "debian" and environment == "kf5"):
-        image = "debian-kf5dev"
+    image="{}dev".format(options.buildenv)
 
     if command == "shell":
         runargs.append(image)

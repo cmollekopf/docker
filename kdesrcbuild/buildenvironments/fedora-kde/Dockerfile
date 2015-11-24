@@ -38,6 +38,9 @@ RUN yum -y install autoconf libtool
 #pep
 RUN yum -y install sqlite-devel
 
+#libkolabxml
+RUN yum -y install xerces-c-devel
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt

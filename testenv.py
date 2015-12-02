@@ -39,14 +39,13 @@ def build(options):
         print("build " + options.dataset + " " + options.target)
         buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
         buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
-    if options.target == "client" or options.target == "all":
-        # buildImage("kontact", "john", False, lambda: kontact.build.main("john"))
-        kontact.build.main("john")
-        kontact.build.main("jane")
     if options.target == "pep" or options.target == "all":
         pep.build.main()
     if options.target == "kdesrcbuild" or options.target == "all":
         kdesrcbuild.build.srcbuild(options)
+
+def buildClient(options):
+    kontact.build.main(options.dataset)
 
 def start(options):
     dataset = options.dataset
@@ -81,9 +80,6 @@ def main():
     parser = argparse.ArgumentParser(usage)
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
-    # parser_build.add_argument("target", choices=["server", "client", "kdesrcbuild", "pep", "all"], help = "image to build")
-    # parser_build.add_argument("dataset", choices=["set1"], nargs="?", default=None, help = "dataset to use")
-    # parser_build.set_defaults(func=build)
 
     buildsubparsers = parser_build.add_subparsers(help='build variants')
     parser_build_all = buildsubparsers.add_parser('server', help = "build server")
@@ -91,8 +87,8 @@ def main():
     parser_build_all.set_defaults(func=build)
 
     parser_build_client = buildsubparsers.add_parser('client', help = "build client")
-    parser_build_client.add_argument("dataset", choices=["set1"], nargs="?", default="set1", help = "dataset to use")
-    parser_build_client.set_defaults(func=build)
+    parser_build_client.add_argument("dataset", choices=["john", "jane"], help = "dataset to use")
+    parser_build_client.set_defaults(func=buildClient)
 
     parser_build_srcbuild = buildsubparsers.add_parser('kdesrcbuild', help = "create a sourcebuild")
     kdesrcbuild.build.setupSubparser(parser_build_srcbuild)

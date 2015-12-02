@@ -1,8 +1,7 @@
-FROM fedora:21
+FROM fedora:22
 
-RUN yum install -y kdelibs-webkit prison qjson libical xapian-core boost-program-options dbus-x11 grantlee xorg-x11-font* mariadb-server qt-mysql kde-runtime kde-style-oxygen
+RUN yum install -y kdelibs-webkit prison qjson libical xapian-core boost-program-options dbus-x11 grantlee xorg-x11-font* mariadb-server qt-mysql kde-runtime
 RUN yum install -y mesa-dri-drivers xorg-x11-drv-intel
-RUN yum install -y oxygen-icon-theme oxygen-mono-fonts oxygen-sans-font
 RUN yum install -y xerces-c boost
 RUN yum install -y kwallet
 RUN yum install -y sudo

@@ -1,11 +1,11 @@
-FROM fedora:21
+FROM fedora:22
 
 RUN yum -y update
 #System deps
 RUN yum -y update
 RUN yum -y install sudo yum-utils
 RUN yum -y install gcc-c++ git doxygen cmake bzr vim tar
-RUN yum -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel strigi-devel qjson-devel libcurl-devel xsd xerces xapian-core-devel kdelibs-devel
+RUN yum -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel strigi-devel qjson-devel libcurl-devel xsd xerces-c xapian-core-devel kdelibs-devel
 #kdesrcbuild deps
 RUN yum -y install sudo perl-libwww-perl perl-JSON perl-XML-Parser
 #up until kdelibs

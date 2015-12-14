@@ -29,6 +29,7 @@ RUN echo "mysql-server-5.5 mysql-server-5.5/start_on_boot boolean true" | debcon
   apt-get update && apt-get -y install \
     acl \
     dbus-x11 \
+    git \
     kontact \
     kwalletcli \
     mysql-server \
@@ -40,10 +41,23 @@ RUN echo "mysql-server-5.5 mysql-server-5.5/start_on_boot boolean true" | debcon
 RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 
 RUN useradd -d /home/developer -m developer
+RUN mkdir /work
+RUN chown -R developer:developer /work
 USER developer
+
+RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
+    git config --global url."ssh://git@git.kde.org/".pushInsteadOf kde: && \
+    git config --global url."https://git.kolab.org/diffusion/".insteadOf kolab: && \
+    git config --global url."ssh://git@git.kolab.org/diffusion/".pushInsteadOf kolab: && \
+    git config --global url."https://github.com/".insteadOf github: && \
+    git config --global url."git@github.com:".pushInsteadOf github: && \
+    git config --global user.email "developer@example.com" && \
+    git config --global user.name "Developer"
+
 ENV HOME /home/developer
 WORKDIR /home/developer/
 ENV DISPLAY :0
 ENV LANG "de_DE.Utf-8"
 
+VOLUME /work
 ENTRYPOINT ["/bin/bash"]

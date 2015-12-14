@@ -13,7 +13,8 @@ def main(x11forward):
     runargs = [ "-ti",
         "--rm",
         "--privileged",
-        "-v", "/home/hefee/kolab/initalsync:/home/developer/initalsync".format(BASEPATH),
+        "-v", "~/kdebuild/automatedupdate:/work",
+	"-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
     ]
     if x11forward:
 	    x11 = X11Support()

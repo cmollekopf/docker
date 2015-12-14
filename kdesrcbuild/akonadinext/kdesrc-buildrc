@@ -29,7 +29,7 @@ module akonadinext
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # custom-build-command ninja-build
-    repository kde:scratch/aseigo/akonadinext
+    repository kde:akonadi-next
     branch develop
 end module
 

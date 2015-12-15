@@ -32,6 +32,7 @@ RUN echo "mysql-server-5.5 mysql-server-5.5/start_on_boot boolean true" | debcon
     git \
     kontact \
     kwalletcli \
+    libicu48 \
     mysql-server \
     sudo \
     python-gobject \

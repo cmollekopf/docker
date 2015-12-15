@@ -23,7 +23,7 @@ def main(x11forward, server):
 	    x11 = X11Support()
 	    x11.setupX11Authorization()
 	    runargs.extend(x11.docker_args())
-    image="kolabclient:presice"
+    image="kolabclient/presice"
     runargs.append(image)
     runargs.extend(["-c","bash"])
     args = ["docker","run"]

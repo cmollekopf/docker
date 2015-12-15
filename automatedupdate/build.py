@@ -9,7 +9,7 @@ from settings import config
 import settings
 
 def main():
-    containername="kolabclient:presice"
+    containername="kolabclient/presice"
 
     print("Building kolabclient for Ubuntu 12.04...")
     docker.build("-t", containername, "{c.SCRIPT_DIR}/ubuntu/precise/.".format(c=config), _out=sys.stdout)

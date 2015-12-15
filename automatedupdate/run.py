@@ -9,10 +9,13 @@ from x11support import X11Support
 
 from automatedupdate import BASEPATH
 
-def main(x11forward):
+def main(x11forward, server):
+    kolabcontainer = dockerutils.findContainer(server)
+
     runargs = [ "-ti",
         "--rm",
         "--privileged",
+        "--link", "{}:kolab".format(kolabcontainer),
         "-v", "~/kdebuild/automatedupdate:/work",
 	"-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
     ]
@@ -28,4 +31,4 @@ def main(x11forward):
     subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)
 
 if __name__ == "__main__":
-	main(True)
+	main(True, "kolab/kolabtestcontainer:populated-set1")

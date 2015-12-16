@@ -9,6 +9,7 @@ import kolabpopulated
 import kontact
 import kdesrcbuild
 import pep
+import kube
 
 import settings
 import dockerutils
@@ -30,22 +31,23 @@ def startContainer(name, runner):
     print("Container is ready: {} {}".format(name, container))
     return container
 
-def build(options):
-    if (options.target == "server" or options.target == "all") and options.dataset is None:
-        Exception("needs a dataset to build")
-    else:
-        print("build " + options.target)
-    if options.target == "server":
-        print("build " + options.dataset + " " + options.target)
-        buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
-        buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
-    if options.target == "pep" or options.target == "all":
-        pep.build.main()
-    if options.target == "kdesrcbuild" or options.target == "all":
-        kdesrcbuild.build.srcbuild(options)
-
 def buildClient(options):
     kontact.build.main(options.dataset)
+
+def buildKube(options):
+    kube.build.main()
+
+def buildPep(options):
+    pep.build.main()
+
+def buildServer(options):
+    if options.dataset is None:
+        Exception("needs a dataset to build")
+    buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
+    buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
+
+def buildKdesrcbuild(options):
+    kdesrcbuild.build.srcbuild(options)
 
 def start(options):
     dataset = options.dataset
@@ -64,6 +66,8 @@ def start(options):
         container = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
     if clientconfigset == "pep":
         pep.run.main()
+    if clientconfigset == "kube":
+        kube.run.main()
     elif not standalone:
         kontact.run.main(container, clientconfigset)
         if started:
@@ -82,9 +86,16 @@ def main():
     parser_build = subparsers.add_parser('build', help = "build a docker image")
 
     buildsubparsers = parser_build.add_subparsers(help='build variants')
-    parser_build_all = buildsubparsers.add_parser('server', help = "build server")
-    parser_build_all.add_argument("dataset", choices=["set1"], nargs="?", default="set1", help = "dataset to use")
-    parser_build_all.set_defaults(func=build)
+
+    parser_build_server = buildsubparsers.add_parser('server', help = "build server")
+    parser_build_server.add_argument("dataset", choices=["set1"], nargs="?", default="set1", help = "dataset to use")
+    parser_build_server.set_defaults(func=buildServer)
+
+    parser_build_kube = buildsubparsers.add_parser('kube', help = "build kube test env")
+    parser_build_kube.set_defaults(func=buildKube)
+
+    parser_build_pep = buildsubparsers.add_parser('pep', help = "build pep test env")
+    parser_build_pep.set_defaults(func=buildPep)
 
     parser_build_client = buildsubparsers.add_parser('client', help = "build client")
     parser_build_client.add_argument("dataset", choices=["john", "jane"], help = "dataset to use")
@@ -92,16 +103,14 @@ def main():
 
     parser_build_srcbuild = buildsubparsers.add_parser('kdesrcbuild', help = "create a sourcebuild")
     kdesrcbuild.build.setupSubparser(parser_build_srcbuild)
+    parser_build_client.set_defaults(func=buildKdesrcbuild)
 
-    parser_build_all = buildsubparsers.add_parser('all', help = "build everything")
-    parser_build_all.add_argument("dataset", choices=["set1"], nargs="?", default="set1", help = "dataset to use")
     parser.add_argument("--distro", default="fedora", help = "distro to build")
     parser.add_argument("--env", default="kde",  help = "environment to build")
-    parser_build_all.set_defaults(func=build)
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")
     parser_start.add_argument("dataset", choices=["set1", ""], help = "server dataset to use")
-    parser_start.add_argument("clientconfigset", choices=["john", "jane", "pep"], nargs="?", default=None, help = "clientconfigset to use")
+    parser_start.add_argument("clientconfigset", choices=["john", "jane", "pep", "kube"], nargs="?", default=None, help = "clientconfigset to use")
     parser_start.set_defaults(func=start)
 
     parser_shell = subparsers.add_parser('shell', help = "get a shell in a running docker environment")

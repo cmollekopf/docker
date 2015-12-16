@@ -25,6 +25,11 @@ module kasync
     branch master
 end module
 
+module kmime
+    repository kde:kmime
+    branch master
+end module
+
 module akonadinext
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++

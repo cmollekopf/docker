@@ -29,6 +29,9 @@ RUN yum -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx1
 #Kontact Quick
 RUN yum -y install kf5-kpackage-devel
 
+#kmime
+RUN yum -y install kf5-ki18n-devel kf5-kcodecs-devel
+
 #icecream
 RUN yum -y install icecream
 

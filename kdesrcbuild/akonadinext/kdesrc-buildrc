@@ -19,6 +19,11 @@ module flatbuffers
     branch master
 end module
 
+module extra-cmake-modules
+    repository kde:extra-cmake-modules
+    branch master
+end module
+
 module kasync
     cmake-options -DWITH_KJOB=OFF
     repository kde:kasync
@@ -29,6 +34,41 @@ module kmime
     repository kde:kmime
     branch master
 end module
+
+module gpgmepp
+    repository kde:gpgmepp
+    branch master
+end module
+
+module kconfig
+    repository kde:kconfig
+    branch master
+end module
+
+module kcodecs
+    repository kde:kcodecs
+    branch master
+end module
+
+module ki18n
+    repository kde:ki18n
+    branch master
+end module
+
+module kcoreaddons
+    repository kde:kcoreaddons
+    branch master
+end module
+
+module libkleo
+    repository kde:libkleo
+    branch master
+end module
+
+# module messagelib
+#     repository kde:messagelib
+#     branch master
+# end module
 
 module akonadinext
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++

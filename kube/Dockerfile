@@ -32,6 +32,7 @@ RUN yum -y install qt5-qtdeclarative-devel
 RUN yum -y install qt5-qtquickcontrols
 RUN yum -y install kf5-plasma
 RUN yum -y install oxygen-icon-theme
+RUN yum -y install gamin
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

@@ -1,0 +1,4 @@
+cd /work
+if [ ! -d initalsync ]; then
+    git clone github:hefee/akonadi-initalsync.git
+fi

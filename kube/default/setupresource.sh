@@ -1,2 +1,2 @@
-akonadi2_client create resource org.kde.maildir.instance1 org.kde.maildir path /home/developer/maildir1
-akonadi2_client synchronize org.kde.maildir.instance1
+akonadish create resource identifier org.kde.maildir.instance1 type org.kde.maildir path /home/developer/maildir1
+akonadish sync org.kde.maildir.instance1

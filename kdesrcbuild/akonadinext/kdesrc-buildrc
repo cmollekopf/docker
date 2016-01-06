@@ -42,5 +42,5 @@ end module
 module kontact-quick
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     repository kde:kontact-quick
-    branch master
+    branch develop
 end module

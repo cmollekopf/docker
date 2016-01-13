@@ -31,8 +31,8 @@ def main(command, environment, commandargs, options):
         "--rm",
         "--privileged",
         "-v", "~/kdebuild/{}{}:/work".format(distro, environment),
-        "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
+        "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
         "-e", "START_ICECREAM={}".format(str(options.icecream).lower()),
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
@@ -43,6 +43,12 @@ def main(command, environment, commandargs, options):
 	    x11 = X11Support()
 	    x11.setupX11Authorization()
 	    runargs.extend(x11.docker_args())
+
+    # Mount all files from the environment into the container
+    path = "{}/{}".format(BASEPATH, environment)
+    for (dirpath, dirnames, filenames) in os.walk(path):
+        for fn in filenames:
+            runargs.extend(["-v", "{}:/home/developer/{}".format(os.path.join(dirpath,fn), fn)])
 
     image="{}dev".format(options.buildenv)
 

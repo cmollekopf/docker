@@ -19,11 +19,26 @@ module flatbuffers
     branch master
 end module
 
+module extra-cmake-modules
+    repository kde:extra-cmake-modules
+    branch master
+end module
+
 module kasync
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     cmake-options -DWITH_KJOB=OFF
     repository kde:kasync
     branch dev/returnjob
+end module
+
+module kcodecs
+    repository kde:kcodecs
+    branch master
+end module
+
+module ki18n
+    repository kde:ki18n
+    branch master
 end module
 
 module kmime

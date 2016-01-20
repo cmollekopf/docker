@@ -10,6 +10,7 @@ import kontact
 import kdesrcbuild
 import pep
 import kube
+import kubestandalone
 
 import settings
 import dockerutils
@@ -36,6 +37,9 @@ def buildClient(options):
 
 def buildKube(options):
     kube.build.main()
+
+def buildKubestandalone(options):
+    kubestandalone.build.main()
 
 def buildPep(options):
     pep.build.main()
@@ -68,6 +72,8 @@ def start(options):
         pep.run.main()
     if clientconfigset == "kube":
         kube.run.main()
+    if clientconfigset == "kubestandalone":
+        kubestandalone.run.main()
     elif not standalone:
         kontact.run.main(container, clientconfigset)
         if started:
@@ -94,6 +100,9 @@ def main():
     parser_build_kube = buildsubparsers.add_parser('kube', help = "build kube test env")
     parser_build_kube.set_defaults(func=buildKube)
 
+    parser_build_kube = buildsubparsers.add_parser('kubestandalone', help = "build kube test env")
+    parser_build_kube.set_defaults(func=buildKubestandalone)
+
     parser_build_pep = buildsubparsers.add_parser('pep', help = "build pep test env")
     parser_build_pep.set_defaults(func=buildPep)
 
@@ -110,7 +119,7 @@ def main():
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")
     parser_start.add_argument("dataset", choices=["set1", ""], help = "server dataset to use")
-    parser_start.add_argument("clientconfigset", choices=["john", "jane", "pep", "kube"], nargs="?", default=None, help = "clientconfigset to use")
+    parser_start.add_argument("clientconfigset", choices=["john", "jane", "pep", "kube", "kubestandalone"], nargs="?", default=None, help = "clientconfigset to use")
     parser_start.set_defaults(func=start)
 
     parser_shell = subparsers.add_parser('shell', help = "get a shell in a running docker environment")

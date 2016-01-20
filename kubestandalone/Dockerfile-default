@@ -1,0 +1,7 @@
+FROM kubestandalone:kdesrcbuild
+
+ADD default/maildir1 /home/developer/maildir1
+RUN sudo chown developer:developer /home/developer/maildir1 -R
+ADD default/setupresource.sh /home/developer/setupresource.sh
+ADD default/kube.sh /home/developer/kube.sh
+RUN sudo chmod +x /home/developer/setupresource.sh

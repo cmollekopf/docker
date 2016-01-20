@@ -1,0 +1,66 @@
+# See the kdesrc-buildrc-sample for explanations of what the options do, or
+# view the manpage or kdesrc-build documentation at
+# http://kdesrc-build.kde.org/documentation/
+global
+    qtdir /usr
+
+    source-dir /work/source
+    build-dir /work/build
+    kdedir /work/install
+
+    cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=return-type
+    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debugfull 
+
+    stop-on-failure true
+end global
+
+module flatbuffers
+    repository https://github.com/google/flatbuffers.git
+    branch master
+end module
+
+module extra-cmake-modules
+    repository kde:extra-cmake-modules
+    branch master
+end module
+
+module kasync
+    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    cmake-options -DWITH_KJOB=OFF
+    repository kde:kasync
+    branch dev/returnjob
+end module
+
+module kcodecs
+    repository kde:kcodecs
+    branch master
+end module
+
+module kconfig
+    repository kde:kconfig
+    branch master
+end module
+
+module ki18n
+    repository kde:ki18n
+    branch master
+end module
+
+module kmime
+    repository kde:kmime
+    branch master
+end module
+
+module akonadinext
+    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    # custom-build-command ninja-build
+    repository kde:akonadi-next
+    branch develop
+end module
+
+module kontact-quick
+    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    repository kde:kontact-quick
+    branch develop
+end module

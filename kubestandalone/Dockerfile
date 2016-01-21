@@ -1,10 +1,8 @@
 FROM fedora:22
 
-RUN yum install -y xerces-c boost
+RUN yum install -y boost
 RUN yum install -y sudo
-RUN yum install -y cyrus-sasl cyrus-sasl-plain
-RUN yum install -y gtk2
-RUN yum install -y qt-common vim
+RUN yum install -y vim
 RUN yum install -y libnotify libxdg-basedir
 RUN yum install -y mesa-dri-drivers xorg-x11-drv-intel
 
@@ -47,7 +45,7 @@ ADD entrypoint.sh /home/developer/entrypoint.sh
 ADD bashrc /home/developer/.bashrc
 
 #Fix ping
-RUN sudo setcap cap_net_raw+ep /usr/bin/ping
+# RUN sudo setcap cap_net_raw+ep /usr/bin/ping
 
 RUN sudo rm /etc/localtime && sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 

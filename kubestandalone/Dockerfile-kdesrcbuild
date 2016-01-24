@@ -51,6 +51,9 @@ RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
 RUN sudo mkdir /work && sudo chown developer:developer /work
 ADD kdesrc-buildrc /home/developer/.kdesrc-buildrc
 
+RUN sudo yum -y install libxml2-devel libxslt-devel docbook-style-xsl
 RUN /home/developer/kdesrc-build/kdesrc-build
+
+
 # Save some space
 RUN rm -Rf /work/build/*

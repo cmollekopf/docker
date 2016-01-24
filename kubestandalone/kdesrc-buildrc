@@ -36,19 +36,84 @@ module kcodecs
     branch master
 end module
 
-module kconfig
-    repository kde:kconfig
-    branch master
-end module
-
 module ki18n
     repository kde:ki18n
     branch master
 end module
 
-module kmime
+module kmime #For Sink and libotp
     repository kde:kmime
     branch master
+end module
+
+module KArchive #For KDocTools
+    repository kde:karchive
+    branch master
+end module
+
+module KDocTools #For KConfigWidgets
+    repository kde:kdoctools
+    branch master
+end module
+
+module KWidgetsAddons #For KConfigWidgets
+    repository kde:kwidgetsaddons
+    branch master
+end module
+
+module KGuiAddons #For KConfigWidgets
+    repository kde:kguiaddons
+    branch master
+end module
+
+module KCoreAddons #For KAuth
+    repository kde:kcoreaddons
+    branch master
+end module
+
+module KAuth #For KConfigWidgets
+    repository kde:kauth
+    branch master
+end module
+
+module KConfig #For KConfigWidgets
+    repository kde:kconfig
+    branch master
+end module
+
+module KConfigWidgets #For KIconThemes
+    repository kde:kconfigwidgets
+    branch master
+end module
+
+module KItemViews #For KIconThemes
+    repository kde:kitemviews
+    branch master
+end module
+
+module kiconthemes #For libotp
+    repository kde:kiconthemes
+    branch master
+end module
+
+module kpackage #For Kube
+    repository kde:kpackage
+    branch master
+end module
+
+module gpgmepp #For libkleo
+    repository kde:gpgmepp
+    branch master
+end module
+
+module libkleo #For libotp
+    repository kde:clones/libkleo/cmollekopf/libkleo.git
+    branch dev/minimalbuild
+end module
+
+module libotp #For Kube
+    repository kde:clones/messagelib/knauss/libotp.git
+    branch dev/libotp
 end module
 
 module akonadinext

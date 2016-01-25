@@ -16,3 +16,33 @@ end global
 
 include kdesrc-build/kf5-frameworks-build-include
 include kdesrc-build/kf5-kdepim-build-include
+
+module flatbuffers
+    repository https://github.com/google/flatbuffers.git
+    branch master
+end module
+
+module kasync
+    cmake-options -DWITH_KJOB=OFF
+    repository kde:kasync
+    branch master
+end module
+
+module kmime
+    repository kde:kmime
+    branch master
+end module
+
+module akonadinext
+    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    # custom-build-command ninja-build
+    repository kde:akonadi-next
+    branch develop
+end module
+
+module kontact-quick
+    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
+    repository kde:kontact-quick
+    branch feature/components
+end module

@@ -10,7 +10,7 @@ def srcbuild(options):
         main(buildenvironment)
 
 def setupSubparser(parser):
-    parser.add_argument("buildenvironment", choices=["fedora-kde", "debian-kde", "debian-kf5", "fedora-libkolabkf5"], nargs="+", help = "buildenvironment to build")
+    parser.add_argument("buildenvironment", choices=["fedora-kde", "debian-kde", "debian-kf5", "fedora-libkolabkf5", "fedora-kube"], nargs="+", help = "buildenvironment to build")
     parser.set_defaults(func=srcbuild)
 
 def main(buildenvironment):

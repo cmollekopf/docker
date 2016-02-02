@@ -9,7 +9,7 @@ global
     kdedir /work/install
 
     cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=return-type
-    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debugfull 
+    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debugfull
 
     stop-on-failure true
 end global
@@ -28,7 +28,7 @@ module kasync
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     cmake-options -DWITH_KJOB=OFF
     repository kde:kasync
-    branch dev/returnjob
+    branch master
 end module
 
 module kcodecs
@@ -116,15 +116,14 @@ module libotp #For Kube
     branch dev/libotp
 end module
 
-module "sink"
+module Sink
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # custom-build-command ninja-build
     repository kde:sink
     branch develop
 end module
 
-module kube
+module Kube
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     repository kde:kube
     branch develop

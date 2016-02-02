@@ -52,3 +52,10 @@ Using any build environment will result in the following folder hierarchy in you
 ~/kdebuild/kube/install/*
 ```
 It is therefore only possible at the moment to build using one buildenvironment at a time (we can change that should it become necessary).
+
+# Preparing a buildenvironment
+
+To build the fedora-kube buildenvironment
+```
+./testenv.py build kdesrcbuild fedora-kube
+```

@@ -1,34 +1,36 @@
 FROM fedora:22
 
-RUN yum -y update
+RUN dnf -y update
 
-RUN yum -y install sudo yum-utils
-RUN yum -y install gcc-c++ git doxygen cmake bzr vim tar ninja-build clang
+RUN dnf -y install gcc-c++ git doxygen cmake bzr vim tar ninja-build clang
 
 #kdesrcbuild deps
-RUN yum -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
+RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
 
 #PIM deps
-RUN yum -y install boost-devel sqlite prison-devel openldap-devel libical-devel libical-devel gpgme-devel
+RUN dnf -y install boost-devel sqlite prison-devel openldap-devel libical-devel libical-devel gpgme-devel
 
 #Sink deps
-RUN yum -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel
-RUN yum -y install xterm
+RUN dnf -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel
+RUN dnf -y install xterm
 
 #Test debugging
-RUN yum -y install gdb xterm
+RUN dnf -y install gdb xterm
 
 #Frameworks
-RUN yum -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
+RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
 #Kube
-RUN yum -y install kf5-kpackage-devel
+RUN dnf -y install kf5-kpackage-devel
 
 #kmime
-RUN yum -y install kf5-ki18n-devel kf5-kcodecs-devel
+RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel
+
+#KDocTools
+RUN sudo dnf -y install libxml2-devel libxslt-devel docbook-style-xsl
 
 # Support
-RUN yum -y install icecream
+RUN dnf -y install icecream
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

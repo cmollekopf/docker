@@ -17,27 +17,37 @@ def setupSubparser(parser):
     parser.add_argument("--icecream", action='store_true', help = "use icecream for compiling")
     parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
     parser.add_argument("--xvfb", action='store_true', help = "start xvfb with start")
-    parser.add_argument("--buildenv", default="fedora-kde", help = "distro to use")
+    parser.add_argument("--buildenv", help = "build environment to use (found in kdesrcbuild/buildenvironments/*)")
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser). Is used for the project in case of arbitray command.")
     parser.add_argument('args', nargs=argparse.REMAINDER)
     parser.set_defaults(func=srcbuild)
 
 def main(command, environment, commandargs, options):
-    distro = ""
-    if (options.distro != "fedora"):
-        distro = "debian/"
+    # The default buildenvironment for an environment
+    defaultBuildenv = {'default': 'fedora-kde',
+                       'kube': 'fedora-kube'}
+
+    # Get the build environment for the environment
+    if options.buildenv:
+        buildenv = options.buildenv
+    else:
+        if environment in defaultBuildenv:
+            buildenv = defaultBuildenv[environment]
+        else:
+            buildenv = defaultBuildenv['default']
+
     runargs = [ "-ti",
         "--rm",
         "--privileged",
-        "-v", "~/kdebuild/{}{}:/work".format(distro, environment),
+        "-v", "~/kdebuild/{}:/work".format(environment),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
         "-e", "START_ICECREAM={}".format(str(options.icecream).lower()),
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
         ]
-    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{distro}{environment}\//g'".format(distro=distro, environment=environment)
+    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment)
 
     if options.x11forward:
 	    x11 = X11Support()
@@ -50,18 +60,18 @@ def main(command, environment, commandargs, options):
         for fn in filenames:
             runargs.extend(["-v", "{}:/home/developer/{}".format(os.path.join(dirpath,fn), fn)])
 
-    image="{}dev".format(options.buildenv)
+    image="{}dev".format(buildenv)
 
     if command == "shell":
         runargs.append(image)
-        runargs.extend(["-c","bash"])
+        runargs.extend(["-t", "-c","bash"])
         args = ["docker","run"]
         args.extend(runargs)
         subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)
     elif command == "build":
         args = ()
         #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p ~/kdebuild/{}{}".format(distro, environment), shell=True)
+        subprocess.call("mkdir -p ~/kdebuild/{}".format(environment), shell=True)
         project = commandargs[0]
         runargs.extend(["-v", "{basepath}/{environment}/build-{project}.sh:/home/developer/build-{project}.sh".format(basepath=BASEPATH, environment=environment, project=project)])
         command = "/home/developer/build-{project}.sh".format(project=project)
@@ -69,7 +79,7 @@ def main(command, environment, commandargs, options):
     elif command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p ~/kdebuild/{}{}".format(distro, environment), shell=True)
+        subprocess.call("mkdir -p ~/kdebuild/{}".format(environment), shell=True)
         command = '/home/developer/kdesrc-build/kdesrc-build'
         if commandargs:
             command += ' ' + ' '.join(commandargs);

@@ -116,16 +116,16 @@ module libotp #For Kube
     branch dev/libotp
 end module
 
-module akonadinext
+module "sink"
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # custom-build-command ninja-build
-    repository kde:akonadi-next
+    repository kde:sink
     branch develop
 end module
 
-module kontact-quick
+module kube
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    repository kde:kontact-quick
+    repository kde:kube
     branch develop
 end module

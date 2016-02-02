@@ -42,7 +42,7 @@ RUN apt-get install -y libboost-program-options-dev qttools5-dev-tools liblmdb-d
 #for tests
 RUN apt-get install -y gpgsm xvfb oxygen-icon-theme
 
-#for akonadinext
+#for sink
 Run apt-get install -y clang libreadline-dev libgit2-dev
 
 RUN useradd -d /home/developer -m developer

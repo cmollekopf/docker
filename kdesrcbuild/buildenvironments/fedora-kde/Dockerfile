@@ -16,7 +16,7 @@ RUN yum -y install boost-devel sqlite prison-devel openldap-devel libical-devel 
 #Clang + Ninja
 RUN yum -y install ninja-build clang
 
-#AkonadiNext deps
+#Sink deps
 RUN yum -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel
 RUN yum -y install xterm
 
@@ -26,7 +26,7 @@ RUN yum -y install gdb
 #Frameworks
 RUN yum -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
-#Kontact Quick
+#Kube
 RUN yum -y install kf5-kpackage-devel
 
 #kmime

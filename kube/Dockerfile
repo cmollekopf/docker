@@ -8,7 +8,7 @@ RUN yum install -y qt-common vim
 RUN yum install -y libnotify libxdg-basedir
 RUN yum install -y mesa-dri-drivers xorg-x11-drv-intel
 
-#AkonadiNext deps
+#Sink deps
 RUN yum -y install qt5-qtbase libgit2 lmdb
 RUN yum -y install xterm
 

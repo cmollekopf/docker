@@ -15,13 +15,15 @@ export QTDIR KDEDIRS PATH MANPATH LD_LIBRARY_PATH
 
 export KDEDIR=/work/install
 export PATH=$KDEDIR/bin:$PATH
-export LD_LIBRARY_PATH=$KDEDIR/lib:$KDEDIR/lib64
+export LD_LIBRARY_PATH=$KDEDIR/lib:$KDEDIR/lib64:$KDEDIR/lib/x86_64-linux-gnu
 export PKG_CONFIG_PATH=$KDEDIR/lib/pkgconfig
-export QT_PLUGIN_PATH=$KDEDIR/lib64/plugins:$KDEDIR/lib64/kde4/plugins
-export QML2_IMPORT_PATH=$KDEDIR/lib64/qml/
+export QT_PLUGIN_PATH=$KDEDIR/lib64/plugins:$KDEDIR/lib/x86_64-linux-gnu/plugins:$KDEDIR/lib/x86_64-linux-gnu/kde4/plugins:$KDEDIR/lib64/kde4/plugins
+export QML2_IMPORT_PATH=$KDEDIR/lib64/qml/:$KDEDIR/lib/x86_64-linux-gnu/qml
 export QML_IMPORT_PATH=$QML2_IMPORT_PATH
-export QML_INSTALL_PATH=/work/install/lib64/qml
+export QML_INSTALL_PATH=$KDEDIR/lib64/qml:$KDEDIR/lib/x86_64-linux-gnu/qml
 export CPATH=$KDEDIR/include/
+export XDG_CONFIG_DIRS=$KDEDIR/share/config
+export XDG_DATA_DIRS=$KDEDIR/share/:/usr/share
 
 function run_xvfb ()
 {

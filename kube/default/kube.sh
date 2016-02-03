@@ -1,1 +1,1 @@
-qmlscene /work/source/kube/applications/kube-mail/package/contents/ui/main.qml
+qmlscene /work/source/Kube/applications/kube-mail/package/contents/ui/main.qml

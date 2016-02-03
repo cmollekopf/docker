@@ -55,4 +55,5 @@ RUN sudo dbus-uuidgen --ensure
 
 USER developer
 ENV HOME /home/developer
+WORKDIR /home/developer/
 CMD /bin/bash

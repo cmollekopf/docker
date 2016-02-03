@@ -8,6 +8,8 @@ import settings
 import dockerutils
 from x11support import X11Support
 
+from . import BASEPATH
+
 def main():
     containername="kube"
     configset="default"
@@ -20,6 +22,7 @@ def main():
         "--device", "/dev/dri/renderD128:/dev/dri/renderD128",
         "--device", "/dev/dri/controlD64:/dev/dri/controlD64",
         "-v", "{}/sink:/work".format(settings.ROOT),
+        "-v", "{}/testmails:/home/developer/maildir1/testmails".format(BASEPATH),
     ]
 
     x11 = X11Support()

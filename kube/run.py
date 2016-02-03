@@ -21,7 +21,7 @@ def main():
         "--device", "/dev/dri/card0:/dev/dri/card0",
         "--device", "/dev/dri/renderD128:/dev/dri/renderD128",
         "--device", "/dev/dri/controlD64:/dev/dri/controlD64",
-        "-v", "{}/sink:/work".format(settings.ROOT),
+        "-v", "{}/kube:/work".format(settings.ROOT),
         "-v", "{}/testmails:/home/developer/maildir1/testmails".format(BASEPATH),
     ]
 

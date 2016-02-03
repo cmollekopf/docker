@@ -9,7 +9,7 @@ RUN apt-get -y install libsm-dev libpcre3-dev
 RUN apt-get -y install xsltproc
 RUN apt-get -y install sudo
 
-RUN apt-get -y install qtbase5-dev qtbase5-dev-tools cmake doxygen
+RUN apt-get -y install qtbase5-dev qtbase5-dev-tools cmake doxygen libsqlite3-de libsqlite3-dev
 
 #kdepimlibs
 RUN apt-get -y install libgpgme11-dev libboost-graph-dev libsasl2-dev libqjson-dev libical-dev libldap2-dev
@@ -40,7 +40,7 @@ RUN apt-get install -y qt4-dev-tools libqt4-dev libdmtx-dev libqrencode-dev
 RUN apt-get install -y libboost-program-options-dev qttools5-dev-tools liblmdb-dev
 
 #for tests
-RUN apt-get install -y gpgsm xvfb oxygen-icon-theme
+RUN apt-get install -y gpgsm xvfb oxygen-icon-theme dbus-x11
 
 #for sink
 Run apt-get install -y clang libreadline-dev libgit2-dev

@@ -19,4 +19,7 @@ class X11Support():
            "-e", "XAUTHORITY={}".format(self.XAUTH),
            "-v", "{}:{}".format(self.XAUTH, self.XAUTH),
            "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
+	   "--device", "/dev/dri/card0:/dev/dri/card0",
+	   "--device", "/dev/dri/renderD128:/dev/dri/renderD128",
+	   "--device", "/dev/dri/controlD64:/dev/dri/controlD64",
        ]

@@ -1,49 +1,31 @@
 FROM debian:sid
 
-RUN echo "deb-src http://httpredir.debian.org/debian/ sid main non-free contrib" >> /etc/apt/sources.list
-RUN apt-get update
-RUN apt-get -y dist-upgrade
-RUN apt-get -y install git bzr
-RUN apt-get -y install libxml-perl libjson-perl
-RUN apt-get -y install libsm-dev libpcre3-dev
-RUN apt-get -y install xsltproc
-RUN apt-get -y install sudo
-
-RUN apt-get -y install qtbase5-dev qtbase5-dev-tools cmake doxygen libsqlite3-de libsqlite3-dev
-
-#kdepimlibs
-RUN apt-get -y install libgpgme11-dev libboost-graph-dev libsasl2-dev libqjson-dev libical-dev libldap2-dev
-
-#baloo
-RUN apt-get -y install libxapian-dev
-
-#libkolabxml
-RUN apt-get -y install libboost-thread-dev libboost-system-dev xsdcxx libxerces-c-dev libcurl4-openssl-dev
-
-#zanshin
-RUN apt-get -y install libboost-dev libboost-regex-dev
-
-RUN apt-get install -y qtscript5-dev gettext libqt5x11extras5-dev libxcb-keysyms1-dev libxrender-dev
-
-RUN apt-get install -y libxslt-dev docbook-xml docbook-xsl libxml2-utils
-RUN apt-get install -y libpolkit-agent-1-dev qttools5-dev
-
-RUN apt-get install -y libqt5svg5-dev libudev-dev libgcrypt11-dev
-RUN apt-get install -y qtdeclarative5-dev libepoxy-dev
-RUN apt-get install -y libqt5webkit5-dev libssl-dev libpng-dev libjpeg-dev libgif-dev
-
-RUN apt-get install -y libxcursor-dev ttf-oxygen-font-family qtbase5-private-dev libqt5xmlpatterns5-dev
-RUN apt-get install -y libvlc-dev libvlccore-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev network-manager-dev libnm-dev 
-RUN apt-get install -y libattr1-dev
-RUN apt-get install -y qt4-dev-tools libqt4-dev libdmtx-dev libqrencode-dev
-
-RUN apt-get install -y libboost-program-options-dev qttools5-dev-tools liblmdb-dev
-
-#for tests
-RUN apt-get install -y gpgsm xvfb oxygen-icon-theme dbus-x11
+RUN echo "deb http://httpredir.debian.org/debian/ sid main" > /etc/apt/sources.list
+RUN echo "deb-src http://httpredir.debian.org/debian/ sid main" >> /etc/apt/sources.list
+RUN apt-get update && apt-get -y install \
+    git bzr libxml-perl libjson-perl libsm-dev libpcre3-dev xsltproc sudo \
+    qtbase5-dev qtbase5-dev-tools cmake doxygen libsqlite3-dev \
+    libgpgme11-dev libboost-graph-dev libsasl2-dev libqjson-dev libical-dev libldap2-dev \
+    libxapian-dev \
+    libboost-thread-dev libboost-system-dev xsdcxx libxerces-c-dev libcurl4-openssl-dev \
+    libboost-dev libboost-regex-dev \
+    qtscript5-dev gettext libqt5x11extras5-dev libxcb-keysyms1-dev libxrender-dev \
+    libxslt-dev docbook-xml docbook-xsl libxml2-utils \
+    libpolkit-agent-1-dev qttools5-dev \
+    libqt5svg5-dev libudev-dev libgcrypt11-dev \
+    qtdeclarative5-dev libepoxy-dev \
+    libqt5webkit5-dev libssl-dev libpng-dev libjpeg-dev libgif-dev \
+    libxcursor-dev ttf-oxygen-font-family qtbase5-private-dev libqt5xmlpatterns5-dev \
+    libvlc-dev libvlccore-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev network-manager-dev libnm-dev \
+    libattr1-dev \
+    qt4-dev-tools libqt4-dev libdmtx-dev libqrencode-dev \
+    libboost-program-options-dev qttools5-dev-tools liblmdb-dev
 
 #for sink
 Run apt-get install -y clang libreadline-dev libgit2-dev
+
+#for tests
+RUN apt-get install -y gpgsm xvfb oxygen-icon-theme dbus-x11 vim
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

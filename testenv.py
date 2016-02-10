@@ -70,9 +70,9 @@ def start(options):
         container = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
     if clientconfigset == "pep":
         pep.run.main()
-    if clientconfigset == "kube":
+    elif clientconfigset == "kube":
         kube.run.main()
-    if clientconfigset == "kubestandalone":
+    elif clientconfigset == "kubestandalone":
         kubestandalone.run.main()
     elif not standalone:
         kontact.run.main(container, clientconfigset)

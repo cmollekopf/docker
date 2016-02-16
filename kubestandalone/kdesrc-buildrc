@@ -9,7 +9,7 @@ global
     kdedir /work/install
 
     cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=return-type
-    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debugfull
+    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debug
 
     stop-on-failure true
 end global

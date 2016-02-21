@@ -1,6 +1,20 @@
 FROM centos:7
 
-RUN yum -y install kolab-client
+RUN yum -y install epel-release
+RUN yum -y update
+RUN yum -y install wget sed sudo gpg
+
+RUN cd /etc/yum.repos.d/ && wget https://obs.kolabsys.com/repositories/Kontact:/4.13:/Git/CentOS_7/Kontact:4.13:Git.repo
+
+RUN for f in /etc/yum.repos.d/Kontact*.repo; do sed -i "s#enabled=1#enabled=1\\npriority=0#g" $f; done
+
+RUN gpg --keyserver keys.gnupg.net --recv-keys 446D5A45
+# RUN gpg --search devel@lists.kolab.org
+RUN gpg --export --armor devel@lists.kolab.org > devel.asc
+RUN rpm --import devel.asc
+
+RUN yum -y install kde-runtime
+RUN yum -y install kolab-desktop-client
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

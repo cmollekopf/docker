@@ -25,6 +25,18 @@ RUN dnf -y install kf5-kpackage-devel
 
 #kmime
 RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel
+#For KDocTools
+RUN dnf -y install kf5-karchive-devel
+#For KConfigWidgets
+RUN dnf -y install kf5-kdoctools-devel kf5-kwidgetsaddons-devel kf5-kguiaddons-devel
+#For KAuth
+RUN dnf -y install kf5-kcoreaddons-devel
+#For KConfigWidgets
+RUN dnf -y install kf5-kconfig-devel kf5-kauth-devel
+#For KIconThemes
+RUN dnf -y install kf5-kitemviews-devel kf5-kconfigwidgets-devel
+#For libotp
+RUN dnf -y install kf5-kiconthemes-devel
 
 #KDocTools
 RUN sudo dnf -y install libxml2-devel libxslt-devel docbook-style-xsl

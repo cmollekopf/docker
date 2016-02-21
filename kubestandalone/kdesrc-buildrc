@@ -112,6 +112,7 @@ module libkleo #For libotp
 end module
 
 module libotp #For Kube
+    cmake-options -DUSE_AKONADI=OFF
     repository kde:clones/messagelib/knauss/libotp.git
     branch dev/libotp
 end module

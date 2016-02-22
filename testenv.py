@@ -112,7 +112,7 @@ def main():
 
     parser_build_srcbuild = buildsubparsers.add_parser('kdesrcbuild', help = "create a sourcebuild")
     kdesrcbuild.build.setupSubparser(parser_build_srcbuild)
-    parser_build_client.set_defaults(func=buildKdesrcbuild)
+    parser_build_srcbuild.set_defaults(func=buildKdesrcbuild)
 
     parser.add_argument("--distro", default="fedora", help = "distro to build")
     parser.add_argument("--env", default="kde",  help = "environment to build")

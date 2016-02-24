@@ -21,7 +21,7 @@ RUN dnf -y install gdb xterm
 RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
 #Kube
-RUN dnf -y install kf5-kpackage-devel
+RUN dnf -y install kf5-kpackage-devel libcurl-devel
 
 #kmime
 RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel

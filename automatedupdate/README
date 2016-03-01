@@ -1,0 +1,44 @@
+# How to test run the initial sync
+
+(when I write ipython i mean ipython - the problem is that the normal python interpreter has problems with the inter-module import of f.ex. settings)
+
+ipython ./automatedupdate/build.py #build kolabclient/percise
+python testenv.py start set1  #start the kolab server (set1)
+start the sync:
+
+% ipython automatedupdate/run.py
+$ cd akonadi-initalsync/
+$ ./test.sh
+As example a full session:
+
+% ipython automatedupdate/run.py
+WARNING: Your kernel does not support memory swappiness capabilities, memory swappiness discarded.
+fatal: destination path 'akonadi-initalsync' already exists and is not an empty directory.
+developer@3071cf06276b:/work$ cd akonadi-initalsync/
+developer@3071cf06276b:/work/akonadi-initalsync$ ./test.sh 
++ export QT_GRAPHICSSYSTEM=native
++ QT_GRAPHICSSYSTEM=native
++ export QT_X11_NO_MITSHM=1
++ QT_X11_NO_MITSHM=1
++ sudo setfacl -m user:developer:rw /dev/dri/card0
++ export KDE_DEBUG=1
++ KDE_DEBUG=1
++ USER=doe
++ PASSWORD=Welcome2KolabSystems
++ sleep 2
++ sudo /usr/sbin/mysqld
+151215 14:17:25 [Warning] Using unique option prefix key_buffer instead of key_buffer_size is deprecated and will be removed in a future release. Please use the full name instead.
+151215 14:17:25 [Note] /usr/sbin/mysqld (mysqld 5.5.46-0ubuntu0.12.04.2) starting as process 16 ...
++ sudo mysql --defaults-extra-file=/etc/mysql/debian.cnf
++ ./initalsync.py 'John Doe' doe@example.com doe Welcome2KolabSystems akonadi_kolab_resource_0
+INFO:root:setup configs
+INFO:DBusServer:starting dbus...
+INFO:root:set kwallet password
+INFO:Akonadi:starting akonadi ...
+INFO:root:trigger fullSync
+INFO:AkonadiSync:fullSync for akonadi_kolab_resource_0 started
+INFO:AkonadiSync:fullSync for akonadi_kolab_resource_0 was successfull.
+INFO:Akonadi:stopping akonadi ...
+INFO:DBusServer:stopping dbus...
+developer@3071cf06276b:/work/akonadi-initalsync$ echo $?
+0

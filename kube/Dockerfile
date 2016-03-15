@@ -26,6 +26,9 @@ RUN yum install -y kf5-ki18n kf5-kcodecs
 RUN yum -y install kf5-kpackage
 RUN yum -y install dbus-x11
 
+#For kirigami
+RUN dnf -y install qt5-qtgraphicaleffects
+
 #qmlscene
 RUN yum -y install qt5-qtdeclarative-devel
 #kube

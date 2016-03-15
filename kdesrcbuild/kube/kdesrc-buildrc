@@ -24,6 +24,11 @@ module extra-cmake-modules
     branch master
 end module
 
+module kirigami #For Kube
+    repository kde:kirigami
+    branch master
+end module
+
 module kasync
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     cmake-options -DWITH_KJOB=OFF

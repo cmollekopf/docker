@@ -70,3 +70,8 @@ module Kube
     repository kde:kube
     branch develop
 end module
+
+module GammaRay
+    repository https://github.com/KDAB/GammaRay.git
+    branch master
+end module

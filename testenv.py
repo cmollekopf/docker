@@ -11,6 +11,7 @@ import kdesrcbuild
 import pep
 import kube
 import kubestandalone
+import release
 
 import settings
 import dockerutils
@@ -44,10 +45,13 @@ def buildKubestandalone(options):
 def buildPep(options):
     pep.build.main()
 
+def buildRelease(options):
+    release.build.main()
+
 def buildServer(options):
     if options.dataset is None:
         Exception("needs a dataset to build")
-    buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
+#    buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
     buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
 
 def buildKdesrcbuild(options):
@@ -72,6 +76,8 @@ def start(options):
         pep.run.main()
     elif clientconfigset == "kube":
         kube.run.main()
+    elif clientconfigset == "release":
+        release.run.main()
     elif clientconfigset == "kubestandalone":
         kubestandalone.run.main()
     elif not standalone:
@@ -106,6 +112,9 @@ def main():
     parser_build_pep = buildsubparsers.add_parser('pep', help = "build pep test env")
     parser_build_pep.set_defaults(func=buildPep)
 
+    parser_build_pep = buildsubparsers.add_parser('release', help = "build release docker")
+    parser_build_pep.set_defaults(func=buildRelease)
+
     parser_build_client = buildsubparsers.add_parser('client', help = "build client")
     parser_build_client.add_argument("dataset", choices=["john", "jane"], help = "dataset to use")
     parser_build_client.set_defaults(func=buildClient)
@@ -119,7 +128,7 @@ def main():
 
     parser_start = subparsers.add_parser('start', help = "start a docker environment")
     parser_start.add_argument("dataset", choices=["set1", ""], help = "server dataset to use")
-    parser_start.add_argument("clientconfigset", choices=["john", "jane", "pep", "kube", "kubestandalone"], nargs="?", default=None, help = "clientconfigset to use")
+    parser_start.add_argument("clientconfigset", choices=["john", "jane", "pep", "kube", "kubestandalone", "release"], nargs="?", default=None, help = "clientconfigset to use")
     parser_start.set_defaults(func=start)
 
     parser_shell = subparsers.add_parser('shell', help = "get a shell in a running docker environment")

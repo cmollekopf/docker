@@ -22,6 +22,7 @@ def main():
         "-v", "{}/setuprepos.sh:/home/developer/setuprepos.sh".format(BASEPATH),
         "-v", "{}/bin:/home/developer/bin".format(BASEPATH),
         "-v", "~/.oscrc:/home/developer/.oscrc",
+        "-v", "{}/config.cfg:/home/developer/.docker.cfg".format(settings.SCRIPT_DIR),
     ]
     runargs.extend([
         "{}".format(containername),

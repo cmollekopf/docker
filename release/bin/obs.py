@@ -17,6 +17,7 @@ import re
 import shutil
 import tarfile
 import contextlib
+import configparser
 
 from release import getPackage
 
@@ -31,6 +32,15 @@ else:
     DSTOFFSET = STDOFFSET
 
 DSTDIFF = DSTOFFSET - STDOFFSET
+
+cfg = configparser.ConfigParser()
+print(cfg.read(["docker.cfg", os.path.expanduser("~/.docker.cfg")], encoding="utf-8"))
+
+NAME = cfg.get("user","name")
+MAIL = cfg.get("user","mail")
+COMMENT =cfg.get("user","comment", fallback="")
+
+del cfg
 
 class LocalTimezone(tzinfo):
 
@@ -155,7 +165,7 @@ class ObsRepo:
 
         c = "* {date} {author} - {v}-1\n- New upstream release {v}\n".format(
                                 date = datetime.now(Local).strftime("%a %b %d %Y"),
-                                author = "Sandro Knauß (Kolab Systems) <knauss@kolabsys.com>",
+                                author = "{} {} <{}>".format(NAME, COMMENT, MAIL),
                                 v = version
                                 )
 
@@ -176,7 +186,7 @@ class ObsRepo:
             c.new_block(package=package.name,
                         version="{epoch}{v}-0~kolab1".format(epoch=EPOCH.get(package.name, ""),v=version),
                         distributions="unstable", urgency="medium",
-                        author="Sandro Knauß (Kolab Systems) <knauss@kolabsys.com>",
+                        author="{} {} <{}>".format(NAME, COMMENT, MAIL),
                         date=datetime.now(Local).strftime("%a, %d %b %Y %H:%M:%S %z"),
                         changes=["","  * New upstream release {v}".format(v=version),""]
                         )

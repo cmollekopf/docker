@@ -229,8 +229,8 @@ class DebianPackage:
             pass
 
         with cd(self.path):
-            os.system('DEBEMAIL="knauss@kolabsys.com" dch -v %s "%s"' %
-                (version, msg)
+            os.system('DEBEMAIL="%s" DEBFULLNAME="%s %s"  dch -v %s "%s"' %
+                (config.mail, config.name, config.comment, version, msg)
                 )
             c = changelog.Changelog(open("debian/changelog").read())
             self.version = c.version
@@ -239,7 +239,7 @@ class DebianPackage:
 
     def createDsc(self):
         with cd("%s/.." % self.path):
-            os.system('DEBEMAIL="knauss@kolabsys.com" dpkg-source -b %s' % (self.name))
+            os.system('DEBEMAIL="%s" DEBFULLNAME="%s %s" dpkg-source -b %s' % (config.mail, config.name, config.comment, self.name))
 
 def update(repoBase, debianBase, obsBase):
     """push updates to OBS"""

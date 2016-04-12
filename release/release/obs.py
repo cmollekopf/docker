@@ -10,7 +10,7 @@
 
 
 from debian import changelog
-from git import Repo
+from git import Repo, Actor
 
 import os
 import re
@@ -172,7 +172,7 @@ class ObsRepo:
 
     def addChangelogEntryDebian(self, package, version):
         fname = "{path}/debian.changelog".format(path=self.packageDir(package))
-        c = changelog.Changelog(open(fname).read())
+        c = changelog.Changelog(open(fname, encoding="utf-8").read())
         if (c.upstream_version != version):
             c.new_block(package=package.name,
                         version="{epoch}{v}-0~kolab1".format(epoch=EPOCH.get(package.name, ""),v=version),
@@ -185,7 +185,7 @@ class ObsRepo:
 
     def debianUpstreamVersion(self, package):
         fname = "{path}/debian.changelog".format(path=self.packageDir(package))
-        c = changelog.Changelog(open(fname).read())
+        c = changelog.Changelog(open(fname, encoding="utf-8").read())
         return c.upstream_version
 
     def copyOrig(self, package, version):
@@ -193,7 +193,7 @@ class ObsRepo:
 
     def updateSourceSpec(self, package):
         with cd(self.packageDir(package)):
-            with open("%s.spec" % package.name) as f:
+            with open("%s.spec" % package.name, encoding="utf-8") as f:
                 content = f.read()
             content = re.sub(r"(?P<vSource>\n\s*Source0:\s*).*\n", r"\g<vSource>%{name}_%{version}.orig.tar.gz\n", content)
             with open("%s.spec" % package.name, "w") as f:
@@ -229,17 +229,25 @@ class DebianPackage:
             pass
 
         with cd(self.path):
-            os.system('DEBEMAIL="%s" DEBFULLNAME="%s %s"  dch -v %s "%s"' %
-                (config.mail, config.name, config.comment, version, msg)
+            os.system('DEBEMAIL="{}" DEBFULLNAME="{} {}"  dch -v {} "{}"'.format(
+                config.mail, config.name, config.comment, version, msg).encode("utf-8")
                 )
-            c = changelog.Changelog(open("debian/changelog").read())
+            os.system('DEBEMAIL="{}" DEBFULLNAME="{} {}"  dch -r ""'.format(
+                config.mail, config.name, config.comment).encode("utf-8")
+                )
+            c = changelog.Changelog(open("debian/changelog", encoding="utf-8").read())
             self.version = c.version
             self.upstream_version = c.upstream_version
             self.base_version = re.search("^([0-9\.]+:)?(?P<version>[0-9\.]+)(\+|~|$)", c.upstream_version).group("version")
 
     def createDsc(self):
         with cd("%s/.." % self.path):
-            os.system('DEBEMAIL="%s" DEBFULLNAME="%s %s" dpkg-source -b %s' % (config.mail, config.name, config.comment, self.name))
+            os.system('DEBEMAIL="%s" DEBFULLNAME="%s %s" dpkg-source -b %s' % (config.mail, config.name, config.comment, self.name).encode("utf-8"))
+
+def debianPackage(name):
+    base = os.path.join(config.debianBase, name)
+    c = changelog.Changelog(open(os.path.join(base,'debian/changelog'), encoding="utf-8").read())
+    return DebianPackage(base, c)
 
 def update(repoBase, debianBase, obsBase):
     """push updates to OBS"""
@@ -248,30 +256,38 @@ def update(repoBase, debianBase, obsBase):
 
     projects = os.walk(repoBase).next()[1]
 
+    branch = "kolab/dev"
+
+    actor = Actor("{} {}".format(config.name, config.comment), config.mail)
+
     for p in projects:
         if p in EXCEPT:
             continue
         pkg = getPackage(p, repoBase, debianBase)
         pkg.repo.remotes.origin.fetch()
         version = pkg.newestVersion()
+        deb = debianPackage(p)
+        debRepo = Repo(deb.path)
+        debRepo.create_head(branch, debRepo.remotes.origin.refs[branch]).set_tracking_branch(debRepo.remotes.origin.refs[branch])
+        debRepo.heads[branch].checkout()
+        debRepo.remotes.origin.pull()
+        if debRepo.index.diff(None):
+            print("debian repo is not clean can't go on form here - Please commit your changes at least in the staging area")
+            continue
+        try:
+            os.stat(pkg.origPath(version))
+        except OSError:
+            pkg.createGitTar(version)
+
+        if version != deb.upstream_version:
+            deb.upgrade(version, "New upstream release {v}".format(v=version))
+            debRepo.index.add(["debian/changelog"])
+            debRepo.index.commit("Release {v}".format(v=version), author=actor, committer=actor)
+
+        obs.copyOrig(pkg, version)
         if (version != obs.debianUpstreamVersion(pkg)):
             print("{} {}...".format(pkg.name, version))
-            try:
-                os.stat(pkg.origPath(version))
-            except OSError:
-                pkg.createGitTar(version)
-            obs.copyOrig(pkg, version)
             obs.releaseSpec(pkg, version)
-            obs.releaseDsc(pkg, version)
 
 repo = ObsRepo(config.obsBase)
 
-def debianPackage(name):
-    base = os.path.join(config.debianBase, name)
-    c = changelog.Changelog(open(os.path.join(base,'debian/changelog')).read())
-    return DebianPackage(base, c)
-
-#if __name__ == "__main__":
-#    update("/work/source", os.path.abspath(os.path.expanduser("~kdetest/kde/debian/")), "/home/hefee/kolab/obs/Kontact:4.13:Development/")
-
-#p = getPackage("akonadi", "/work/source/", os.path.abspath("."))

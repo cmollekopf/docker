@@ -10,6 +10,6 @@ del cfg
 
 repoBase = "/work/source"
 debianBase = "/work/debian"
-obsBase = "/work/obs/Kontact:4.13:Development"
+obsBase = "/work/osc/Kontact:4.13:Development"
 
 

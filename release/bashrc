@@ -1,1 +1,2 @@
+export PYTHONIOENCODING=UTF-8
 source ~/setuprepos.sh

@@ -3,7 +3,7 @@ FROM debian:jessie
 RUN echo "deb http://httpredir.debian.org/debian/ sid main" > /etc/apt/sources.list
 RUN echo "deb-src http://httpredir.debian.org/debian/ sid main" >> /etc/apt/sources.list
 RUN apt-get update && apt-get -y install \
-	bash sudo \
+	bash sudo devscripts \
 	vim git \
 	ipython3 python3 python3-debian python3-git \
 	osc

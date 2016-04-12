@@ -20,7 +20,7 @@ def main():
         "-v", "{}/kdepim:/work".format(settings.ROOT),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/setuprepos.sh:/home/developer/setuprepos.sh".format(BASEPATH),
-        "-v", "{}/bin:/home/developer/bin".format(BASEPATH),
+        "-v", "{}/release:/home/developer/release".format(BASEPATH),
         "-v", "~/.oscrc:/home/developer/.oscrc",
         "-v", "{}/config.cfg:/home/developer/.docker.cfg".format(settings.SCRIPT_DIR),
     ]
@@ -28,6 +28,4 @@ def main():
         "{}".format(containername),
     ]);
 
-    # docker.run(*runargs, _out=process_output, _tty_out=True, _tty_in=True)
-    print("docker run " + " ".join(runargs))
     subprocess.call("docker run " + " ".join(runargs), shell=True)

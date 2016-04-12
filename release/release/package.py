@@ -13,8 +13,7 @@ import re
 import functools
 from git import Repo
 
-BASE="/work/source"   #git repo path
-EXCEPT= ("kde-build-metadata", "log")       #dirs to except
+EXCEPT = ("kde-build-metadata", "log")       #dirs to except
 
 #maximum version for packages
 MAXVERSIONS = {"kdepimlibs":"4.13.1",
@@ -131,3 +130,7 @@ def release(repoBase, origBase):
                 pkg.createGitTar(version)
         else:
                 print("{} is up-to-date".format(pkg.name))
+
+if __name__ == "__main__":
+    from release import config
+    release(os.path.abspath(os.path.expanduser(config.repoBase)), os.path.abspath(config.debianBase))

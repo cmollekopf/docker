@@ -17,9 +17,9 @@ import re
 import shutil
 import tarfile
 import contextlib
-import configparser
 
-from release import getPackage
+from .package import getPackage
+from . import config
 
 from datetime import datetime, timedelta, tzinfo
 import time as _time
@@ -32,15 +32,6 @@ else:
     DSTOFFSET = STDOFFSET
 
 DSTDIFF = DSTOFFSET - STDOFFSET
-
-cfg = configparser.ConfigParser()
-print(cfg.read(["docker.cfg", os.path.expanduser("~/.docker.cfg")], encoding="utf-8"))
-
-NAME = cfg.get("user","name")
-MAIL = cfg.get("user","mail")
-COMMENT =cfg.get("user","comment", fallback="")
-
-del cfg
 
 class LocalTimezone(tzinfo):
 
@@ -165,7 +156,7 @@ class ObsRepo:
 
         c = "* {date} {author} - {v}-1\n- New upstream release {v}\n".format(
                                 date = datetime.now(Local).strftime("%a %b %d %Y"),
-                                author = "{} {} <{}>".format(NAME, COMMENT, MAIL),
+                                author = "{} {} <{}>".format(config.name, config.comment, config.mail),
                                 v = version
                                 )
 
@@ -186,7 +177,7 @@ class ObsRepo:
             c.new_block(package=package.name,
                         version="{epoch}{v}-0~kolab1".format(epoch=EPOCH.get(package.name, ""),v=version),
                         distributions="unstable", urgency="medium",
-                        author="{} {} <{}>".format(NAME, COMMENT, MAIL),
+                        author="{} {} <{}>".format(config.name, config.comment, config.mail),
                         date=datetime.now(Local).strftime("%a, %d %b %Y %H:%M:%S %z"),
                         changes=["","  * New upstream release {v}".format(v=version),""]
                         )
@@ -250,9 +241,6 @@ class DebianPackage:
         with cd("%s/.." % self.path):
             os.system('DEBEMAIL="knauss@kolabsys.com" dpkg-source -b %s' % (self.name))
 
-
-#dest="/home/hefee/kolab/obs/Kontact:4.13:Development/"
-
 def update(repoBase, debianBase, obsBase):
     """push updates to OBS"""
 
@@ -276,15 +264,10 @@ def update(repoBase, debianBase, obsBase):
             obs.releaseSpec(pkg, version)
             obs.releaseDsc(pkg, version)
 
-
-repoBase = "/work/source"
-debianBase = "/work/debian"
-obsBase = "/work/obs/Kontact:4.13:Development"
-
-repo = ObsRepo(obsBase)
+repo = ObsRepo(config.obsBase)
 
 def debianPackage(name):
-    base = os.path.join(debianBase,name)
+    base = os.path.join(config.debianBase, name)
     c = changelog.Changelog(open(os.path.join(base,'debian/changelog')).read())
     return DebianPackage(base, c)
 

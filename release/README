@@ -1,3 +1,8 @@
+# bin/performrelease.py
+this will fetch the current tags for source dir
+cerate a tar bal is a new tag is found
+pull the changes from obs into the debian repo, so make sure that there is doff between obs and debian git
+push updates to debian git if needed
 
 # push git repos 
 after running the relase processs the debian repos must be pushed to github again. We can't do this in docker because we have not access to ssh-keys.

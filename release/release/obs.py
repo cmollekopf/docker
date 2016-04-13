@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
     Handles obs via python.
@@ -10,7 +9,6 @@
 
 
 from debian import changelog
-from git import Repo, Actor
 
 import os
 import re
@@ -18,8 +16,7 @@ import shutil
 import tarfile
 import contextlib
 
-from .package import getPackage
-from . import config
+from . import config, cd
 
 from datetime import datetime, timedelta, tzinfo
 import time as _time
@@ -60,29 +57,6 @@ class LocalTimezone(tzinfo):
 
 Local = LocalTimezone()
 
-
-EXCEPT = ("kde-build-metadata", "log",
-          "kdelibs", "kfilemetadata",
-          "libkolab", "libkolabxml",
-          "kde-l10n-de",
-          )       #dirs to except
-
-EPOCH={"kdepim-runtime": "4:",
-        "kdepim": "4:",
-        "kdepimlibs": "4:",
-        "kfilemetadata": "4:",
-        "baloo": "4:",
-        }
-
-@contextlib.contextmanager
-def cd(path):
-   old_path = os.getcwd()
-   os.chdir(path)
-   try:
-       yield
-   finally:
-       os.chdir(old_path)
-
 class ObsRepo:
     tomove = ['rules','control','changelog']
 
@@ -94,9 +68,10 @@ class ObsRepo:
         return "%s/%s" %(self.base, package.name)
 
     def fromObs(self, package):
-        os.system("tar -xaf %s/debian.tar.gz"%(self.packageDir(package)))
-        for i in self.tomove:
-            shutil.copy("%s/debian.%s"%(self.packageDir(package), i), "debian/%s"%i)
+        with cd(package.path):
+            os.system("tar -xaf %s/debian.tar.gz"%(self.packageDir(package)))
+            for i in self.tomove:
+                shutil.copy("%s/debian.%s"%(self.packageDir(package), i), "debian/%s"%i)
 
     def toObs(self, package):
         self.createDsc(package)
@@ -106,16 +81,16 @@ class ObsRepo:
     def createDsc(self, package):
         files = ["%s-%s.orig.tar.gz"%(package.name,package.upstream_version), "debian.tar.gz"]
         package.createDsc()
-        content = open(package.dscPath()).read()
+        content = open(package.dscPath(), encoding="utf-8").read()
 
         content = re.sub(r"^-----BEGIN PGP SIGNED MESSAGE-----\nHash.*\n+", "", content)
         content = re.sub(r"\n+-----BEGIN PGP SIGNATURE-----\n.*-----END PGP SIGNATURE-----", "", content, flags=re.M+re.S)
         content = re.sub(r"^Format: .*$", "Format: 1.0", content, flags=re.M)
         content = re.sub("^(Checksums.*|Files):\s*\n( .*\n)+","", content, flags=re.M)
-        content =  "%sFiles:\n%s"%(content.decode('utf8'),"\n".join([" 00000000000000000000000000000000 0 %s"%i for i in files]))
+        content =  "%sFiles:\n%s"%(content,"\n".join([" 00000000000000000000000000000000 0 %s"%i for i in files]))
 
-        with open("%s/%s.dsc"%(self.packageDir(package), package.name),'w') as f:
-            f.write(content.encode('utf8'))
+        with open("%s/%s.dsc"%(self.packageDir(package), package.name),'w', encoding="utf-8") as f:
+            f.write(content)
 
     def createDebianTar(self, package):
         def exclude(fname):
@@ -148,7 +123,7 @@ class ObsRepo:
          with cd(self.packageDir(package)):
             with open("%s.dsc" % package.name) as f:
                 content = f.read()
-            content = re.sub(r"(?P<vStr>\n\s*Version:\s*)[0-9.:\-~a-z]+\s*\n", r"\g<vStr>{epoch}{v}-0~kolab1\n".format(epoch=EPOCH.get(package.name, ""),v=version), content)
+            content = re.sub(r"(?P<vStr>\n\s*Version:\s*)[0-9.:\-~a-z]+\s*\n", r"\g<vStr>{epoch}{v}-0~kolab1\n".format(epoch=config.epoch.get(package.name, ""),v=version), content)
             with open("%s.dsc" % package.name, "w") as f:
                 f.write(content)
 
@@ -175,7 +150,7 @@ class ObsRepo:
         c = changelog.Changelog(open(fname, encoding="utf-8").read())
         if (c.upstream_version != version):
             c.new_block(package=package.name,
-                        version="{epoch}{v}-0~kolab1".format(epoch=EPOCH.get(package.name, ""),v=version),
+                        version="{epoch}{v}-0~kolab1".format(epoch=config.epoch.get(package.name, ""),v=version),
                         distributions="unstable", urgency="medium",
                         author="{} {} <{}>".format(config.name, config.comment, config.mail),
                         date=datetime.now(Local).strftime("%a, %d %b %Y %H:%M:%S %z"),
@@ -198,96 +173,3 @@ class ObsRepo:
             content = re.sub(r"(?P<vSource>\n\s*Source0:\s*).*\n", r"\g<vSource>%{name}_%{version}.orig.tar.gz\n", content)
             with open("%s.spec" % package.name, "w") as f:
                 f.write(content)
-
-class DebianPackage:
-    def __init__(self, path, package):
-        self.path = os.path.abspath(path)
-        self.name = package.package
-        self.upstream_version = package.upstream_version
-        self.base_version = re.search("^([0-9\.]+:)?(?P<version>[0-9\.]+)(\+|~|$)", package.upstream_version).group("version")
-        self.version = package.version
-
-    def dscPath(self):
-        version = self.upstream_version +"-"+ self.version.debian_version
-        return os.path.abspath("%s/../%s_%s.dsc" % (self.path, self.name, version))
-
-    def origPath(self, version=None):
-        if not version:
-            version = self.upstream_version
-        return os.path.abspath("%s/../%s_%s.orig.tar.gz" % (self.path, self.name, version))
-
-    def setGitBuild(self, upstream, branch):
-        self.upgrade(upstream.gitVersion(self, branch), "git build of %s"%upstream.gitHash(self, branch))
-
-    def upgrade(self, upstream_version, msg):
-        self.upstream_version = upstream_version
-        version = "%s-0~kolab1" % self.upstream_version
-
-        try:
-            version = EPOCH[self.name] + version
-        except KeyError:
-            pass
-
-        with cd(self.path):
-            os.system('DEBEMAIL="{}" DEBFULLNAME="{} {}"  dch -v {} "{}"'.format(
-                config.mail, config.name, config.comment, version, msg).encode("utf-8")
-                )
-            os.system('DEBEMAIL="{}" DEBFULLNAME="{} {}"  dch -r ""'.format(
-                config.mail, config.name, config.comment).encode("utf-8")
-                )
-            c = changelog.Changelog(open("debian/changelog", encoding="utf-8").read())
-            self.version = c.version
-            self.upstream_version = c.upstream_version
-            self.base_version = re.search("^([0-9\.]+:)?(?P<version>[0-9\.]+)(\+|~|$)", c.upstream_version).group("version")
-
-    def createDsc(self):
-        with cd("%s/.." % self.path):
-            os.system('DEBEMAIL="%s" DEBFULLNAME="%s %s" dpkg-source -b %s' % (config.mail, config.name, config.comment, self.name).encode("utf-8"))
-
-def debianPackage(name):
-    base = os.path.join(config.debianBase, name)
-    c = changelog.Changelog(open(os.path.join(base,'debian/changelog'), encoding="utf-8").read())
-    return DebianPackage(base, c)
-
-def update(repoBase, debianBase, obsBase):
-    """push updates to OBS"""
-
-    obs = ObsRepo(obsBase)
-
-    projects = os.walk(repoBase).next()[1]
-
-    branch = "kolab/dev"
-
-    actor = Actor("{} {}".format(config.name, config.comment), config.mail)
-
-    for p in projects:
-        if p in EXCEPT:
-            continue
-        pkg = getPackage(p, repoBase, debianBase)
-        pkg.repo.remotes.origin.fetch()
-        version = pkg.newestVersion()
-        deb = debianPackage(p)
-        debRepo = Repo(deb.path)
-        debRepo.create_head(branch, debRepo.remotes.origin.refs[branch]).set_tracking_branch(debRepo.remotes.origin.refs[branch])
-        debRepo.heads[branch].checkout()
-        debRepo.remotes.origin.pull()
-        if debRepo.index.diff(None):
-            print("debian repo is not clean can't go on form here - Please commit your changes at least in the staging area")
-            continue
-        try:
-            os.stat(pkg.origPath(version))
-        except OSError:
-            pkg.createGitTar(version)
-
-        if version != deb.upstream_version:
-            deb.upgrade(version, "New upstream release {v}".format(v=version))
-            debRepo.index.add(["debian/changelog"])
-            debRepo.index.commit("Release {v}".format(v=version), author=actor, committer=actor)
-
-        obs.copyOrig(pkg, version)
-        if (version != obs.debianUpstreamVersion(pkg)):
-            print("{} {}...".format(pkg.name, version))
-            obs.releaseSpec(pkg, version)
-
-repo = ObsRepo(config.obsBase)
-

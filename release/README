@@ -1,0 +1,5 @@
+
+# push git repos 
+after running the relase processs the debian repos must be pushed to github again. We can't do this in docker because we have not access to ssh-keys.
+
+cd ~/kdebuild/kdepim/debian; for i in `find -mindepth 1 -maxdepth 1 -type d `; do echo $i; cd $i; git push; cd ..; done

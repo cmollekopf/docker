@@ -3,7 +3,7 @@
 #setup debian clone
 mkdir -p /work/debian
 cd /work/debian
-for repo in libkolab libkolabxml akonadi akonadi-ldap-resource kdepimlibs kdepim kdepim-runtime baloo; do
+for repo in libkolab libkolabxml akonadi akonadi-ldap-resource kdepimlibs kdepim kdepim-runtime baloo zanshin; do
 	if [ ! -d /work/debian/$repo ]; then
 		git clone github:kolab-groupware/debian-$repo $repo
 	fi

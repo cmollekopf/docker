@@ -12,4 +12,9 @@ repoBase = "/work/source"
 debianBase = "/work/debian"
 obsBase = "/work/osc/Kontact:4.13:Development"
 
-
+epoch={"kdepim-runtime": "4:",
+        "kdepim": "4:",
+        "kdepimlibs": "4:",
+        "kfilemetadata": "4:",
+        "baloo": "4:",
+        }

@@ -1,2 +1,3 @@
 export PYTHONIOENCODING=UTF-8
+export PYTHONPATH=/home/developer/.local/lib/python3.5/dist-packages
 source ~/setuprepos.sh

@@ -1,5 +1,7 @@
 FROM debian:jessie
 
+RUN echo 'Acquire::http { Proxy "http://172.16.0.1:3142" }' >  /etc/apt/apt.conf.d/01proxy
+
 RUN echo "deb http://httpredir.debian.org/debian/ sid main" > /etc/apt/sources.list
 RUN echo "deb-src http://httpredir.debian.org/debian/ sid main" >> /etc/apt/sources.list
 RUN apt-get update && apt-get -y install \
@@ -30,6 +32,10 @@ RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
 VOLUME /work
 
 ENV DISPLAY :0
-ENV LANG "de_DE.Utf-8"
+ENV LANG "de_DE.UTF-8"
+
+RUN mkdir -p /home/developer/.local/lib/python3.5/dist-packages
+RUN chown developer /home/developer/.local/lib/python3.5/dist-packages
+RUN ln -s /home/developer/release /home/developer/.local/lib/python3.5/dist-packages/
 
 ENTRYPOINT ["/bin/bash"]

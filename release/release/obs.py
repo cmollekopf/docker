@@ -13,6 +13,7 @@ from debian import changelog
 import os
 import re
 import shutil
+import subprocess
 import tarfile
 import contextlib
 
@@ -173,3 +174,25 @@ class ObsRepo:
             content = re.sub(r"(?P<vSource>\n\s*Source0:\s*).*\n", r"\g<vSource>%{name}_%{version}.orig.tar.gz\n", content)
             with open("%s.spec" % package.name, "w") as f:
                 f.write(content)
+
+    def update(self, package):
+       with cd(self.packageDir(package)):
+           return os.system('osc update')
+
+    def status(self, package):
+       with cd(self.packageDir(package)):
+           status = subprocess.Popen(["osc", "status"], stdout=subprocess.PIPE).communicate()[0]
+           return [i.split(b"    ") for i in status.splitlines()]
+
+    def commit(self, package, message):
+       with cd(self.packageDir(package)):
+           return os.system('osc commit -m "{}"'.format(message))
+
+    def add(self, package, fname):
+       with cd(self.packageDir(package)):
+           return os.system('osc add {}'.format(fname))
+
+    def remove(self, package, fname):
+       with cd(self.packageDir(package)):
+           return os.system('osc remove {}'.format(fname))
+

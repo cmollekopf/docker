@@ -15,7 +15,7 @@ from release import obs, config, package, debian, cd
 
 EXCEPT = ("kde-build-metadata", "log",
           "kdelibs", "kfilemetadata",
-          "libkolab", "libkolabxml", "baloo"
+          "libkolab", "libkolabxml", "baloo",
           "kde-l10n-de",
           )       #dirs to except
 
@@ -79,6 +79,7 @@ def update(repoBase, debianBase, obsBase):
                 print("You will have to change the problem by your own - skipping {} for further processing".format(pkg.name))
                 continue
 
+        deb = debian.debianPackage(p)
         if version > deb.upstream_version:
             print("Updating from {} to {}".format(deb.upstream_version, version))
             deb.upgrade(version, "New upstream release {v}".format(v=version))
@@ -89,7 +90,7 @@ def update(repoBase, debianBase, obsBase):
             obsrepo.releaseSpec(pkg, version)
             obsrepo.addChangelogEntryFedora(pkg, version)
             with cd(obsrepo.packageDir(deb)):
-                map(glob.glob("*.orig.tar.*"), os.unlink)
+                map(os.unlink, glob.iglob("*.orig.tar.*"))
             obsrepo.copyOrig(pkg, version)
 
         if obsrepo.status(deb) != []:

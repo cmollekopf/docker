@@ -113,19 +113,19 @@ class ObsRepo:
     def releaseSpec(self, package, version):
         self.addChangelogEntryFedora(package, version)
         with cd(self.packageDir(package)):
-            with open("%s.spec" % package.name) as f:
+            with open("%s.spec" % package.name, encoding="utf-8") as f:
                 content = f.read()
             content = re.sub(r"(?P<vStr>\n\s*Version:\s*)[0-9.:]+\s*\n", r"\g<vStr>{v}\n".format(v=version), content)
-            with open("%s.spec" % package.name, "w") as f:
+            with open("%s.spec" % package.name, "w", encoding="utf-8") as f:
                 f.write(content)
 
     def releaseDsc(self, package, version):
          self.addChangelogEntryDebian(package, version)
          with cd(self.packageDir(package)):
-            with open("%s.dsc" % package.name) as f:
+            with open("%s.dsc" % package.name, encoding="utf-8") as f:
                 content = f.read()
             content = re.sub(r"(?P<vStr>\n\s*Version:\s*)[0-9.:\-~a-z]+\s*\n", r"\g<vStr>{epoch}{v}-0~kolab1\n".format(epoch=config.epoch.get(package.name, ""),v=version), content)
-            with open("%s.dsc" % package.name, "w") as f:
+            with open("%s.dsc" % package.name, "w", encoding="utf-8") as f:
                 f.write(content)
 
     def addChangelogEntryFedora(self, package, version):
@@ -137,13 +137,13 @@ class ObsRepo:
                                 )
 
         with cd(self.packageDir(package)):
-            with open("%s.spec" % package.name) as f:
+            with open("%s.spec" % package.name, encoding="utf-8") as f:
                 content = f.read()
 
             lastupdate = re.search(r"\n\s*%changelog(\s*\n)+.* - (?P<version>[0-9\.]+)(-[0-9]+)?\n", content).group("version")
             if (lastupdate != version) :
                 content = re.sub(r"(\n\s*%changelog\s*\n)", r"\1{c}\n".format(c=c), content)
-                with open("%s.spec" % package.name, "w") as f:
+                with open("%s.spec" % package.name, "w", encoding="utf-8") as f:
                     f.write(content)
 
     def addChangelogEntryDebian(self, package, version):
@@ -157,7 +157,7 @@ class ObsRepo:
                         date=datetime.now(Local).strftime("%a, %d %b %Y %H:%M:%S %z"),
                         changes=["","  * New upstream release {v}".format(v=version),""]
                         )
-            c.write_to_open_file(open(fname, "w"))
+            c.write_to_open_file(open(fname, "w", encoding="utf-8"))
 
     def debianUpstreamVersion(self, package):
         fname = "{path}/debian.changelog".format(path=self.packageDir(package))
@@ -172,7 +172,7 @@ class ObsRepo:
             with open("%s.spec" % package.name, encoding="utf-8") as f:
                 content = f.read()
             content = re.sub(r"(?P<vSource>\n\s*Source0:\s*).*\n", r"\g<vSource>%{name}_%{version}.orig.tar.gz\n", content)
-            with open("%s.spec" % package.name, "w") as f:
+            with open("%s.spec" % package.name, "w", encoding="utf-8") as f:
                 f.write(content)
 
     def update(self, package):

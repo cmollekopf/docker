@@ -1,3 +1,13 @@
+# bin/searchforelease.py
+scans all source repos, if a new release should be done.
+it uses "git log <lastTag>..<branch>" to determine changes.
+
+A new release is created:
+ * CMakeLists.txt is updated
+ * a new tag is created
+
+-> outside of the docker you need to push the release commit and tag
+
 # bin/performrelease.py
 this will fetch the current tags for source dir
 cerate a tar bal is a new tag is found

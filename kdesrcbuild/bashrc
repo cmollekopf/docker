@@ -24,6 +24,7 @@ export QML_INSTALL_PATH=$KDEDIR/lib64/qml:$KDEDIR/lib/x86_64-linux-gnu/qml
 export CPATH=$KDEDIR/include/
 export XDG_CONFIG_DIRS=$KDEDIR/share/config
 export XDG_DATA_DIRS=$KDEDIR/share/:/usr/share
+export DISPLAY=:99
 
 function run_xvfb ()
 {

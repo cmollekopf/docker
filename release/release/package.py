@@ -28,6 +28,19 @@ MAXVERSIONS = {"kdepimlibs":"4.13.1",
                "libkolab":"1.0.0",
                "libkolabxml":"1.2.0",
                }
+BRANCHES = {"kdepimlibs":"kolab/integration/4.13.0",
+            "kdepim-runtime":"kolab/integration/4.13.0",
+            "kdepim":"kolab/integration/4.13.0",
+            "kdelibs": "kolab/integration/4.13.0",
+            "baloo":"kolab/integration/4.13.0",
+            "kfilemetadata":"kolab/integration/4.13.0",
+            "akonadi":"kolab/integration/1.12.0",
+            "akonadi-ldap-resource":"master",
+            "zanshin":"kolab/integration/3.0",
+            "libkolab":"libkolab-0.6",
+            "libkolabxml":"libkolabxml-1.1",
+            }
+
 
 def package(name):
     """returns package class based on know tag schema"""
@@ -41,7 +54,9 @@ def package(name):
         return NormalPackage
 
 def getPackage(name, repoBase, origBase):
-    return package(name)(name, MAXVERSIONS[name], repoBase, origBase)
+    pkg = package(name)(name, MAXVERSIONS[name], repoBase, origBase)
+    pkg.branch = BRANCHES[name]
+    return pkg
 
 class Package:
     def __init__(self, name, maxVersion, repoBase, origBase):

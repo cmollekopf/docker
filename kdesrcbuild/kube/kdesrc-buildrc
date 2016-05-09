@@ -25,6 +25,7 @@ module extra-cmake-modules
 end module
 
 module kirigami #For Kube
+    cmake-options -DNO_PLASMA=ON
     repository kde:kirigami
     branch master
 end module

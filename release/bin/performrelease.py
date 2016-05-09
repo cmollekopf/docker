@@ -64,7 +64,7 @@ def update(repoBase, debianBase, obsBase):
                 print("obs status shows a diff - please fix yourself")
                 continue
 
-        # push chagnes from obs to git
+        # push changes from obs to git
         obsrepo.fromObs(deb)
         if debRepo.index.diff(None):
             print("debian repo is not clean can't go on form here: {}".format(debRepo.git.status()))
@@ -90,7 +90,7 @@ def update(repoBase, debianBase, obsBase):
             obsrepo.releaseSpec(pkg, version)
             obsrepo.addChangelogEntryFedora(pkg, version)
             with cd(obsrepo.packageDir(deb)):
-                map(os.unlink, glob.iglob("*.orig.tar.*"))
+                list(map(os.unlink, glob.iglob("*.orig.tar.*")))
             obsrepo.copyOrig(pkg, version)
 
         if obsrepo.status(deb) != []:

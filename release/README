@@ -1,3 +1,7 @@
+# FIRST STEPS
+before starting the docker you need to create a config.cfg in the parent folder, with your name & emailaddress.
+You find a sample config file named config.cfg.dist
+
 # bin/searchforelease.py
 scans all source repos, if a new release should be done.
 it uses "git log <lastTag>..<branch>" to determine changes.

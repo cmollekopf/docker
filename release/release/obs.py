@@ -10,6 +10,7 @@
 
 from debian import changelog
 
+import glob
 import os
 import re
 import shutil
@@ -122,11 +123,19 @@ class ObsRepo:
     def releaseDsc(self, package, version):
          self.addChangelogEntryDebian(package, version)
          with cd(self.packageDir(package)):
-            with open("%s.dsc" % package.name, encoding="utf-8") as f:
-                content = f.read()
-            content = re.sub(r"(?P<vStr>\n\s*Version:\s*)[0-9.:\-~a-z]+\s*\n", r"\g<vStr>{epoch}{v}-0~kolab1\n".format(epoch=config.epoch.get(package.name, ""),v=version), content)
-            with open("%s.dsc" % package.name, "w", encoding="utf-8") as f:
-                f.write(content)
+            for fname in glob.glob("%s*.dsc" % package.name):
+                with open(fname, encoding="utf-8") as f:
+                    content = f.read()
+                preVersion = config.epoch.get(package.name, "")
+                try:
+                    preVersion = re.search(r"\n\s*Version:\s*([0-9.:\-~a-z]+\+really).*\n", content).group(1)
+                except AttributeError:
+                    pass
+
+                content = re.sub(r"(?P<vStr>\n\s*Version:\s*)[0-9.:\-~a-z\+]+\s*\n", r"\g<vStr>{pv}{v}-0~kolab1\n".format(pv=preVersion,v=version), content)
+                with open(fname, "w", encoding="utf-8") as f:
+                    f.write(content)
+
 
     def addChangelogEntryFedora(self, package, version):
 

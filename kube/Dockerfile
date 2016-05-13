@@ -1,41 +1,38 @@
 FROM fedora:22
 
-RUN yum install -y xerces-c boost
-RUN yum install -y sudo
-RUN yum install -y cyrus-sasl cyrus-sasl-plain
-RUN yum install -y gtk2
-RUN yum install -y qt-common vim
-RUN yum install -y libnotify libxdg-basedir
-RUN yum install -y mesa-dri-drivers xorg-x11-drv-intel
+RUN dnf install -y xerces-c boost
+RUN dnf install -y sudo
+RUN dnf install -y cyrus-sasl cyrus-sasl-plain
+RUN dnf install -y gtk2
+RUN dnf install -y qt-common
+RUN dnf install -y libnotify libxdg-basedir
+RUN dnf install -y mesa-dri-drivers xorg-x11-drv-intel
 
 #Sink deps
-RUN yum -y install qt5-qtbase libgit2 lmdb
-RUN yum -y install xterm
+RUN dnf -y install qt5-qtbase libgit2 lmdb
+RUN dnf -y install xterm
 
 #Test debugging
-RUN yum -y install gdb
+RUN dnf -y install gdb
 
 #Frameworks
-RUN yum -y install qt5-qtscript qt5-qttools qt5-qtsvg qt5-qtx11extras xcb-util-keysyms qt5-qttools-static polkit qt5-qtdeclarative libepoxy qt5-qtwebkit qt5-qtxmlpatterns
+RUN dnf -y install qt5-qtscript qt5-qttools qt5-qtsvg qt5-qtx11extras xcb-util-keysyms qt5-qttools-static polkit qt5-qtdeclarative libepoxy qt5-qtwebkit qt5-qtxmlpatterns
 
-#Debug deps
-RUN yum -y install gdb
-
-RUN yum install -y qt5-qtbase
-RUN yum install -y kf5-ki18n kf5-kcodecs
-RUN yum -y install kf5-kpackage
-RUN yum -y install dbus-x11
+RUN dnf install -y qt5-qtbase
+RUN dnf install -y kf5-ki18n kf5-kcodecs
+RUN dnf -y install kf5-kpackage
+RUN dnf -y install dbus-x11
 
 #For kirigami
 RUN dnf -y install qt5-qtgraphicaleffects
 
 #qmlscene
-RUN yum -y install qt5-qtdeclarative-devel
+RUN dnf -y install qt5-qtdeclarative-devel
 #kube
-RUN yum -y install qt5-qtquickcontrols
-RUN yum -y install kf5-plasma
-RUN yum -y install oxygen-icon-theme
-RUN yum -y install gamin
+RUN dnf -y install qt5-qtquickcontrols
+RUN dnf -y install kf5-plasma
+RUN dnf -y install oxygen-icon-theme
+RUN dnf -y install gamin
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

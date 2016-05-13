@@ -17,7 +17,7 @@ def main():
             "containername": containername}
 
     print("Building kube...")
-    docker.build("-t", containername, "{c.SCRIPT_DIR}/kube/.".format(**fdict), _out=sys.stdout)
+    docker.build(settings.dockerCacheString(), "-t", containername, "{c.SCRIPT_DIR}/kube/.".format(**fdict), _out=sys.stdout)
 
     print("Building {dataset}'s kube...".format(**fdict))
-    docker.build("-t", "{containername}:{dataset}".format(**fdict), "-f", "{c.SCRIPT_DIR}/kube/Dockerfile-{dataset}".format(**fdict), "{c.SCRIPT_DIR}/kube/.".format(**fdict), _out=sys.stdout)
+    docker.build(settings.dockerCacheString(), "-t", "{containername}:{dataset}".format(**fdict), "-f", "{c.SCRIPT_DIR}/kube/Dockerfile-{dataset}".format(**fdict), "{c.SCRIPT_DIR}/kube/.".format(**fdict), _out=sys.stdout)

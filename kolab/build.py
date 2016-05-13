@@ -15,7 +15,10 @@ def main():
 
     print("Building tmpcontainer...")
     # docker["build", "--no-cache=true", "-t", tmpname, SCRIPT_DIR+"/kolab/"] & FG
-    docker["build", "-t", tmpname, SCRIPT_DIR+"/kolab/"] & FG
+    if settings.rebuild():
+        docker["build", "--no-cache=true", "-t", tmpname, SCRIPT_DIR+"/kolab/"] & FG
+    else:
+        docker["build", "-t", tmpname, SCRIPT_DIR+"/kolab/"] & FG
     print("Starting tmpcontainer...")
     container = docker["run", "-d",
             "-h", settings.HOSTNAME,

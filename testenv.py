@@ -96,6 +96,7 @@ def main():
     parser = argparse.ArgumentParser(usage)
     subparsers = parser.add_subparsers(help='sub-command help')
     parser_build = subparsers.add_parser('build', help = "build a docker image")
+    parser_build.add_argument("--rebuild", action='store_true', help = "rebuild the container")
 
     buildsubparsers = parser_build.add_subparsers(help='build variants')
 
@@ -139,6 +140,8 @@ def main():
     kdesrcbuild.run.setupSubparser(parser_srcbuild)
 
     options = parser.parse_args()
+    if options.rebuild:
+        settings.REBUILD = True
     options.func(options)
 
 if __name__ == "__main__":

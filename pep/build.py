@@ -17,7 +17,7 @@ def main():
             "containername": containername}
 
     print("Building pep...")
-    docker.build("-t", containername, "{c.SCRIPT_DIR}/pep/.".format(**fdict), _out=sys.stdout)
+    docker.build(settings.dockerCacheString(), "-t", containername, "{c.SCRIPT_DIR}/pep/.".format(**fdict), _out=sys.stdout)
 
     print("Building {dataset}'s pep...".format(**fdict))
-    docker.build("-t", "{containername}:{dataset}".format(**fdict), "-f", "{c.SCRIPT_DIR}/pep/Dockerfile-{dataset}".format(**fdict), "{c.SCRIPT_DIR}/pep/.".format(**fdict), _out=sys.stdout)
+    docker.build(settings.dockerCacheString(), "-t", "{containername}:{dataset}".format(**fdict), "-f", "{c.SCRIPT_DIR}/pep/Dockerfile-{dataset}".format(**fdict), "{c.SCRIPT_DIR}/pep/.".format(**fdict), _out=sys.stdout)

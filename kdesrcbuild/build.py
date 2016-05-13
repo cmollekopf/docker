@@ -14,4 +14,4 @@ def setupSubparser(parser):
     parser.set_defaults(func=srcbuild)
 
 def main(buildenvironment):
-    docker.build("-t", "{buildenvironment}dev".format(buildenvironment=buildenvironment), "{}/buildenvironments/{buildenvironment}/".format(BASEPATH, buildenvironment=buildenvironment), _out=sys.stdout)
+    docker.build(settings.dockerCacheString(), "-t", "{buildenvironment}dev".format(buildenvironment=buildenvironment), "{}/buildenvironments/{buildenvironment}/".format(BASEPATH, buildenvironment=buildenvironment), _out=sys.stdout)

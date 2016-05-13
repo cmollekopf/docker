@@ -8,12 +8,22 @@ TIMEZONE = "Europe/Brussels"
 KDEROOT = os.path.expanduser('~') + '/kdebuild/kdepim/install'
 ROOT = os.path.expanduser('~') + '/kdebuild'
 REPOSITORY = "kolab/kolabtestcontainer"
+REBUILD = False
 
 def kolabimagename(name):
     return "{c.REPOSITORY}:{name}".format(c=config, name=name)
 
 def populatedTag(dataset):
     return "populated-" + dataset
+
+def rebuild():
+    return REBUILD
+
+def dockerCacheString():
+    if rebuild():
+        return "--no-cache=true"
+    else:
+        return "--no-cache=false"
 
 class Config:
     def __init__(self, module):

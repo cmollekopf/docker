@@ -15,7 +15,7 @@ def main(dataset):
     basedir =  "{c.SCRIPT_DIR}/kolabpopulated".format(c=config)
 
     print("Building tmpcontainer...")
-    docker.build("-t", tmpname, "{basedir}/.".format(basedir=basedir))
+    docker.build(settings.dockerCacheString(), "-t", tmpname, "{basedir}/.".format(basedir=basedir))
 
     print("Starting tmpcontainer...")
     container = docker.run("-d", "-h", settings.HOSTNAME,

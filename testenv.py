@@ -140,8 +140,9 @@ def main():
     kdesrcbuild.run.setupSubparser(parser_srcbuild)
 
     options = parser.parse_args()
-    if options.rebuild:
+    if "rebuild" in vars(options):
         settings.REBUILD = True
+
     options.func(options)
 
 if __name__ == "__main__":

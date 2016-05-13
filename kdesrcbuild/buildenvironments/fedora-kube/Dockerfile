@@ -44,6 +44,9 @@ RUN sudo dnf -y install libxml2-devel libxslt-devel docbook-style-xsl
 # Support
 RUN dnf -y install icecream
 
+# Headless UI tests
+RUN dnf -y install xorg-x11-server-Xvfb
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt

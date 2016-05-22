@@ -12,3 +12,8 @@ export QT_GRAPHICSSYSTEM=native
 export QT_X11_NO_MITSHM=1
 # Give access to graphics card. Alternatively add user to group video
 sudo setfacl -m user:developer:rw /dev/dri/card0
+
+export KDE_FULL_SESSION=true
+export KDE_SESSION_UID=`id -ru`
+export KDE_SESSION_VERSION=4
+export XDG_CURRENT_DESKTOP=KDE

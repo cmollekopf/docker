@@ -47,6 +47,13 @@ RUN dnf -y install icecream
 # Headless UI tests
 RUN dnf -y install xorg-x11-server-Xvfb
 
+RUN dnf -y install qt5-qtgraphicaleffects qt5-qtquickcontrols
+
+RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain
+
+#For kimap
+RUN dnf -y install kf5-kio-devel
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt
@@ -67,6 +74,11 @@ RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
     git config --global user.email "developer@example.com" && \
     git config --global user.name "Developer" && \
     git clone git://anongit.kde.org/kdesrc-build.git
+
+#Setup cyrus imap
+RUN sudo usermod -p `perl -e "print crypt("admin","Q4")"` cyrus
+RUN sudo useradd -p `perl -e "print crypt("doe","Q4")"` doe
+RUN sudo saslauthd -a pam && sudo /usr/lib/cyrus-imapd/cyrus-master -d && sudo echo "cm user.doe" | cyradm --auth PLAIN -u cyrus -w admin localhost
 
 VOLUME /work
 VOLUME /qt

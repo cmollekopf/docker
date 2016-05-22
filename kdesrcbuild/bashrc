@@ -169,3 +169,6 @@ fi
 if [ "x$START_XVFB" = "xtrue" ]; then
     run_xvfb
 fi
+
+sudo saslauthd -a pam &
+sudo /usr/lib/cyrus-imapd/cyrus-master -d

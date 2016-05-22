@@ -43,6 +43,11 @@ module kmime #For Sink and libotp
     commit cd6220e #Avoid unnecessarily high dependencies
 end module
 
+module kimap #For Sink
+    repository kde:kimap
+    branch master
+end module
+
 module gpgmepp #For libkleo
     repository kde:gpgmepp
     branch master

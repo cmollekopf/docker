@@ -141,7 +141,7 @@ def main():
 
     options = parser.parse_args()
     if "rebuild" in vars(options):
-        settings.REBUILD = True
+        settings.REBUILD = options.rebuild
 
     options.func(options)
 

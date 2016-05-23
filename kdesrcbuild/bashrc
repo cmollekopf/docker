@@ -170,5 +170,8 @@ if [ "x$START_XVFB" = "xtrue" ]; then
     run_xvfb
 fi
 
-sudo saslauthd -a pam &
-sudo /usr/lib/cyrus-imapd/cyrus-master -d
+if [ "x$START_IMAP" = "xtrue" ]; then
+    sudo saslauthd -a pam &
+    sudo /usr/lib/cyrus-imapd/cyrus-master -d
+fi
+

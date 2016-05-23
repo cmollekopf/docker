@@ -17,6 +17,7 @@ def setupSubparser(parser):
     parser.add_argument("--icecream", action='store_true', help = "use icecream for compiling")
     parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
     parser.add_argument("--xvfb", action='store_true', help = "start xvfb with start", default=True)
+    parser.add_argument("--imap", action='store_true', help = "start imap with start", default=False)
     parser.add_argument("--buildenv", help = "build environment to use (found in kdesrcbuild/buildenvironments/*)")
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser). Is used for the project in case of arbitray command.")
@@ -46,6 +47,7 @@ def main(command, environment, commandargs, options):
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
         "-e", "START_ICECREAM={}".format(str(options.icecream).lower()),
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
+        "-e", "START_IMAP={}".format(str(options.imap).lower()),
         ]
     translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment)
 

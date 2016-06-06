@@ -13,7 +13,6 @@ fi
 
 export QTDIR KDEDIRS PATH MANPATH LD_LIBRARY_PATH
 
-export KDEDIR=/work/install
 export PATH=$KDEDIR/bin:$PATH
 export LD_LIBRARY_PATH=$KDEDIR/lib:$KDEDIR/lib64:$KDEDIR/lib/x86_64-linux-gnu
 export PKG_CONFIG_PATH=$KDEDIR/lib/pkgconfig
@@ -22,12 +21,12 @@ export QML2_IMPORT_PATH=$KDEDIR/lib64/qml/:$KDEDIR/lib/x86_64-linux-gnu/qml
 export QML_IMPORT_PATH=$QML2_IMPORT_PATH
 export QML_INSTALL_PATH=$KDEDIR/lib64/qml:$KDEDIR/lib/x86_64-linux-gnu/qml
 export CPATH=$KDEDIR/include/
-export XDG_CONFIG_DIRS=$KDEDIR/share/config
+export XDG_CONFIG_DIRS=$KDEDIR/share/config:$KDEDIR/etc/xdg
 export XDG_DATA_DIRS=$KDEDIR/share/:/usr/share
-export DISPLAY=:99
 
 function run_xvfb ()
 {
+    export DISPLAY=:99
     sudo Xvfb $DISPLAY +extension RANDR -screen 0 1024x780x24 &
 }
 

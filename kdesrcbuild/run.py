@@ -16,7 +16,7 @@ def srcbuild(options):
 def setupSubparser(parser):
     parser.add_argument("--icecream", action='store_true', help = "use icecream for compiling")
     parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
-    parser.add_argument("--xvfb", action='store_true', help = "start xvfb with start", default=True)
+    parser.add_argument("--xvfb", action='store_true', help = "start xvfb with start", default=False)
     parser.add_argument("--imap", action='store_true', help = "start imap with start", default=False)
     parser.add_argument("--buildenv", help = "build environment to use (found in kdesrcbuild/buildenvironments/*)")
     parser.add_argument("env", help = "environment to use")

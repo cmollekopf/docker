@@ -19,13 +19,32 @@ RUN apt-get update && apt-get -y install \
     libvlc-dev libvlccore-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev network-manager-dev libnm-dev \
     libattr1-dev \
     qt4-dev-tools libqt4-dev libdmtx-dev libqrencode-dev \
-    libboost-program-options-dev qttools5-dev-tools liblmdb-dev
+    libboost-program-options-dev qttools5-dev-tools liblmdb-dev \
+    clang libreadline-dev \
+    gdb gpgsm xvfb oxygen-icon-theme dbus-x11 vim
 
-#for sink
-Run apt-get install -y clang libreadline-dev libgit2-dev
+#for qt5 build
+RUN apt-get -y install \
+libdbus-1-dev libsrtp-dev bison build-essential gperf flex ruby python libasound2-dev libbz2-dev libcap-dev \
+libcups2-dev libdrm-dev libegl1-mesa-dev libgcrypt11-dev libnss3-dev libpci-dev libpulse-dev libudev-dev \
+libxtst-dev gyp ninja \
+libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev libcap-dev libxtst-dev libpulse-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libxss-dev libegl1-mesa-dev gperf \
+"^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev \
+libicu-dev libminizip-dev libwebp-dev libevent-dev libopus-dev libvpx-dev libsnappy-dev libjsoncpp-dev
 
-#for tests
-RUN apt-get install -y gpgsm xvfb oxygen-icon-theme dbus-x11 vim
+#for akonadi
+ENV    DEBIAN_FRONTEND noninteractive
+
+RUN echo "mysql-server-5.5 mysql-server-5.5/start_on_boot boolean true" | debconf-set-selections &&\
+    echo "mysql-server-5.5 mysql-server-5.5/nis_warning note"| debconf-set-selections &&\
+    echo "mysql-server-5.5 mysql-server-5.5/really_downgrade boolean false"| debconf-set-selections &&\
+    echo "mysql-server-5.5 mysql-server-5.5/postrm_remove_databases boolean false"| debconf-set-selections
+
+RUN apt-get -y install \
+mysql-server libmysqlclient-dev
+
+RUN apt-get -y install \
+ccache icecc
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
@@ -47,6 +66,7 @@ RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
     git config --global user.email "developer@example.com" && \
     git config --global user.name "Developer" && \
     git clone git://anongit.kde.org/kdesrc-build.git
+RUN ln -s /work/ccache /home/developer/.ccache
 
 VOLUME /work
 VOLUME /qt

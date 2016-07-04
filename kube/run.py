@@ -10,7 +10,7 @@ from x11support import X11Support
 
 from . import BASEPATH
 
-def main():
+def main(kolabcontainer):
     containername="kube"
     configset="default"
 
@@ -24,6 +24,10 @@ def main():
         "-v", "{}/kube:/work".format(settings.ROOT),
         "-v", "{}/testmails:/home/developer/maildir1/testmails".format(BASEPATH),
     ]
+    if kolabcontainer:
+        runargs.extend([
+            "--link", "{}:kolab".format(kolabcontainer),
+        ]);
 
     x11 = X11Support()
     x11.setupX11Authorization()

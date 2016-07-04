@@ -75,7 +75,7 @@ def start(options):
     if clientconfigset == "pep":
         pep.run.main()
     elif clientconfigset == "kube":
-        kube.run.main()
+        kube.run.main(container)
     elif clientconfigset == "release":
         release.run.main()
     elif clientconfigset == "kubestandalone":

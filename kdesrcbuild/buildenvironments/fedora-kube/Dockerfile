@@ -1,4 +1,4 @@
-FROM fedora:22
+FROM fedora:23
 
 RUN dnf -y update
 
@@ -53,6 +53,8 @@ RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain
 
 #For kimap
 RUN dnf -y install kf5-kio-devel
+
+RUN dnf -y install valgrind
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

@@ -1,4 +1,4 @@
-FROM fedora:22
+FROM fedora:23
 
 RUN dnf install -y xerces-c boost
 RUN dnf install -y sudo

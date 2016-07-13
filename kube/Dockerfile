@@ -33,6 +33,7 @@ RUN dnf -y install qt5-qtquickcontrols
 RUN dnf -y install kf5-plasma
 RUN dnf -y install oxygen-icon-theme
 RUN dnf -y install gamin
+RUN dnf -y install qt5-qtwebengine
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

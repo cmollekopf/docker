@@ -54,6 +54,8 @@ RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain
 #For kimap
 RUN dnf -y install kf5-kio-devel
 
+RUN dnf -y install qt5-qtwebengine-devel
+
 RUN dnf -y install valgrind
 
 RUN useradd -d /home/developer -m developer

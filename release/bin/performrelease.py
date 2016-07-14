@@ -10,6 +10,7 @@
 
 import os, glob
 from git import Repo, Actor
+from distutils.version import LooseVersion
 
 from release import obs, config, package, debian, cd
 
@@ -80,7 +81,7 @@ def update(repoBase, debianBase, obsBase):
                 continue
 
         deb = debian.debianPackage(p)
-        if version > deb.upstream_version:
+        if LooseVersion(version) > LooseVersion(deb.upstream_version):
             print("Updating from {} to {}".format(deb.upstream_version, version))
             deb.upgrade(version, "New upstream release {v}".format(v=version))
             debRepo.index.add(["debian/changelog"])

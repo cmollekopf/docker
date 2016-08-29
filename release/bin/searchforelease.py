@@ -13,10 +13,17 @@ from git import Repo, Actor
 
 from release import obs, config, package, debian, cd
 
-EXCEPT = ("kde-build-metadata", "log",
-      "kdelibs", "kfilemetadata",
-      "kde-l10n-de",
-      )     #dirs to except
+PROJECTS = ("kdepimlibs",
+            "kdepim-runtime",
+            "kdepim",
+            "kdelibs",
+            "baloo",
+            "kfilemetadata",
+            "akonadi",
+            "akonadi-ldap-resource",
+            "zanshin",
+            "libkolab",
+            "libkolabxml")
 
 def release(repoBase, debianBase):
   """search for uncommited repos and release a new version"""
@@ -25,9 +32,7 @@ def release(repoBase, debianBase):
 
   actor = Actor("{} {}".format(config.name, config.comment), config.mail)
 
-  for p in projects:
-    if p in EXCEPT:
-      continue
+  for p in PROJECTS:
     pkg = package.getPackage(p, repoBase, debianBase)
     pkg.repo.remotes.origin.fetch()
     newestTag = pkg.newestTag()

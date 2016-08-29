@@ -13,7 +13,17 @@ import re
 import functools
 from git import Repo
 
-EXCEPT = ("kde-build-metadata", "log")       #dirs to except
+PROJECTS = ("kdepimlibs",
+            "kdepim-runtime",
+            "kdepim",
+            "kdelibs",
+            "baloo",
+            "kfilemetadata",
+            "akonadi",
+            "akonadi-ldap-resource",
+            "zanshin",
+            "libkolab",
+            "libkolabxml")
 
 #maximum version for packages
 MAXVERSIONS = {"kdepimlibs":"4.13.1",
@@ -132,11 +142,7 @@ class KDEPackage(Package):
 
 def release(repoBase, origBase):
     """reacte targz out of all git repos in <repoBase> and save the origs in origBase"""
-    projects = next(os.walk(repoBase))[1]
-
-    for p in projects:
-        if p in EXCEPT:
-            continue
+    for p in PROJECTS:
         pkg = getPackage(p, repoBase, origBase)
         #pkg.repo.remotes.origin.fetch()
         version = pkg.newestVersion()

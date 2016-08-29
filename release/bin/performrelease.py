@@ -13,26 +13,28 @@ from git import Repo, Actor
 
 from release import obs, config, package, debian, cd
 
-EXCEPT = ("kde-build-metadata", "log",
-          "kdelibs", "kfilemetadata",
-          "libkolab", "libkolabxml", "baloo",
-          "kde-l10n-de",
-          )       #dirs to except
+PROJECTS = ("kdepimlibs",
+            "kdepim-runtime",
+            "kdepim",
+            "kdelibs",
+            "baloo",
+            "kfilemetadata",
+            "akonadi",
+            "akonadi-ldap-resource",
+            "zanshin",
+            "libkolab",
+            "libkolabxml")
 
 def update(repoBase, debianBase, obsBase):
     """push updates to OBS"""
 
     obsrepo = obs.ObsRepo(obsBase)
 
-    projects = next(os.walk(repoBase))[1]
-
     branch = "kolab/dev"
 
     actor = Actor("{} {}".format(config.name, config.comment), config.mail)
 
-    for p in projects:
-        if p in EXCEPT:
-            continue
+    for p in PROJECTS:
         print(p)
         pkg = package.getPackage(p, repoBase, debianBase)
         pkg.repo.remotes.origin.fetch()

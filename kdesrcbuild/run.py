@@ -6,6 +6,7 @@ import settings
 import dockerutils
 import argparse
 import os
+import re
 from x11support import X11Support
 
 from . import BASEPATH
@@ -41,7 +42,7 @@ def main(command, environment, commandargs, options):
     runargs = [ "-ti",
         "--rm",
         "--privileged",
-        "-v", "~/kdebuild/{}:/work".format(environment),
+        "-v", "{}/{}:/work".format(settings.ROOT, environment),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
@@ -49,7 +50,7 @@ def main(command, environment, commandargs, options):
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
         "-e", "START_IMAP={}".format(str(options.imap).lower()),
         ]
-    translatePathsToHost = "sed 's/\/work\//~\/kdebuild\/{environment}\//g'".format(environment=environment)
+    translatePathsToHost = "sed 's/\/work\//{root}\/{environment}\//g'".format(root=re.escape(settings.ROOT), environment=environment)
 
     if options.x11forward:
 	    x11 = X11Support()
@@ -73,7 +74,7 @@ def main(command, environment, commandargs, options):
     elif command == "build":
         args = ()
         #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p ~/kdebuild/{}".format(environment), shell=True)
+        subprocess.call("mkdir -p {}/{}".format(settings.ROOT, environment), shell=True)
         project = commandargs[0]
         runargs.extend(["-v", "{basepath}/{environment}/build-{project}.sh:/home/developer/build-{project}.sh".format(basepath=BASEPATH, environment=environment, project=project)])
         command = "/home/developer/build-{project}.sh".format(project=project)
@@ -81,7 +82,7 @@ def main(command, environment, commandargs, options):
     elif command == "kdesrcbuild":
         args = ()
         #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p ~/kdebuild/{}".format(environment), shell=True)
+        subprocess.call("mkdir -p {}/{}".format(settings.ROOT, environment), shell=True)
         command = '/home/developer/kdesrc-build/kdesrc-build'
         if commandargs:
             command += ' ' + ' '.join(commandargs);

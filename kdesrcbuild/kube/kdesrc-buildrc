@@ -46,6 +46,7 @@ end module
 module kimap #For Sink
     repository kde:kimap
     branch master
+    commit b2aed81 # Last version that matches with kmime version
 end module
 
 module gpgmepp #For libkleo

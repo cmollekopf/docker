@@ -17,6 +17,7 @@ def main(kolabcontainer):
     runargs = [
         "--rm",
         "-ti",
+        "--privileged",
         "-u", "developer",
         "--security-opt", "seccomp:unconfined", # Necessary to get gdb to work
         "--device", "/dev/dri/card0:/dev/dri/card0",

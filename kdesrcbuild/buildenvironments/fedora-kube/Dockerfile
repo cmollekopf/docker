@@ -15,7 +15,7 @@ RUN dnf -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel
 RUN dnf -y install xterm
 
 #Test debugging
-RUN dnf -y install gdb xterm
+RUN dnf -y install gdb xterm perf
 
 #Frameworks
 RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
@@ -56,7 +56,7 @@ RUN dnf -y install kf5-kio-devel
 
 RUN dnf -y install qt5-qtwebengine-devel
 
-RUN dnf -y install valgrind
+RUN dnf -y install valgrind kcachegrind dbus-x11
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
@@ -83,6 +83,9 @@ RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
 RUN sudo usermod -p `perl -e "print crypt("admin","Q4")"` cyrus
 RUN sudo useradd -p `perl -e "print crypt("doe","Q4")"` doe
 RUN sudo saslauthd -a pam && sudo /usr/lib/cyrus-imapd/cyrus-master -d && sudo echo "cm user.doe" | cyradm --auth PLAIN -u cyrus -w admin localhost
+
+#For KCacheGrind
+RUN sudo dbus-uuidgen --ensure
 
 VOLUME /work
 VOLUME /qt

@@ -17,6 +17,7 @@ end global
 module flatbuffers
     repository https://github.com/google/flatbuffers.git
     branch master
+    commit v1.4.0
 end module
 
 module extra-cmake-modules

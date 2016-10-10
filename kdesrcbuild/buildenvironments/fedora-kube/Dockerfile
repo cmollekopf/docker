@@ -50,6 +50,7 @@ RUN dnf -y install xorg-x11-server-Xvfb
 RUN dnf -y install qt5-qtgraphicaleffects qt5-qtquickcontrols
 
 RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain
+RUN dnf -y install gnupg2-smime
 
 #For kimap
 RUN dnf -y install kf5-kio-devel

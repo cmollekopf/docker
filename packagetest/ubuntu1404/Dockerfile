@@ -34,7 +34,9 @@ RUN apt-get update && apt-get -y install \
 
 #RUN apt-cache show kolab-desktop-client
 #RUN apt-get install kolab-desktop-client
-RUN apt-get -y install kontact akonadi-ldap-resource zanshin kdepim-runtime
+
+RUN apt-get update
+RUN apt-get -y install kontact akonadi-ldap-resource zanshin kdepim-runtime kmail korganizer kaddressbook
 
 RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 

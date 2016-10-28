@@ -5,4 +5,5 @@ ADD default/setupresource.sh /home/developer/setupresource.sh
 ADD default/setupimap.sh /home/developer/setupimap.sh
 ADD default/kube.sh /home/developer/kube.sh
 ADD default/gnupg /home/developer/.gnupg
+ADD default/config /home/developer/.config
 RUN sudo chown developer:developer /home/developer -R

@@ -15,5 +15,11 @@ sudo setfacl -m user:developer:rw /dev/dri/card0
 
 export KDE_FULL_SESSION=true
 export KDE_SESSION_UID=`id -ru`
-export KDE_SESSION_VERSION=4
+export KDE_SESSION_VERSION=5
 export XDG_CURRENT_DESKTOP=KDE
+# A QPA plugin that allows us to configure stuff
+export QT_QPA_PLATFORMTHEME=qt5ct
+# The qt5ct configuration already does this for us
+#export QT_STYLE_OVERRIDE=breeze
+# Breeze doesn't look very good somehow
+export QT_QUICK_CONTROLS_STYLE=Desktop

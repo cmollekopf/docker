@@ -59,6 +59,9 @@ RUN dnf -y install qt5-qtwebengine-devel
 
 RUN dnf -y install valgrind kcachegrind dbus-x11
 
+#for GpgME
+RUN dnf -y install automake autoconf libassuan-devel texinfo texlive-epstopdf
+
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt
 RUN chown developer /work /qt

@@ -49,6 +49,11 @@ module kimap #For Sink
     branch dev/kimap2
 end module
 
+module gpgme
+    repository git://git.gnupg.org/gpgme.git
+    branch master
+end module
+
 module gpgmepp #For libkleo
     repository kde:gpgmepp
     branch master

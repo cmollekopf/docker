@@ -54,18 +54,8 @@ module gpgme
     branch master
 end module
 
-module gpgmepp #For libkleo
-    repository kde:gpgmepp
-    branch master
-end module
-
-module libkleo #For libotp
-    repository kde:clones/libkleo/cmollekopf/libkleo.git
-    branch dev/minimalbuild
-end module
-
 module libotp #For Kube
-    cmake-options -DUSE_AKONADI=OFF
+    cmake-options -DMIMETREEPARSER_ONLY_BUILD=TRUE
     repository kde:clones/messagelib/knauss/libotp.git
     branch dev/libotp
 end module

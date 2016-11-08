@@ -1,5 +1,9 @@
+From signed@example.com
 Return-Path: <plasma-devel-bounces@kde.org>
 Delivered-To: einar@heavensinferno.net
+To: test@example.com
+From: signedbroken@example.com
+Subject: OpenPGP signed - broken protocol
 Content-Type: multipart/signed; boundary="nextPart1996263.NlFDv9GTkA"; micalg="pgp-sha1"; protocol="application/broken-signature"
 
 

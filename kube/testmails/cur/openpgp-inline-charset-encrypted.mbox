@@ -6,7 +6,7 @@ Received: from localhost (localhost [127.0.0.1])
 	for <you@you.com>; Thu, 17 Oct 2013 02:13:05 +0200 (CEST)
 From: test <test@example.com>
 To: you@you.com
-Subject: charset
+Subject: PGP inline - charset test
 Date: Thu, 17 Oct 2013 02:13:03 +0200
 Message-ID: <4081645.yGjUJ4o4Se@example.local>
 User-Agent: KMail/4.12 pre (Linux/3.11-4.towo-siduction-amd64; KDE/4.11.2; x86_64; git-f7f14e3; 2013-10-15)

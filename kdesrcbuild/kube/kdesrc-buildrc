@@ -52,6 +52,7 @@ end module
 module gpgme
     repository git://git.gnupg.org/gpgme.git
     branch master
+    commit f1f341062e24724e26928d893dd5769d3ccf5fa2
 end module
 
 module libotp #For Kube

@@ -92,8 +92,6 @@ RUN sudo saslauthd -a pam && sudo /usr/lib/cyrus-imapd/cyrus-master -d && sudo e
 
 #For KCacheGrind
 RUN sudo dbus-uuidgen --ensure
-#Disable abrt
-RUN sudo systemctl disable abrt-ccpp
 
 VOLUME /work
 VOLUME /qt

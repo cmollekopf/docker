@@ -1,4 +1,4 @@
-FROM fedora:23
+FROM cmollekopf/fedora:25
 
 RUN dnf -y update
 
@@ -21,7 +21,9 @@ RUN dnf -y install gdb xterm perf
 RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
 #Kube
-RUN dnf -y install kf5-kpackage-devel libcurl-devel
+# Temporary measure because libcurl needs to be downgraded to install libcurl-devel (the fedora25 packages are not completely in order yet it seems)
+RUN dnf -y --allowerasing install libcurl-devel
+RUN dnf -y install kf5-kpackage-devel
 
 #kmime
 RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel

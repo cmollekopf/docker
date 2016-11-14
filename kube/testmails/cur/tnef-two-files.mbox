@@ -1,6 +1,6 @@
 From: sender@example.com
 To: receiver@example.com
-Subject: two file TNEF attachment
+Subject: TNEF attachment
 Date: Wed, 5 Aug 2009 10:58:27 +0200
 MIME-Version: 1.0
 Content-Type: Multipart/Mixed;

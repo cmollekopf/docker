@@ -1,3 +1,4 @@
+From test@kolab.org Fri May 01 15:12:47 2015
 From: firstname.lastname@example.com
 To: test@kolab.org
 Subject: OpenPGP signed with 2 text attachments
@@ -21,13 +22,13 @@ Content-Type: text/plain; charset="us-ascii"
 
 this is the main body text
 --nextPart2397422.QDHKUNdbyg
-Content-Disposition: inline; filename="attachment1.txt"
+Content-Disposition: attachment; filename="attachment1.txt"
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"; name="attachment1.txt"
 
 this is attachment one
 --nextPart2397422.QDHKUNdbyg
-Content-Disposition: inline; filename="attachment2.txt"
+Content-Disposition: attachment; filename="attachment2.txt"
 Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"; name="attachment2.txt"
 

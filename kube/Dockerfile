@@ -29,7 +29,7 @@ RUN dnf -y install qt5-qtgraphicaleffects
 #qmlscene
 RUN dnf -y install qt5-qtdeclarative-devel
 #kube
-RUN dnf -y install qt5-qtquickcontrols
+RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2
 RUN dnf -y install kf5-plasma
 RUN dnf -y install oxygen-icon-theme
 RUN dnf -y install gamin

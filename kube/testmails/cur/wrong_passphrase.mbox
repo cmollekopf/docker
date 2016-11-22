@@ -1,0 +1,25 @@
+From mail@example.org Tue Nov 22 13:29:54 2016
+From: mail@example.org
+To: test@example.org
+Subject: with passphrase test
+Date: Tue, 22 Nov 2016 14:29:54 +0100
+Message-ID: <9081687.ujHPsPgSF2@example.org>
+X-KMail-Identity: 0
+X-KMail-Dictionary: de_DE
+User-Agent: KMail/5.2.3 (Linux/4.8.0-1-amd64; KDE/5.28.0; x86_64; ; )
+MIME-Version: 1.0
+Content-Type: multipart/encrypted; boundary="nextPart2728298.ZxU5kYzktc"; protocol="application/pgp-encrypted"
+
+
+-----BEGIN PGP MESSAGE-----
+
+hQEMA5r/lcUwi/IWAQf/U5aQ4InfdlkdMc2ZlkNdKZcU/LFXJkErF2+p3fM1rC5l
+BTTnwwu61UHczNY6RsyRjxHXB9/xFTWvxagFna8zlSlqpRE776zcDYZEcgafOxhc
+0kIZTga02+ciIVJ94CzcS2SK/6Frhb4t+mabBsBgghYEp2dJXunWf5yoY7n4atJZ
+WN76vAmvaiBWc6OwtjVdK69g0Bp6YgV+ZWvQcxBtTnyazy/iSNBRssf1Tnf9d37I
+0WMzdNoXJ1Djng2tLVlFUFf4PELCHZdTdoff80YKv/1/D/2QsQqzaZ/jupqxSuNZ
+0LJPreH1PZrbVnASA/qvpDpttTn5oaH+k3sxXtfSYtJHAXF0roC8nxemSkXGMq+u
+GEJCC982V6BK5eispy4oVorP3LpRtaINI9pzhXcOXxqV9W+pbvFkiZ/P3BfpzvNf
+4JMLhpN1CZQ=
+=KsMh
+-----END PGP MESSAGE-----

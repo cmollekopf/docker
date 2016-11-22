@@ -1,0 +1,44 @@
+From mail@sandroknauss.de Tue Nov 22 13:29:54 2016
+From: Sandro =?ISO-8859-1?Q?Knau=DF?= <mail@sandroknauss.de>
+To: test@sandroknauss.de
+Subject: non known key
+Date: Tue, 22 Nov 2016 14:29:54 +0100
+Message-ID: <9081687.ujHPsPgSF2@example.org>
+X-KMail-Identity: 0
+X-KMail-Dictionary: de_DE
+User-Agent: KMail/5.2.3 (Linux/4.8.0-1-amd64; KDE/5.28.0; x86_64; ; )
+MIME-Version: 1.0
+Content-Type: multipart/encrypted; boundary="nextPart2728298.ZxU5kYzktc"; protocol="application/pgp-encrypted"
+
+--nextPart2728298.ZxU5kYzktc
+Content-Type: application/pgp-encrypted
+Content-Disposition: attachment
+Content-Transfer-Encoding: 7Bit
+
+Version: 1
+--nextPart2728298.ZxU5kYzktc
+Content-Type: application/octet-stream
+Content-Disposition: inline; filename="msg.asc"
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP MESSAGE-----
+
+hQIMA1U9QmLaS63yARAAm+CUfvigeVILV2yB288E1AZ2QIUL1gkQ1AUmFsEqQpzd
+Wa5PSf59OSUmexjoohI2+9ANIhrwfjl26Klv2xuPHx4OWW6OB8jEH1QwSRgiYUYl
+OmMUqvBfR6SLSW8/W9XcfEg8nAB6lZqxUv1o08s3TM/+TP2ixpP6G9+FcqA2nY7X
+iQ3NQdLuLCW+wbSg+Iafse6FtyTIyq+bNPBBtjAYHUsZ+U7QrrLW5KdPOyc00JR4
+IRvF8j1A+4wmOEnTBFazF6GeviOOfmYQgJuWyVwciql8cOUhHTxHlAglVJq49ycV
+zEIlH9qEMFnSaYzln8bkLo8IMJOvtYktZ0VG1YTRJDObuwzrCD0rdA393soyAqS6
+DxBmgQKZxQm9Lj+q2HQ56e8YDxIHm0yVxCd/Z+KKvzkhbHa0uz5rGNHMNd827KTt
+vYxVvCzkI8U7NgKeMBgruwFZsm7jUM40i4X+zaFli5wwbODY07O0+nVOMKUWKgTm
+2dlWXudmY72tPDIFaf3i46zTE+TTFU9yCxCFTJlonc7fJPAGk5trUmRArfUbMW+C
+/bQ3QlCt8PjoVDusLKhGptPK2Nxom4j3A2L/emEI7mDCG87rqMo8VELU1Y77IPJw
+Z4Hsmq6NaxukZjkA+b3IRciZdxy/8b/ITMpiVmAbZVeRMum8u0wk9GQcycMa4l3S
+iAG1XA1KdHuvSEnqmakBAOD+S9rAdmnBcof5sZONCPccrVa+7gIfDT2E+W1rrByy
+a2PErxJzmAAlNmry1DY/DGoWowinftpm7NgOPL5tSkacf7KJP1/a14FGEvo8WiYt
+R4e5RyO3fVIRjNPa7aQY9b/aLFTyK3MMlDkGkCp4H4RkoIZATb1eq/c=
+=YWmK
+-----END PGP MESSAGE-----
+
+--nextPart2728298.ZxU5kYzktc--
+

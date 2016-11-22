@@ -1,0 +1,35 @@
+Dies ist ein Widerrufszertifikat für den OpenPGP Schlüssel:
+
+pub   rsa2048 2016-11-22 [S]
+      4F7EE48F586A13D1397E91D270057E539B9DE64B
+uid          With Passphrase "test" <passphrase@example.org>
+
+Ein Widerrufszertifikat ist eine Art von Notausschalter der öffentlich
+verlautbart, daß ein Schlüssel nicht mehr benutzt werden soll.  Es ist
+nicht möglich, ein einmal veröffentlichtes Widerrufszertifikat wieder
+zurückzuziehen.
+
+Benutzen Sie es, um einen Schlüssel zu widerrufen, falls der private
+Schlüssel verloren wurde oder kompromittiert ist.  Falls jedoch auf
+den privaten Schlüssel noch zugegriffen werden kann, so ist es besser,
+ein neues Widerrufszertifikat zu erzeugen, um den Grund des Widerrufs
+mit angeben zu können.  Weitere Informationen finden Sie im GnuPG
+Handbuch unter der Beschreibung des gpg Kommandos "--gen-revoke".
+
+Um eine versehentliche Aktivierung des Widerrufszertifikats zu
+vermeiden, wurde ein Doppelpunkt direkt vor den 5 Spiegelstrichen
+unten eingefügt.  Vor dem Import dieses Widerrufszertifikats
+entfernen Sie bitte diesen Doppelpunkt mittels eines Texteditors.
+
+:-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: This is a revocation certificate
+
+iQE2BCABCAAgFiEET37kj1hqE9E5fpHScAV+U5ud5ksFAlg0R+UCHQAACgkQcAV+
+U5ud5kv7Ugf+LonkXpSzYm3oC/Ky9kpRZUrpa4CYWd3MjhFN+8cFzv5O+Me0kASv
+Hl4YjRqiGVcEoXOonvYCzmBrc76Jud2ZoQZ1S10STRLjHqkJI2P9c56opikVr7MJ
+sjcuTWj2tlI2eKFQuRRYGSnlCb8GoPZ4TSwtS7LT5+ABj0pX7aMueFFcIbbkItNL
+mepgCg90B7xFeaDMc3EVoKiXChLyHOqUsJ7cLz/nbyUxgottlEE7PMbMHDpeOXBx
+rAkfpBys4flexdArCJY/aYwvks8FLL7CDSPu67yzpQTdl1FwEhpb0n7XreGxlf0W
+aPsxmBvAu4W1SDaSdlrKCRrNfAGW+HJqHg==
+=g13f
+-----END PGP PUBLIC KEY BLOCK-----

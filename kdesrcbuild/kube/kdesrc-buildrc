@@ -54,7 +54,7 @@ module gpgme
     branch master
     tag gpgme-1.8.0
     override-build-system autotools
-    custom-build-command cd /work/source/gpgme/; ./autogen.sh; cd /work/build/gpgme; make install
+    custom-build-command cd /work/source/gpgme/ && ./autogen.sh && cd /work/build/gpgme && make install
 end module
 
 module libotp #For Kube

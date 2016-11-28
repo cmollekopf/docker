@@ -46,6 +46,8 @@ def main(command, environment, commandargs, options):
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
+        "-v", "{}/setup-dbus.sh:/home/developer/setup-dbus.sh".format(BASEPATH),
+        "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro",
         "-e", "START_ICECREAM={}".format(str(options.icecream).lower()),
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
         "-e", "START_IMAP={}".format(str(options.imap).lower()),

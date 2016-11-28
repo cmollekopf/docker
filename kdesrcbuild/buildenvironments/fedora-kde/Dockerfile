@@ -12,6 +12,7 @@ RUN dnf -y install dnf-plugins-core
 RUN dnf builddep -y kdelibs
 #PIM deps
 RUN dnf -y install boost-devel sqlite prison-devel openldap-devel libical-devel libical-devel gpgme-devel
+RUN dnf -y install dbus-x11
 
 #Clang + Ninja
 RUN dnf -y install ninja-build clang

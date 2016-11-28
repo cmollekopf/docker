@@ -1,23 +1,24 @@
 FROM fedora:22
 
-RUN yum install -y kdelibs-webkit prison qjson libical xapian-core boost-program-options dbus-x11 grantlee xorg-x11-font* mariadb-server qt-mysql kde-runtime
-RUN yum install -y mesa-dri-drivers xorg-x11-drv-intel
-RUN yum install -y xerces-c boost
-RUN yum install -y kwallet
-RUN yum install -y sudo
-RUN yum install -y cyrus-sasl cyrus-sasl-plain
-RUN yum install -y gtk2
-RUN yum install -y qt-common vim
-RUN yum install -y libnotify libxdg-basedir
+RUN dnf -y install kdelibs-webkit prison qjson libical xapian-core boost-program-options dbus-x11 grantlee xorg-x11-font* mariadb-server qt-mysql kde-runtime
+RUN dnf -y install mesa-dri-drivers xorg-x11-drv-intel
+RUN dnf -y install xerces-c boost
+RUN dnf -y install kwallet
+RUN dnf -y erase vim-minimal
+RUN dnf -y install sudo vim
+RUN dnf -y install cyrus-sasl cyrus-sasl-plain
+RUN dnf -y install gtk2
+RUN dnf -y install qt-common
+RUN dnf -y install libnotify libxdg-basedir
 #So we have at least some icons in zanshin until we manage to figure out how to configure the theme properly
 #Qt probably thinks we're gnome for some reason, which breaks QIconLoader
-RUN yum install -y gnome-icon-theme
+RUN dnf -y install gnome-icon-theme
 
 #we need smime support
-RUN yum install -y gnupg2-smime pinentry-qt
+RUN dnf -y install gnupg2-smime pinentry-qt
 
 #Debug deps
-RUN yum -y install gdb
+RUN dnf -y install gdb
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

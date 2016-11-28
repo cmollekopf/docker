@@ -1,48 +1,48 @@
 FROM fedora:22
 
-RUN yum -y update
 #System deps
-RUN yum -y update
-RUN yum -y install sudo yum-utils
-RUN yum -y install gcc-c++ git doxygen cmake bzr vim tar
-RUN yum -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel strigi-devel qjson-devel libcurl-devel xsd xerces-c xapian-core-devel kdelibs-devel
+RUN dnf -y erase vim-minimal
+RUN dnf -y install sudo vim
+RUN dnf -y install gcc-c++ git doxygen cmake bzr tar
+RUN dnf -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel strigi-devel qjson-devel libcurl-devel xsd xerces-c xapian-core-devel kdelibs-devel
 #kdesrcbuild deps
-RUN yum -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
+RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
 #up until kdelibs
-RUN yum-builddep -y kdelibs
+RUN dnf -y install dnf-plugins-core
+RUN dnf builddep -y kdelibs
 #PIM deps
-RUN yum -y install boost-devel sqlite prison-devel openldap-devel libical-devel libical-devel gpgme-devel
+RUN dnf -y install boost-devel sqlite prison-devel openldap-devel libical-devel libical-devel gpgme-devel
 
 #Clang + Ninja
-RUN yum -y install ninja-build clang
+RUN dnf -y install ninja-build clang
 
 #Sink deps
-RUN yum -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel
-RUN yum -y install xterm
+RUN dnf -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel
+RUN dnf -y install xterm
 
 #Test debugging
-RUN yum -y install gdb perf
+RUN dnf -y install gdb perf
 
 #Frameworks
-RUN yum -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
+RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
 #Kube
-RUN yum -y install kf5-kpackage-devel
+RUN dnf -y install kf5-kpackage-devel
 
 #kmime
-RUN yum -y install kf5-ki18n-devel kf5-kcodecs-devel
+RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel
 
 #icecream
-RUN yum -y install icecream
+RUN dnf -y install icecream
 
 #autotools
-RUN yum -y install autoconf libtool
+RUN dnf -y install autoconf libtool
 
 #pep
-RUN yum -y install sqlite-devel
+RUN dnf -y install sqlite-devel
 
 #libkolabxml
-RUN yum -y install xerces-c-devel
+RUN dnf -y install xerces-c-devel
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

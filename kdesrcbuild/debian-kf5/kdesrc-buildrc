@@ -2,8 +2,6 @@
 # view the manpage or kdesrc-build documentation at
 # http://kdesrc-build.kde.org/documentation/
 global
-    qtdir /usr
-
     source-dir /work/source
     build-dir /work/build
     kdedir /work/install
@@ -16,33 +14,3 @@ end global
 
 include kdesrc-build/kf5-frameworks-build-include
 include kdesrc-build/kf5-kdepim-build-include
-
-module flatbuffers
-    repository https://github.com/google/flatbuffers.git
-    branch master
-end module
-
-module kasync
-    cmake-options -DWITH_KJOB=OFF
-    repository kde:kasync
-    branch master
-end module
-
-module kmime
-    repository kde:kmime
-    branch master
-end module
-
-module sink
-    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    # cmake-options -GNinja -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    # custom-build-command ninja-build
-    repository kde:sink
-    branch develop
-end module
-
-module kube
-    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    repository kde:kube
-    branch feature/components
-end module

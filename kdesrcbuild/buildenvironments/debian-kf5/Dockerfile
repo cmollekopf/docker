@@ -1,4 +1,5 @@
 FROM debian:sid
+VOLUME [ "/sys/fs/cgroup" ]
 
 RUN echo "deb http://httpredir.debian.org/debian/ sid main" > /etc/apt/sources.list
 RUN echo "deb-src http://httpredir.debian.org/debian/ sid main" >> /etc/apt/sources.list
@@ -14,13 +15,13 @@ RUN apt-get update && apt-get -y install \
     libpolkit-agent-1-dev qttools5-dev \
     libqt5svg5-dev libudev-dev libgcrypt11-dev \
     qtdeclarative5-dev libepoxy-dev \
-    libqt5webkit5-dev libssl-dev libpng-dev libjpeg-dev libgif-dev \
-    libxcursor-dev ttf-oxygen-font-family qtbase5-private-dev libqt5xmlpatterns5-dev \
+    libqt5webkit5-dev libssl1.0-dev libpng-dev libjpeg-dev libgif-dev \
+    libxcursor-dev fonts-oxygen qtbase5-private-dev libqt5xmlpatterns5-dev \
     libvlc-dev libvlccore-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev network-manager-dev libnm-dev \
     libattr1-dev \
     qt4-dev-tools libqt4-dev libdmtx-dev libqrencode-dev \
     libboost-program-options-dev qttools5-dev-tools liblmdb-dev \
-    clang libreadline-dev \
+    clang libreadline-dev texinfo \
     gdb gpgsm xvfb oxygen-icon-theme dbus-x11 vim
 
 #for qt5 build
@@ -45,6 +46,26 @@ mysql-server libmysqlclient-dev
 
 RUN apt-get -y install \
 ccache icecc
+
+ADD debs /tmp/debs
+RUN echo "deb http://httpredir.debian.org/debian/ experimental main" >> /etc/apt/sources.list
+RUN apt-get update
+RUN dpkg -i  \
+  /tmp/debs/libqt5webengine-data_5.7.1~20161021+dfsg-2_all.deb \
+  /tmp/debs/libqt5webenginecore5_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/libqt5webengine5_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/libqt5webenginewidgets5_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/qml-module-qtwebengine_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/qtwebengine5-dev_5.7.1~20161021+dfsg-2_amd64.deb \
+  || apt-get -y -f install
+
+RUN dpkg -i  \
+  /tmp/debs/libqt5webengine-data_5.7.1~20161021+dfsg-2_all.deb \
+  /tmp/debs/libqt5webenginecore5_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/libqt5webengine5_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/libqt5webenginewidgets5_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/qml-module-qtwebengine_5.7.1~20161021+dfsg-2_amd64.deb \
+  /tmp/debs/qtwebengine5-dev_5.7.1~20161021+dfsg-2_amd64.deb
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

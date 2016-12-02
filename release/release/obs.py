@@ -73,7 +73,9 @@ class ObsRepo:
         with cd(package.path):
             os.system("tar -xaf %s/debian.tar.gz"%(self.packageDir(package)))
             for i in self.tomove:
-                shutil.copy("%s/debian.%s"%(self.packageDir(package), i), "debian/%s"%i)
+                fname = "debian/%s"%i
+                shutil.copy("%s/debian.%s"%(self.packageDir(package), i), fname)
+                os.chmod(fname, 0o644)
 
     def toObs(self, package):
         self.createDsc(package)

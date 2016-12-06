@@ -1,5 +1,5 @@
 From ubuntu:16.04
-
+ENV REPOURL="http://obs.kolabsys.com/repositories/home:/knauss:/branches:/Kontact:/4.13:/Development/Ubuntu_16.04"
 
 # Some Environment Variables
 ENV    DEBIAN_FRONTEND noninteractive
@@ -26,14 +26,14 @@ RUN apt update && apt -y install \
     xserver-xorg-video-intel
 
 #Add repo key
-RUN wget http://obs.kolabsys.com/repositories/home:/knauss:/branches:/Kontact:/4.13:/Development/Ubuntu_16.04/Release.key && apt-key add Release.key
+RUN wget $REPOURL/Release.key && apt-key add Release.key
 
-RUN echo "deb http://obs.kolabsys.com/repositories/home:/knauss:/branches:/Kontact:/4.13:/Development/Ubuntu_16.04/ /" > /etc/apt/sources.list.d/kolab-obs-git.list
+RUN echo "deb ${REPOURL}/ /" > /etc/apt/sources.list.d/kolab-obs-git.list
 RUN echo "Package: *\nPin: origin obs.kolabsys.com\nPin-Priority: 501"  > /etc/apt/preferences.d/obs-kolab
 
 RUN apt update && apt show kolab-desktop-client
 RUN apt -y install akonadi-server akonadi-backend-mysql mariadb-server-10.0
-RUN apt -y install kolab-desktop-client -o "Debug::pkgProblemResolver=1"
+RUN apt -y install kolab-desktop-client kdepim-runtime -o "Debug::pkgProblemResolver=1"
 
 RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 

@@ -1,13 +1,6 @@
 From ubuntu:14.04
+ENV REPOURL="http://obs.kolabsys.com/repositories/home:/knauss:/branches:/Kontact:/4.13:/Development/Ubuntu_14.04"
 
-RUN apt-get update && apt-get -y install \
-    wget
-
-#Add repo key
-RUN wget http://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Ubuntu_14.04/Release.key && apt-key add Release.key
-
-RUN echo "deb http://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Ubuntu_14.04/ /" > /etc/apt/sources.list.d/kolab-obs-git.list
-RUN echo "Package: *\nPin: origin obs.kolabsys.com\nPin-Priority: 501"  > /etc/apt/preferences.d/obs-kolab 
 
 # Some Environment Variables
 ENV    DEBIAN_FRONTEND noninteractive
@@ -27,16 +20,21 @@ RUN echo "mysql-server-5.5 mysql-server-5.5/start_on_boot boolean true" | debcon
     echo "keyboard-configuration console-setup/detected note" | debconf-set-selections  && \
     echo "console-setup console-setup/fontsize string 16" | debconf-set-selections
 
-RUN apt-get update && apt-get -y install \
+RUN apt update && apt -y install \
+    wget \
     acl \
     sudo \
     xserver-xorg-video-intel
 
-#RUN apt-cache show kolab-desktop-client
-#RUN apt-get install kolab-desktop-client
+#Add repo key
+RUN wget $REPOURL/Release.key && apt-key add Release.key
 
-RUN apt-get update
-RUN apt-get -y install kontact akonadi-ldap-resource zanshin kdepim-runtime kmail korganizer kaddressbook
+RUN echo "deb ${REPOURL}/ /" > /etc/apt/sources.list.d/kolab-obs-git.list
+RUN echo "Package: *\nPin: origin obs.kolabsys.com\nPin-Priority: 501"  > /etc/apt/preferences.d/obs-kolab
+
+RUN apt update && apt show kolab-desktop-client
+RUN apt -y install akonadi-server akonadi-backend-mysql mysql-server-core-5.6
+RUN apt -y install kolab-desktop-client kdepim-runtime -o "Debug::pkgProblemResolver=1"
 
 RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 

@@ -1,5 +1,5 @@
 From ubuntu:16.04
-ENV REPOURL="http://obs.kolabsys.com/repositories/home:/knauss:/branches:/Kontact:/4.13:/Development/Ubuntu_16.04"
+ENV REPOURL="http://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Ubuntu_16.04"
 
 # Some Environment Variables
 ENV    DEBIAN_FRONTEND noninteractive

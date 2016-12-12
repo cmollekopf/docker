@@ -68,6 +68,11 @@ module libotp #For Kube
     branch dev/libotp
 end module
 
+module kdav
+    repository kde:scratch/knauss/kdav.git
+    branch master
+end module
+
 module Sink
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     # custom-build-command ninja-build

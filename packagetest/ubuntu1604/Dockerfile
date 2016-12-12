@@ -1,13 +1,13 @@
-From ubuntu:14.04
-ENV REPOURL="http://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Ubuntu_14.04"
+From ubuntu:16.04
+ENV REPOURL="http://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Ubuntu_16.04"
 
 # Some Environment Variables
 ENV    DEBIAN_FRONTEND noninteractive
 
-RUN echo "mysql-server-5.5 mysql-server-5.5/start_on_boot boolean true" | debconf-set-selections &&\
-    echo "mysql-server-5.5 mysql-server-5.5/nis_warning note"| debconf-set-selections &&\
-    echo "mysql-server-5.5 mysql-server-5.5/really_downgrade boolean false"| debconf-set-selections &&\
-    echo "mysql-server-5.5 mysql-server-5.5/postrm_remove_databases boolean false"| debconf-set-selections &&\
+RUN echo "mysql-server-5.7 mysql-server-5.7/start_on_boot boolean false" | debconf-set-selections &&\
+    echo "mysql-server-5.7 mysql-server-5.7/nis_warning note"| debconf-set-selections &&\
+    echo "mysql-server-5.7 mysql-server-5.7/really_downgrade boolean false"| debconf-set-selections &&\
+    echo "mysql-server-5.7 mysql-server-5.7/postrm_remove_databases boolean false"| debconf-set-selections &&\
     echo "console-setup console-setup/codeset47 select" | debconf-set-selections  && \
     echo "console-setup console-setup/codesetcode string Lat15" | debconf-set-selections  && \
     echo "console-setup console-setup/fontface47 select VGA" | debconf-set-selections  && \
@@ -32,7 +32,7 @@ RUN echo "deb ${REPOURL}/ /" > /etc/apt/sources.list.d/kolab-obs-git.list
 RUN echo "Package: *\nPin: origin obs.kolabsys.com\nPin-Priority: 501"  > /etc/apt/preferences.d/obs-kolab
 
 RUN apt update && apt show kolab-desktop-client
-RUN apt -y install akonadi-server akonadi-backend-mysql mysql-server-core-5.6
+RUN apt -y install akonadi-server akonadi-backend-mysql mariadb-server-10.0
 RUN apt -y install kolab-desktop-client kdepim-runtime -o "Debug::pkgProblemResolver=1"
 
 RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers

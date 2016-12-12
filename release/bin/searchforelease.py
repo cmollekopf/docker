@@ -16,14 +16,15 @@ from release import obs, config, package, debian, cd
 PROJECTS = ("kdepimlibs",
             "kdepim-runtime",
             "kdepim",
-            "kdelibs",
             "baloo",
-            "kfilemetadata",
             "akonadi",
             "akonadi-ldap-resource",
             "zanshin",
             "libkolab",
-            "libkolabxml")
+            "libkolabxml",
+#            "kfilemetadata",
+#            "kdelibs",
+            )
 
 def release(repoBase, debianBase):
   """search for uncommited repos and release a new version"""

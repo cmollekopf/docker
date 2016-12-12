@@ -11,6 +11,7 @@ import kdesrcbuild
 import pep
 import kube
 import kubestandalone
+import packagetest
 import release
 
 import settings
@@ -124,6 +125,10 @@ def main():
     kdesrcbuild.build.setupSubparser(parser_build_srcbuild)
     parser_build_srcbuild.set_defaults(func=buildKdesrcbuild)
 
+    parser_build_packagetest = buildsubparsers.add_parser('packagetest', help = "create images for test package installations")
+    packagetest.build.setupSubparser(parser_build_packagetest)
+    parser_build_packagetest.set_defaults(func=packagetest.build.srcbuild)
+
     parser.add_argument("--distro", default="fedora", help = "distro to build")
     parser.add_argument("--env", default="kde",  help = "environment to build")
 
@@ -138,6 +143,10 @@ def main():
 
     parser_srcbuild = subparsers.add_parser('srcbuild', help = "do a sourcebuild")
     kdesrcbuild.run.setupSubparser(parser_srcbuild)
+
+    parser_packagetest = subparsers.add_parser('packagetest', help = "do test package installations")
+    packagetest.run.setupSubparser(parser_packagetest)
+    parser_packagetest.set_defaults(func=packagetest.run.run)
 
     options = parser.parse_args()
     if "rebuild" in vars(options):

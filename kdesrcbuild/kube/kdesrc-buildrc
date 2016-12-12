@@ -33,9 +33,8 @@ end module
 
 module kasync
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    cmake-options -DWITH_KJOB=OFF
     repository kde:kasync
-    branch dev/kasync2
+    branch master
 end module
 
 module kmime #For Sink and libotp
@@ -44,9 +43,9 @@ module kmime #For Sink and libotp
     commit cd6220e #Avoid unnecessarily high dependencies
 end module
 
-module kimap #For Sink
-    repository kde:kimap
-    branch dev/kimap2
+module kimap2 #For Sink
+    repository kde:kimap2
+    branch master
 end module
 
 module gpgme

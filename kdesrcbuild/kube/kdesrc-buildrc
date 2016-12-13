@@ -28,7 +28,7 @@ end module
 module kirigami #For Kube
     cmake-options -DNO_PLASMA=ON
     repository kde:kirigami
-    branch master
+    branch Kirigami/1.1
 end module
 
 module qqc2style #For Kube

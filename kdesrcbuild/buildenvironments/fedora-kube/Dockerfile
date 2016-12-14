@@ -1,4 +1,4 @@
-FROM cmollekopf/fedora:25
+FROM fedora:25
 
 RUN dnf -y update
 

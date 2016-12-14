@@ -1,5 +1,4 @@
-FROM cmollekopf/fedora:25
-VOLUME [ "/sys/fs/cgroup" ]
+FROM fedora:25
 
 RUN dnf install -y xerces-c boost
 RUN dnf install -y sudo

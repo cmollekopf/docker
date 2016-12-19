@@ -62,10 +62,10 @@ module gpgme
     custom-build-command /home/developer/buildgpgme.sh
 end module
 
-module libotp #For Kube
+module messagelib #For Kube
     cmake-options -DMIMETREEPARSER_ONLY_BUILD=TRUE
-    repository kde:clones/messagelib/knauss/libotp.git
-    branch dev/libotp
+    repository kde:messagelib
+    branch Applications/16.12
 end module
 
 module kdav

@@ -1,37 +1,48 @@
 FROM debian:sid
 VOLUME [ "/sys/fs/cgroup" ]
+RUN echo 'Acquire::http { Proxy "http://172.16.0.1:3142" }' >  /etc/apt/apt.conf.d/01proxy
 
 RUN echo "deb http://httpredir.debian.org/debian/ sid main" > /etc/apt/sources.list
 RUN echo "deb-src http://httpredir.debian.org/debian/ sid main" >> /etc/apt/sources.list
 RUN apt-get update && apt-get -y install \
-    git bzr libxml-perl libjson-perl libsm-dev libpcre3-dev xsltproc sudo \
-    qtbase5-dev qtbase5-dev-tools cmake doxygen libsqlite3-dev \
-    libgpgme11-dev libboost-graph-dev libsasl2-dev libqjson-dev libical-dev libldap2-dev \
-    libxapian-dev \
-    libboost-thread-dev libboost-system-dev xsdcxx libxerces-c-dev libcurl4-openssl-dev \
-    libboost-dev libboost-regex-dev \
-    qtscript5-dev gettext libqt5x11extras5-dev libxcb-keysyms1-dev libxrender-dev \
-    libxslt-dev docbook-xml docbook-xsl libxml2-utils \
-    libpolkit-agent-1-dev qttools5-dev \
-    libqt5svg5-dev libudev-dev libgcrypt11-dev \
-    qtdeclarative5-dev libepoxy-dev \
-    libqt5webkit5-dev libssl1.0-dev libpng-dev libjpeg-dev libgif-dev \
-    libxcursor-dev fonts-oxygen qtbase5-private-dev libqt5xmlpatterns5-dev \
-    libvlc-dev libvlccore-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev network-manager-dev libnm-dev \
+    cmake clang git bzr libxml-perl libjson-perl sudo \
+    doxygen docbook-xml docbook-xsl gettext libxml2-utils texinfo libxslt-dev xsdcxx xsltproc \
+    fonts-oxygen \
     libattr1-dev \
-    qt4-dev-tools libqt4-dev libdmtx-dev libqrencode-dev \
-    libboost-program-options-dev qttools5-dev-tools liblmdb-dev \
-    clang libreadline-dev texinfo \
-    gdb gpgsm xvfb oxygen-icon-theme dbus-x11 vim
+    libcurl4-openssl-dev \
+    libdmtx-dev \
+    libepoxy-dev \
+    libgcrypt11-dev \
+    libgpgme-dev \
+    libical-dev \
+    libldap2-dev \
+    liblmdb-dev \
+    libpcre3-dev \
+    libpng-dev libjpeg-dev libgif-dev \
+    libpolkit-agent-1-dev \
+    libreadline-dev \
+    libsasl2-dev \
+    libsm-dev \
+    libssl1.0-dev \
+    libudev-dev \
+    libvlc-dev libvlccore-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev network-manager-dev libnm-dev \
+    libxapian-dev \
+    libxcb-keysyms1-dev libxrender-dev \
+    libxcursor-dev \
+    libxerces-c-dev \
+    \
+    gdb gpgsm xvfb oxygen-icon-theme dbus-x11 vim \
+    \
+    libboost-dev libboost-graph-dev libboost-thread-dev libboost-system-dev \
+    libboost-regex-dev libboost-program-options-dev flex bison \
+    \
+    qtbase5-dev qtbase5-dev-tools qtbase5-private-dev \
+    qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools \
+    libqrencode-dev \
+    libsqlite3-dev libqt5svg5-dev \
+    libqt5webkit5-dev qtwebengine5-dev libqt5webenginewidgets5 \
+    libqt5x11extras5-dev libqt5xmlpatterns5-dev libqjson-dev
 
-#for qt5 build
-RUN apt-get -y install \
-libdbus-1-dev libsrtp-dev bison build-essential gperf flex ruby python libasound2-dev libbz2-dev libcap-dev \
-libcups2-dev libdrm-dev libegl1-mesa-dev libgcrypt11-dev libnss3-dev libpci-dev libpulse-dev libudev-dev \
-libxtst-dev gyp ninja \
-libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev libcap-dev libxtst-dev libpulse-dev libudev-dev libpci-dev libnss3-dev libasound2-dev libxss-dev libegl1-mesa-dev gperf \
-"^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev \
-libicu-dev libminizip-dev libwebp-dev libevent-dev libopus-dev libvpx-dev libsnappy-dev libjsoncpp-dev
 
 #for akonadi
 ENV    DEBIAN_FRONTEND noninteractive
@@ -46,26 +57,6 @@ mysql-server libmysqlclient-dev
 
 RUN apt-get -y install \
 ccache icecc
-
-ADD debs /tmp/debs
-RUN echo "deb http://httpredir.debian.org/debian/ experimental main" >> /etc/apt/sources.list
-RUN apt-get update
-RUN dpkg -i  \
-  /tmp/debs/libqt5webengine-data_5.7.1~20161021+dfsg-2_all.deb \
-  /tmp/debs/libqt5webenginecore5_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/libqt5webengine5_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/libqt5webenginewidgets5_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/qml-module-qtwebengine_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/qtwebengine5-dev_5.7.1~20161021+dfsg-2_amd64.deb \
-  || apt-get -y -f install
-
-RUN dpkg -i  \
-  /tmp/debs/libqt5webengine-data_5.7.1~20161021+dfsg-2_all.deb \
-  /tmp/debs/libqt5webenginecore5_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/libqt5webengine5_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/libqt5webenginewidgets5_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/qml-module-qtwebengine_5.7.1~20161021+dfsg-2_amd64.deb \
-  /tmp/debs/qtwebengine5-dev_5.7.1~20161021+dfsg-2_amd64.deb
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

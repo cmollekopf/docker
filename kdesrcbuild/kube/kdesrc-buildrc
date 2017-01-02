@@ -69,7 +69,7 @@ module messagelib #For Kube
 end module
 
 module kdav
-    repository kde:scratch/knauss/kdav.git
+    repository kde:kdav.git
     branch master
 end module
 

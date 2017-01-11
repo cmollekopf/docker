@@ -8,6 +8,9 @@ import argparse
 import os
 import re
 from x11support import X11Support
+import dockerutils
+import kolabpopulated
+from testenv import startContainer
 
 from . import BASEPATH
 
@@ -23,12 +26,20 @@ def setupSubparser(parser):
     parser.set_defaults(func=run)
 
 def main(environment, commandargs, options):
+
+    dataset = "populated-set1"
+    standalone = False
+    cname = "{}:{}".format(settings.REPOSITORY, dataset)
+    started = dockerutils.findContainer(cname) == ""
+    kolabcontainer = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
+
     runargs = [ "-ti",
         "--rm",
         "--privileged",
         "-v", "{}/{}/bashrc:/home/developer/.bashrc".format(BASEPATH, environment),
         "-v", "/sys/fs/cgroup:/sys/fs/cgroup:ro",
         "-e", "START_XVFB={}".format(str(options.xvfb).lower()),
+        "--link", "{}:kolab".format(kolabcontainer),
         ]
 
     if not options.no_x11forward:

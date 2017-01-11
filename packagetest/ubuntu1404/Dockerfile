@@ -35,11 +35,20 @@ RUN apt update && apt show kolab-desktop-client
 RUN apt -y install akonadi-server akonadi-backend-mysql mysql-server-core-5.6
 RUN apt -y install kolab-desktop-client kdepim-runtime -o "Debug::pkgProblemResolver=1"
 
+#for debug and start successfully kontact
+RUN apt -y install kwalletmanager
+
+#for debug
+RUN apt -y install psmisc akonadiconsole
+
 RUN echo 'developer ALL=NOPASSWD: ALL' >> /etc/sudoers
 
 RUN useradd -d /home/developer -m developer
-USER developer
 
+ADD config/ /home/developer/
+RUN chown -R developer:developer /home/developer/
+
+USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer/
 ENV DISPLAY :0

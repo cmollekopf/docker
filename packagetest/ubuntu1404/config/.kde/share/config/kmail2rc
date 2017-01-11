@@ -1,0 +1,5 @@
+[General]
+first-start=false
+
+[TipOfDay]
+RunOnStart=false

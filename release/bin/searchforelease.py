@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-  Search and perform an update for all repos.
+  Search and perform an update for all upstream repos.
+
+  The result of this script are a new version and a new tag with the corresponding version.
+
+  Run this script, if patches were made in upstream repos.
 
   Copyright: Sandro Knauß <knauss@kolabsys.com>
   Date: 2016-04-11
@@ -14,16 +18,14 @@ from git import Repo, Actor
 from release import obs, config, package, debian, cd
 
 PROJECTS = ("kdepimlibs",
-            "kdepim-runtime",
-            "kdepim",
-            "baloo",
             "akonadi",
-            "akonadi-ldap-resource",
-            "zanshin",
+            "baloo",
             "libkolab",
             "libkolabxml",
-#            "kfilemetadata",
-#            "kdelibs",
+            "akonadi-ldap-resource",
+            "zanshin",
+            "kdepim-runtime",
+            "kdepim",
             )
 
 def release(repoBase, debianBase):
@@ -51,7 +53,7 @@ def release(repoBase, debianBase):
         continue
 
     if pkg.repo.index.diff(None):
-        print("repo is not clean can't go on form here: {}".format(pkg.repo.git.status()))
+        print("repo is not clean can't go on from here: {}".format(pkg.repo.git.status()))
         continue
     pkg.repo.heads[pkg.branch].checkout()
     pkg.repo.remotes.origin.pull()

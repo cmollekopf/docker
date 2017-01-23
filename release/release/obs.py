@@ -66,21 +66,31 @@ class ObsRepo:
         self.base = base
 
     def packageDir(self, package):
-        """return the folder of the obsi for a package"""
+        """return the folder of the obs for a package"""
         return "%s/%s" %(self.base, package.name)
 
-    def fromObs(self, package):
-        with cd(package.path):
-            os.system("tar -xaf %s/debian.tar.gz"%(self.packageDir(package)))
-            for i in self.tomove:
-                fname = "debian/%s"%i
-                shutil.copy("%s/debian.%s"%(self.packageDir(package), i), fname)
-                os.chmod(fname, 0o644)
+    def fromObs(self, package, branch = ""):
+        if not branch or branch == package.mainBranch():
+            with cd(package.path):
+                os.system("tar -xaf %s/debian.tar.gz"%(self.packageDir(package)))
+        else:
+            name = os.path.basename(branch)
+            with cd(package.path):
+                os.system("tar -xaf %s/debian-%s.tar.gz"%(self.packageDir(package), name))
 
-    def toObs(self, package):
-        self.createDsc(package)
-        self.createDebianTar(package)
-        self.move2Obs(package)
+        with cd(package.path):
+             for i in self.tomove:
+                fname = "debian/%s"%i
+                obsFname = "%s/debian.%s"%(self.packageDir(package), i)
+                if os.path.exists(obsFname):
+                    shutil.copy(obsFname, fname)
+                    os.chmod(fname, 0o644)
+
+    def toObs(self, package, branch = ""):
+        if not branch or branch == package.mainBranch():
+            self.createDsc(package)
+            self.move2Obs(package)
+        self.createDebianTar(package, branch)
 
     def createDsc(self, package):
         files = ["%s-%s.orig.tar.gz"%(package.name,package.upstream_version), "debian.tar.gz"]
@@ -96,20 +106,32 @@ class ObsRepo:
         with open("%s/%s.dsc"%(self.packageDir(package), package.name),'w', encoding="utf-8") as f:
             f.write(content)
 
-    def createDebianTar(self, package):
+    def createDebianTar(self, package, branch= ""):
+        general = ["source",]
         def exclude(fname):
-            if os.path.basename(fname) in self.tomove+['source']:
+            basename = os.path.basename(fname)
+            obsFname = "%s/debian.%s"%(self.packageDir(package), basename)
+            if len(package.branches()) > 1 and (os.path.exists(obsFname) or basename in general):
+                return True
+            elif len(package.branches()) == 1 and basename in self.tomove + general:
                 return True
             else:
                 return False
+        name = "debian"
+        if branch and branch != package.mainBranch():
+            name =  "debian-%s"%(os.path.basename(branch))
+
         with cd(package.path):
-            with tarfile.open("%s/debian.tar.gz"%(self.packageDir(package)), "w:gz") as t:
+            with tarfile.open("%s/%s.tar.gz"%(self.packageDir(package), name), "w:gz") as t:
                 t.add("debian",exclude=exclude)
 
     def move2Obs(self, package):
         with cd(package.path):
             for i in self.tomove:
-                shutil.copy("debian/"+i, "%s/debian.%s"%(self.packageDir(package), i))
+                obsFname = "%s/debian.%s"%(self.packageDir(package), i)
+                if len(package.branches()) > 1 and not os.path.exists(obsFname):
+                    continue
+                shutil.copy("debian/"+i, obsFname)
             if not self.base.endswith(":Git"):
                 self.copyOrig(package, package.upstream_version)
 

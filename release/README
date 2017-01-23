@@ -1,24 +1,119 @@
-# FIRST STEPS
-before starting the docker you need to create a config.cfg in the parent folder, with your name & emailaddress.
-You find a sample config file named config.cfg.dist
+# Workflow
 
-# bin/searchforelease.py
-scans all source repos, if a new release should be done.
-it uses "git log <lastTag>..<branch>" to determine changes.
+We want to produce one way how we release software from beginning to end. There are several steps that need to be coordinated.
+first some definitions:
+* upstream repos -the repos, that hold the code of the kolab client (akonadi, kdepimlibs, kdepim, kdepim-runtime,...)
+* debian repos - the repos that hold the files for building debian packages.
+* OBS repos - the repos on obs.kolab.org
 
-A new release is created:
- * CMakeLists.txt is updated
- * a new tag is created
+Plan how we release:
+- bin/searchforelease.py (for every package):
+  * git pull <branch>
+  * check for commits on HEAD
+  * update the version on upstream repo
+  * create a tag on upstream repo
+- outside the docker image:
+  * push release commit and tag
 
--> outside of the docker you need to push the release commit and tag
+Now we are ready with the upstream repos, now we want update the packages on OBS.
+Form now one no change on upstream repos are done.
 
-# bin/performrelease.py
-this will fetch the current tags for source dir
-cerate a tar bal is a new tag is found
-pull the changes from obs into the debian repo, so make sure that there is diff between obs and debian git
-push updates to debian git if needed
+- bin/performrelease.py (for every package)
+  * update the debian repo (kolab/dev branch)
+  * update the obs repo
+  * unpack files from obs repo to debian repo
+  * check if no changes are in debian repo ( this makes sure, that obs and debian repos are synced)
+  * if there are changes and ask if update obs from debian repo, run dkpg-buildpackage -S -d and copy the files to obs
+  * check if upstream version are higher than the version in debian repo
+  * if yes, than push a new orig.tar.gz to obs and update every version on obs (every .dsc and .spec file)
+  * push obs repo
 
-# push git repos 
-after running the relase processs the debian repos must be pushed to github again. We can't do this in docker because we have not access to ssh-keys.
+- outside the docker image:
+  * push changes of debian repositories
+    cd ~/kdebuild/kdepim/debian; for i in `find -mindepth 1 -maxdepth 1 -type d `; do echo $i; cd $i; git push origin kolab/dev; cd ..; done
 
-cd ~/kdebuild/kdepim/debian; for i in `find -mindepth 1 -maxdepth 1 -type d `; do echo $i; cd $i; git push origin kolab/dev; cd ..; done
+# How a fedoara package is built
+
+TODO
+
+# How a debian package is built
+
+In the debian repo, you have a own debian folder with all relevant files for building a debian package:
+Normally only changelog, control and the install files should be modified. Sometimes the symbols file.
+
+* d/changelog
+what was changed in versions: use dch tool to add things. dch 'bla foo' to add an entry, dch -r to make it as released.
+
+* d/control
+what packages are build of the source, define dependencies, replaces, breaks, build-dependecies
+
+* d/patches/series, d/patches/*
+series is a list of pataches that are added before we start building.
+
+* d/rules - this is the make file to build the package
+override_dh_auto_configure - this is the configure step
+override_dh_auto_build - the make step
+override_dh_auto_install - the install step
+override_dh_shlibdeps - create a list of dependecies between debian packages
+override_dh_strip - strip debug symobols out into own dbg packages
+override_dh_install - install files to debian packages
+
+* d/<blabla>.install
+list of files we want to find inside <blabla> package
+
+* d/<blabla>.symbols
+A list of all symbols in the package - missing symbols while building trigger a build error
+
+* d/*.lintian-overrides
+lintian is a checker for debian packages, these files make warnings/erros of lintian non fatal. In our case we don't use lintian, so we can ignore these files.
+
+* d/*.acc
+automatic package tests- we don't use this
+http://packaging.ubuntu.com/html/auto-pkg-test.html
+
+* d/watch
+how to find the newest version - we don't use this mechanism
+
+* d/compat, d/source/format
+versions of how this is pacakged - if a too new version is used, than old builds break - no need to chagne this at the current state.
+
+## Debian way of packaging:
+
+* dpkg-buildpackage - build the package on local machine
+* dpkg-buildpackage -S -d - build the source package aka *.orig.tar.gz, *_debian.tar.gz, *.dsc, *_source.chagnes
+  - *.orig.tar.gz - the upstream source tarball
+  - *_debian.tar.gz - files in debian subdir
+  - *.dsc - file that is used as input to trigger a build
+  - *_source.chagnes - this file is normally uploaded to debian and triggers build for alls archs
+
+## Interaction with OBS
+release/obs.py - ObsRepo.toObs
+* run dpkg-buildpackage -S -d
+* copy the *.orig.tar.gz to OBS
+* copy the dsc to OBS
+* because OBS has some special files named aka debian.<name> ( name in ('rules','control','changelog')):
+  - copy files that OBS used with debian.<name> directly debian/<name> <-> debian.<name>
+  - pack the rest into debian.tar.gz
+
+
+# Packages, that differ for different Distros
+Currently: baloo, kdepim, kdepim-runtime
+
+* OBS need a <packagename>-Distro.dsc file like kdepim-Ubuntu_14.04.dsc
+  - baloo is 4.13.3 vs 4.14.3
+    Version differes
+    DEBTRANSFORM-TAR: baloo_4.14.3.1.orig.tar.gz - a different orig.tar.gz
+    DEBTRANSFORM-FILES-TAR: debian-Ubuntu_14.04+.tar.gz - a different debian.tar.gz is used
+    ! Attention: if any debian.<name> file is also packaged inside the different debian.tar.gz, than build will fail!
+    -> move every file that differs into debian.tar.gz
+  - for kdepim-runtime, kdepimlibs, kdepim only the Version differs for Ubuntu 14.04, sto make it useable more integrated with rest of Ubuntu
+
+# bin/pullformobs.py <pakachename> <branch> <obsrepo>
+
+updates the debian-<packagename>(<branch>) from /work/osc/<obsrepo>/<packagename>
+<branch> is kolab/dev for every pacakge only baloo you can choose to use kolab/Ubuntu_14.04+
+
+# bin/pushtoobs.py <pakachename> <branch> <obsrepo>
+
+the reverse way of bin/pullformobs.py
+

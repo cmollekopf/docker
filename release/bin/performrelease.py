@@ -15,23 +15,22 @@ from distutils.version import LooseVersion
 from release import obs, config, package, debian, cd
 
 PROJECTS = ("kdepimlibs",
-            "kdepim-runtime",
-            "kdepim",
-            "kdelibs",
             "baloo",
-            "kfilemetadata",
             "akonadi",
             "akonadi-ldap-resource",
-            "zanshin",
             "libkolab",
-            "libkolabxml")
+            "libkolabxml",
+            "kdepim-runtime",
+            "kdepim",
+            "zanshin",
+#           "kdelibs",
+#            "kfilemetadata",
+            )
 
 def update(repoBase, debianBase, obsBase):
     """push updates to OBS"""
 
     obsrepo = obs.ObsRepo(obsBase)
-
-    branch = "kolab/dev"
 
     actor = Actor("{} {}".format(config.name, config.comment), config.mail)
 
@@ -44,21 +43,7 @@ def update(repoBase, debianBase, obsBase):
         deb = debian.debianPackage(p)
         debRepo = Repo(deb.path)
 
-        #update kolab/dev branch
-        if not branch in debRepo.heads:
-           debRepo.create_head(branch, debRepo.remotes.origin.refs[branch]).set_tracking_branch(debRepo.remotes.origin.refs[branch])
-        debRepo.heads[branch].checkout()
-        debRepo.remotes.origin.pull()
-        if debRepo.index.diff(None):
-            print("There are changes in obs that are not part of git - Please commit your changes")
-            continue
-
-        try:
-            os.stat(pkg.origPath(version))
-        except OSError:
-            pkg.createGitTar(version)
-
-	#update obs
+        #update obs
         if obsrepo.update(deb) != 0:
                 print("obs update failed - please fix yourself")
                 continue
@@ -67,20 +52,40 @@ def update(repoBase, debianBase, obsBase):
                 print("obs status shows a diff - please fix yourself")
                 continue
 
-        # push changes from obs to git
-        obsrepo.fromObs(deb)
-        if debRepo.index.diff(None):
-            print("debian repo is not clean can't go on form here: {}".format(debRepo.git.status()))
-            ret = input("show diff y/n?")
-            if ret.lower() == "y":
-                print(debRepo.git.diff())
-            ret = input("Overwrite changes in OBS y/n?")
-            if ret.lower() == "y":
-                debRepo.heads[branch].checkout(force=True)
-                obsrepo.toObs(deb)
-            else:
-                print("You will have to change the problem by your own - skipping {} for further processing".format(pkg.name))
+        #update branches on debian repo
+        for branch in deb.branches():
+            if not branch in debRepo.heads:
+               debRepo.create_head(branch, debRepo.remotes.origin.refs[branch]).set_tracking_branch(debRepo.remotes.origin.refs[branch])
+            debRepo.heads[branch].checkout()
+            debRepo.remotes.origin.pull()
+            if debRepo.index.diff(None):
+                print("There are changes in obs that are not part of git - Please commit your changes")
                 continue
+
+            #check if orig.tar.gz is available
+            try:
+                os.stat(pkg.origPath(version))
+                print(pkg.origPath(version))
+            except OSError:
+                pkg.createGitTar(version)
+
+            # push changes from obs to git
+            obsrepo.fromObs(deb, branch)
+            if debRepo.index.diff(None):
+                print("debian repo is not clean can't go on form here: {}".format(debRepo.git.status()))
+                ret = input("show diff y/n?")
+                if ret.lower() == "y":
+                    print(debRepo.git.diff())
+                ret = input("Overwrite changes in OBS y/n?")
+                if ret.lower() == "y":
+                    debRepo.heads[branch].checkout(force=True)
+                    obsrepo.toObs(deb, branch)
+                else:
+                    print("You will have to change the problem by your own - skipping {} for further processing".format(pkg.name))
+                    continue
+
+        branch = deb.mainBranch()
+        debRepo.heads[branch].checkout()
 
         deb = debian.debianPackage(p)
         if LooseVersion(version) > LooseVersion(deb.upstream_version):
@@ -118,7 +123,6 @@ def update(repoBase, debianBase, obsBase):
                 obsrepo.commit(deb, "New upstream release {v}".format(v=version))
             else:
                 obsrepo.commit(deb, "Pushed changes from debian git")
-
 
 
 if __name__ == "__main__":

@@ -59,6 +59,15 @@ class DebianPackage:
         with cd("%s/.." % self.path):
             os.system('DEBEMAIL="{}" DEBFULLNAME="{} {}" dpkg-source -b {}'.format(config.mail, config.name, config.comment, self.name).encode("utf-8"))
 
+    def mainBranch(self):
+        return "kolab/dev"
+
+    def branches(self):
+        if self.name == "baloo":
+            return ("kolab/dev", "kolab/Ubuntu_14.04+")
+        else:
+            return ("kolab/dev",)
+
 def debianPackage(name):
     base = os.path.join(config.debianBase, name)
     c = changelog.Changelog(open(os.path.join(base,'debian/changelog'), encoding="utf-8").read())

@@ -40,7 +40,7 @@ RUN apt-get update && apt-get -y install \
     qtdeclarative5-dev qtscript5-dev qttools5-dev qttools5-dev-tools \
     libqrencode-dev \
     libsqlite3-dev libqt5svg5-dev \
-    libqt5webkit5-dev qtwebengine5-dev libqt5webenginewidgets5 \
+    libqt5webkit5-dev qtwebengine5-dev \
     libqt5x11extras5-dev libqt5xmlpatterns5-dev libqjson-dev
 
 

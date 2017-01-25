@@ -3,6 +3,7 @@ FROM kube:latest
 ADD default/maildir1 /home/developer/maildir1
 ADD default/setupresource.sh /home/developer/setupresource.sh
 ADD default/setupimap.sh /home/developer/setupimap.sh
+ADD default/setupcarddav.sh /home/developer/setupcarddav.sh
 ADD default/kube.sh /home/developer/kube.sh
 ADD default/gnupg /home/developer/.gnupg
 ADD default/config /home/developer/.config

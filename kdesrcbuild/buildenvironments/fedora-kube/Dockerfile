@@ -28,6 +28,9 @@ RUN dnf -y install kf5-kpackage-devel
 #kmime
 RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel
 
+#kcontacts
+RUN dnf -y install kf5-kcontacts-devel
+
 # Support
 RUN dnf -y install icecream
 

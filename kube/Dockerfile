@@ -36,6 +36,7 @@ RUN dnf -y install gamin
 RUN dnf -y install qt5-qtwebengine
 RUN dnf -y install qt5ct plasma-breeze google-noto-serif-fonts google-noto-sans-fonts
 RUN dnf -y install gnupg2-smime pinentry-qt
+RUN dnf -y install kf5-kcontacts
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

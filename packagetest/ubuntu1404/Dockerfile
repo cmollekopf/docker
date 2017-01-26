@@ -33,7 +33,7 @@ RUN echo "Package: *\nPin: origin obs.kolabsys.com\nPin-Priority: 501"  > /etc/a
 
 RUN apt update && apt show kolab-desktop-client
 RUN apt -y install akonadi-server akonadi-backend-mysql mysql-server-core-5.6
-RUN apt -y install kolab-desktop-client kdepim-runtime -o "Debug::pkgProblemResolver=1"
+RUN apt -y install kolab-desktop-client -o "Debug::pkgProblemResolver=1"
 
 #for debug and start successfully kontact
 RUN apt -y install kwalletmanager

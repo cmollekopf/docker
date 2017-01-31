@@ -23,3 +23,6 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 #export QT_STYLE_OVERRIDE=breeze
 # Breeze doesn't look very good somehow
 export QT_QUICK_CONTROLS_STYLE=Desktop
+
+#Required for the mailrenderer to render umlauts
+export LANG=en_US.UTF-8

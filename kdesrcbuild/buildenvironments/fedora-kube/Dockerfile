@@ -42,15 +42,13 @@ RUN dnf -y install qt5-qtgraphicaleffects qt5-qtquickcontrols qt5-qtquickcontrol
 RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain
 RUN dnf -y install gnupg2-smime
 
-#For kimap
+#For kdav
 RUN dnf -y install kf5-kio-devel
 
 RUN dnf -y install qt5-qtwebengine-devel
 
 RUN dnf -y install valgrind kcachegrind dbus-x11
-
-#for GpgME
-RUN dnf -y install automake autoconf libassuan-devel texinfo texlive-epstopdf
+RUN dnf -y install qgpgme-devel
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

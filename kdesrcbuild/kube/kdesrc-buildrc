@@ -61,7 +61,7 @@ end module
 
 module kdav
     repository kde:kdav.git
-    branch master
+    tag 107f6c2
 end module
 
 module Sink

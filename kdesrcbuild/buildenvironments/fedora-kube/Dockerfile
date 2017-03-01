@@ -25,7 +25,7 @@ RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx1
 RUN dnf -y --allowerasing install libcurl-devel
 RUN dnf -y install kf5-kpackage-devel
 
-#kmime
+#kimap
 RUN dnf -y install kf5-ki18n-devel kf5-kcodecs-devel
 
 #kcontacts
@@ -49,6 +49,8 @@ RUN dnf -y install qt5-qtwebengine-devel
 
 RUN dnf -y install valgrind kcachegrind dbus-x11
 RUN dnf -y install qgpgme-devel
+
+RUN dnf -y install kf5-kmime-devel kf5-kirigami-devel kf5-messagelib-devel
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

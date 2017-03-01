@@ -20,17 +20,6 @@ module flatbuffers
     commit v1.4.0
 end module
 
-module extra-cmake-modules
-    repository kde:extra-cmake-modules
-    branch master
-end module
-
-module kirigami #For Kube
-    cmake-options -DNO_PLASMA=ON
-    repository kde:kirigami
-    branch Kirigami/1.1
-end module
-
 module qqc2style #For Kube
     repository https://anongit.kde.org/scratch/mart/desktopqqc2style.git
     branch master
@@ -42,21 +31,9 @@ module kasync
     branch master
 end module
 
-module kmime #For Sink and libotp
-    repository kde:kmime
-    branch master
-    commit cd6220e #Avoid unnecessarily high dependencies
-end module
-
 module kimap2 #For Sink
     repository kde:kimap2
     branch master
-end module
-
-module messagelib #For Kube
-    cmake-options -DMIMETREEPARSER_ONLY_BUILD=TRUE
-    repository kde:messagelib
-    branch Applications/16.12
 end module
 
 module kdav

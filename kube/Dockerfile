@@ -38,6 +38,8 @@ RUN dnf -y install qt5ct plasma-breeze google-noto-serif-fonts google-noto-sans-
 RUN dnf -y install gnupg2-smime pinentry-qt
 RUN dnf -y install kf5-kcontacts
 RUN dnf -y install qgpgme
+RUN dnf -y install kf5-kmime kf5-kirigami kf5-messagelib
+RUN dnf -y install vim
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

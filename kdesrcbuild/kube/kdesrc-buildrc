@@ -37,7 +37,7 @@ module kimap2 #For Sink
 end module
 
 module kdav
-    repository kde:kdav.git
+    repository kde:kdav
     tag 107f6c2
 end module
 

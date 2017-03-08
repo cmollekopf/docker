@@ -45,7 +45,6 @@ def main(dataset):
         docker("exec", container, "patch", "-R", "/etc/kolab/kolab.conf", "/data/kolab.conf.diff", _out=sys.stdout)
         docker("exec", container, "patch", "-R", "/etc/roundcubemail/calendar.inc.php", "/data/calendar.inc.php.diff", _out=sys.stdout)
         docker("exec", container, "patch", "-R", "/etc/roundcubemail/config.inc.php", "/data/config.inc.php.diff", _out=sys.stdout)
-        docker("exec", container, "patch", "-R", "/etc/roundcubemail/kolab_addressbook.inc.php", "/data/kolab_addressbook.inc.php.diff", _out=sys.stdout)
         docker("exec", container, "patch", "-R", "/etc/roundcubemail/kolab_auth.inc.php", "/data/kolab_auth.inc.php.diff", _out=sys.stdout)
         docker("exec", container, "patch", "-R", "/etc/roundcubemail/password.inc.php", "/data/password.inc.php.diff", _out=sys.stdout)
 

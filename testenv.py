@@ -48,8 +48,8 @@ def buildRelease(options):
 def buildServer(options):
     if options.dataset is None:
         Exception("needs a dataset to build")
-#    buildImage(settings.REPOSITORY, "base", False, lambda: kolab.build.main())
-    buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), True, lambda: kolabpopulated.build.main(options.dataset))
+    buildImage(settings.REPOSITORY, "base", settings.rebuild(), lambda: kolab.build.main())
+    buildImage(settings.REPOSITORY, settings.populatedTag(options.dataset), settings.rebuild(), lambda: kolabpopulated.build.main(options.dataset))
 
 def buildKdesrcbuild(options):
     kdesrcbuild.build.srcbuild(options)

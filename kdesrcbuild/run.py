@@ -91,7 +91,6 @@ def main(command, environment, commandargs, options):
         subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, translatePathsToHost=translatePathsToHost), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     else:
         project = command
-        print("Installing {}".format(project))
         if os.path.isabs(project):
             args = ("-w", "{project}".format(project=project))
         else:

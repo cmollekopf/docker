@@ -27,10 +27,9 @@ def setupSubparser(parser):
 
 def main(environment, commandargs, options):
 
-    dataset = "populated-set1"
+    dataset = "set1"
     standalone = False
-    cname = "{}:{}".format(settings.REPOSITORY, dataset)
-    started = dockerutils.findContainer(cname) == ""
+    cname = "{}:{}".format(settings.REPOSITORY, "populated-" + dataset)
     kolabcontainer = startContainer(cname, lambda: kolabpopulated.run.main(dataset, standalone))
 
     runargs = [ "-ti",
@@ -58,7 +57,7 @@ def main(environment, commandargs, options):
     image="packagetest:{}".format(environment)
 
     runargs.append(image)
-    runargs.extend(["-t", "-c","bash"])
+    runargs.append("/bin/bash")
     args = ["docker","run"]
     args.extend(runargs)
     subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)

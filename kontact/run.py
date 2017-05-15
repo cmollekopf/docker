@@ -17,9 +17,6 @@ def main(kolabcontainer, configset):
         "-u", "developer",
         "--security-opt", "seccomp:unconfined", # Necessary to get gdb to work
         "--link", "{}:kolab".format(kolabcontainer),
-        "--device", "/dev/dri/card0:/dev/dri/card0",
-        "--device", "/dev/dri/renderD128:/dev/dri/renderD128",
-        "--device", "/dev/dri/controlD64:/dev/dri/controlD64",
         "-v", "{}:/opt/kde".format(settings.KDEROOT),
     ]
 

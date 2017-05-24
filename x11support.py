@@ -14,12 +14,17 @@ class X11Support():
        sh.xauth(sh.sed(sh.xauth("nlist", self.DISPLAY), "-e", 's/^..../ffff/'), "-f", self.XAUTH, "nmerge", "-")
 
     def docker_args(self):
-       return [
+       args = [
            "-e", "DISPLAY={}".format(self.DISPLAY),
            "-e", "XAUTHORITY={}".format(self.XAUTH),
            "-v", "{}:{}".format(self.XAUTH, self.XAUTH),
            "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
-	   "--device", "/dev/dri/card0:/dev/dri/card0",
-	   "--device", "/dev/dri/renderD128:/dev/dri/renderD128",
-	   "--device", "/dev/dri/controlD64:/dev/dri/controlD64",
+	   "--device", "/dev/dri/card0:/dev/dri/card0"
        ]
+       if os.path.isfile("/dev/dri/controlD64"):
+           args.extend(["--device", "/dev/dri/controlD64:/dev/dri/controlD64"])
+       if os.path.isfile("/dev/dri/renderD128"):
+           args.extend(["--device", "/dev/dri/renderD128:/dev/dri/renderD128"])
+       if os.path.isfile("/dev/dri/renderD64"):
+           args.extend(["--device", "/dev/dri/renderD64:/dev/dri/renderD64"])
+       return args

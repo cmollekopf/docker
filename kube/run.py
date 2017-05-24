@@ -20,9 +20,6 @@ def main(kolabcontainer):
         "--privileged",
         "-u", "developer",
         "--security-opt", "seccomp:unconfined", # Necessary to get gdb to work
-        "--device", "/dev/dri/card0:/dev/dri/card0",
-        "--device", "/dev/dri/renderD128:/dev/dri/renderD128",
-        "--device", "/dev/dri/controlD64:/dev/dri/controlD64",
         "-v", "{}/kube:/work".format(settings.ROOT),
         "-v", "{}/testmails:/home/developer/maildir1/testmails".format(BASEPATH),
     ]

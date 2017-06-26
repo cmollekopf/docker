@@ -20,11 +20,6 @@ module flatbuffers
     commit v1.4.0
 end module
 
-module qqc2style #For Kube
-    repository https://anongit.kde.org/scratch/mart/desktopqqc2style.git
-    branch master
-end module
-
 module kasync
     cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     repository kde:kasync

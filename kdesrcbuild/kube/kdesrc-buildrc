@@ -31,9 +31,9 @@ module kimap2 #For Sink
     branch master
 end module
 
-module kdav
-    repository kde:kdav
-    tag 107f6c2
+module kdav2
+    repository kde:kdav2
+    branch master
 end module
 
 module Sink

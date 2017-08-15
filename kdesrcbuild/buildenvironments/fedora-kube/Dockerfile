@@ -1,5 +1,7 @@
 FROM fedora:25
 
+RUN dnf -y install 'dnf-command(copr)'
+RUN dnf -y copr enable @kdesig/qt-5.9
 RUN dnf -y update
 
 RUN dnf -y install gcc-c++ git doxygen cmake bzr vim tar ninja-build clang
@@ -39,6 +41,11 @@ RUN dnf -y install kf5-kio-devel
 
 #KCachegrind needs dbus =(
 RUN dnf -y install kcachegrind dbus-x11
+
+
+RUN sed -i 's/5.9.0/5.8.0/g' /usr/lib64/cmake/Qt5WebEngineWidgets/Qt5WebEngineWidgetsConfig.cmake
+RUN sed -i 's/5.9.0/5.8.0/g' /usr/lib64/cmake/Qt5WebEngineCore/Qt5WebEngineCoreConfig.cmake
+RUN sed -i 's/5.9.0/5.8.0/g' /usr/lib64/cmake/Qt5WebEngine/Qt5WebEngineConfig.cmake
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

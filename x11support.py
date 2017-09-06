@@ -17,6 +17,7 @@ class X11Support():
        args = [
            "-e", "DISPLAY={}".format(self.DISPLAY),
            "-e", "XAUTHORITY={}".format(self.XAUTH),
+           "-e", "XDG_RUNTIME_DIR=/run/user/1000", #Not strictly for X11 only, but required for graphical applications to avoid warning
            "-v", "{}:{}".format(self.XAUTH, self.XAUTH),
            "-v", "/tmp/.X11-unix:/tmp/.X11-unix",
 	   "--device", "/dev/dri/card0:/dev/dri/card0"

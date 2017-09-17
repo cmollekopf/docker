@@ -1,0 +1,15 @@
+[Notification Messages]
+warning_kwallet_disabled=false
+
+[cache]
+IntervalCheckEnabled=false
+RetrieveMetadataOnFolderListing=false
+TrashCollection=10
+TrashCollectionMigrated=true
+
+[idle]
+IdleRidPath=/INBOX,imap://doe@example.org@kolab/
+
+[network]
+ImapServer=kolab
+UserName=john.doe@example.org

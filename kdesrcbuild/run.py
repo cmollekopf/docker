@@ -19,6 +19,7 @@ def setupSubparser(parser):
     parser.add_argument("--x11forward", action='store_true', help = "forward x11 to docker (needed for some tests)")
     parser.add_argument("--xvfb", action='store_true', help = "start xvfb with start", default=False)
     parser.add_argument("--imap", action='store_true', help = "start imap with start", default=False)
+    parser.add_argument("--noninteractive", action='store_true', help = "use if not connected to a tty", default=False)
     parser.add_argument("--buildenv", help = "build environment to use (found in kdesrcbuild/buildenvironments/*)")
     parser.add_argument("env", help = "environment to use")
     parser.add_argument("command", help = "command to use (should be another subparser). Is used for the project in case of arbitray command.")
@@ -39,7 +40,7 @@ def main(command, environment, commandargs, options):
         else:
             buildenv = defaultBuildenv['default']
 
-    runargs = [ "-ti",
+    runargs = [
         "--rm",
         "--privileged",
         "-v", "{}/{}:/work".format(settings.ROOT, environment),
@@ -53,6 +54,9 @@ def main(command, environment, commandargs, options):
         "-e", "START_IMAP={}".format(str(options.imap).lower()),
         ]
     translatePathsToHost = "sed 's/\/work\//{root}\/{environment}\//g'".format(root=re.escape(settings.ROOT), environment=environment)
+
+    if not options.noninteractive:
+        runargs.insert(0, "-ti")
 
     if options.x11forward:
 	    x11 = X11Support()

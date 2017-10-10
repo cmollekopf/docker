@@ -44,6 +44,7 @@ def main(command, environment, commandargs, options):
         "--rm",
         "--privileged",
         "-v", "{}/{}:/work".format(settings.ROOT, environment),
+        "-v", "{}/hawd:/home/developer/hawd".format(settings.ROOT),
         "-v", "{}/bashrc:/home/developer/.bashrc".format(BASEPATH),
         "-v", "{}/{}/kdesrc-buildrc:/home/developer/.kdesrc-buildrc".format(BASEPATH, environment),
         "-v", "{}/start-iceccd.sh:/home/developer/.start-iceccd.sh".format(BASEPATH),
@@ -54,6 +55,10 @@ def main(command, environment, commandargs, options):
         "-e", "START_IMAP={}".format(str(options.imap).lower()),
         ]
     translatePathsToHost = "sed 's/\/work\//{root}\/{environment}\//g'".format(root=re.escape(settings.ROOT), environment=environment)
+
+    #Create the root dir so it is created with the correct rights
+    subprocess.call("mkdir -p {}/{}".format(settings.ROOT, environment), shell=True)
+    subprocess.call("mkdir -p {}/hawd".format(settings.ROOT), shell=True)
 
     if not options.noninteractive:
         runargs.insert(0, "-ti")
@@ -79,16 +84,12 @@ def main(command, environment, commandargs, options):
         subprocess.call(" ".join(args), shell=True, cwd=settings.SCRIPT_DIR)
     elif command == "build":
         args = ()
-        #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p {}/{}".format(settings.ROOT, environment), shell=True)
         project = commandargs[0]
         runargs.extend(["-v", "{basepath}/{environment}/build-{project}.sh:/home/developer/build-{project}.sh".format(basepath=BASEPATH, environment=environment, project=project)])
         command = "/home/developer/build-{project}.sh".format(project=project)
         subprocess.call("docker run {defaultargs} {args} {image} -c 'source /home/developer/.bashrc && {command}' | {translatePathsToHost}".format(defaultargs=" ".join(runargs), args=" ".join(args), image=image, command=command, translatePathsToHost=translatePathsToHost), shell=True, cwd=settings.SCRIPT_DIR+"/kdesrcbuild")
     elif command == "kdesrcbuild":
         args = ()
-        #Create the root dir so it is created with the correct rights
-        subprocess.call("mkdir -p {}/{}".format(settings.ROOT, environment), shell=True)
         command = '/home/developer/kdesrc-build/kdesrc-build'
         if commandargs:
             command += ' ' + ' '.join(commandargs);

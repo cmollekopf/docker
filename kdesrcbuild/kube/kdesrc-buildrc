@@ -17,7 +17,7 @@ end global
 module flatbuffers
     repository https://github.com/google/flatbuffers.git
     branch master
-    commit v1.4.0
+    commit v1.6.0
 end module
 
 module kasync

@@ -63,7 +63,7 @@ RUN git config --global url."git://anongit.kde.org/".insteadOf kde: && \
 #Setup cyrus imap
 RUN sudo usermod -p `perl -e "print crypt("admin","Q4")"` cyrus
 RUN sudo useradd -p `perl -e "print crypt("doe","Q4")"` doe
-RUN sudo saslauthd -a pam && sudo /usr/lib/cyrus-imapd/cyrus-master -d && sudo echo "cm user.doe" | cyradm --auth PLAIN -u cyrus -w admin localhost
+RUN sudo saslauthd -a pam && sudo /usr/lib/cyrus-imapd/cyrus-master -d && sleep 1 && sudo echo "cm user.doe" | cyradm --auth PLAIN -u cyrus -w admin localhost
 
 #For KCacheGrind
 RUN sudo dbus-uuidgen --ensure

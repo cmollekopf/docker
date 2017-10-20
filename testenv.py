@@ -112,7 +112,7 @@ def main():
     parser_build_client.add_argument("dataset", choices=["john", "jane"], help = "dataset to use")
     parser_build_client.set_defaults(func=buildClient)
 
-    parser_build_srcbuild = buildsubparsers.add_parser('kdesrcbuild', help = "create a sourcebuild")
+    parser_build_srcbuild = buildsubparsers.add_parser('srcbuild', help = "create a sourcebuild")
     kdesrcbuild.build.setupSubparser(parser_build_srcbuild)
     parser_build_srcbuild.set_defaults(func=buildKdesrcbuild)
 

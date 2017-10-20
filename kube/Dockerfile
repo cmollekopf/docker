@@ -15,7 +15,7 @@ RUN dnf -y install gnupg2-smime pinentry-qt qgpgme
 RUN dnf -y install qt5-qtbase libgit2 lmdb
 
 #Frameworks
-RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2 qt5-qtwebengine
+RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2 qt5-qtwebengine qt5-qtsvg
 RUN dnf -y install kf5-kpackage kf5-ki18n kf5-kcodecs kf5-kcontacts kf5-kmime
 RUN dnf -y install dbus-x11
 
@@ -25,6 +25,7 @@ RUN dnf -y install qt5-qtdeclarative-devel
 #kube
 RUN dnf -y install google-noto-serif-fonts google-noto-sans-fonts
 RUN dnf -y install qgpgme
+RUN dnf -y install strace
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \

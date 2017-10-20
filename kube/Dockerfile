@@ -3,39 +3,27 @@ FROM fedora:25
 RUN dnf -y install 'dnf-command(copr)'
 RUN dnf -y copr enable @kdesig/qt-5.9
 
-RUN dnf install -y xerces-c boost
-RUN dnf install -y sudo
-RUN dnf install -y cyrus-sasl cyrus-sasl-plain
-RUN dnf install -y libnotify libxdg-basedir
-RUN dnf install -y mesa-dri-drivers xorg-x11-drv-intel
-RUN dnf -y install vim
+RUN dnf -y install xerces-c boost
+RUN dnf -y install sudo
+RUN dnf -y install cyrus-sasl cyrus-sasl-plain
+RUN dnf -y install libnotify libxdg-basedir
+RUN dnf -y install mesa-dri-drivers xorg-x11-drv-intel
+RUN dnf -y install vim-minimal xterm gdb valgrind
+RUN dnf -y install gnupg2-smime pinentry-qt qgpgme
 
 #Sink deps
 RUN dnf -y install qt5-qtbase libgit2 lmdb
-RUN dnf -y install xterm
-
-#Test debugging
-RUN dnf -y install gdb
 
 #Frameworks
-RUN dnf -y install qt5-qtbase qt5-qtscript qt5-qttools qt5-qtsvg qt5-qtx11extras xcb-util-keysyms qt5-qttools-static polkit qt5-qtdeclarative libepoxy qt5-qtwebkit qt5-qtxmlpatterns
-RUN dnf -y install kf5-kpackage kf5-ki18n kf5-kcodecs
+RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2 qt5-qtwebengine
+RUN dnf -y install kf5-kpackage kf5-ki18n kf5-kcodecs kf5-kcontacts kf5-kmime
 RUN dnf -y install dbus-x11
 
-#For kirigami
-RUN dnf -y install qt5-qtgraphicaleffects
-
-#qmlscene
+#qmlscenl
 RUN dnf -y install qt5-qtdeclarative-devel
 
 #kube
-RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2
-RUN dnf -y install oxygen-icon-theme
-RUN dnf -y install gamin
-RUN dnf -y install qt5-qtwebengine
 RUN dnf -y install google-noto-serif-fonts google-noto-sans-fonts
-RUN dnf -y install gnupg2-smime pinentry-qt
-RUN dnf -y install kf5-kcontacts kf5-kmime
 RUN dnf -y install qgpgme
 
 # Replace 1000 with your user / group id

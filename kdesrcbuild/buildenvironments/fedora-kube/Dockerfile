@@ -10,22 +10,17 @@ RUN dnf -y install gcc-c++ git doxygen cmake bzr vim tar ninja-build clang
 RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
 
 #Sink deps
-RUN dnf -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel
-# Temporary measure because libcurl needs to be downgraded to install libcurl-devel (the fedora25 packages are not completely in order yet it seems)
-RUN dnf -y --allowerasing install libcurl-devel
+RUN dnf -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel libcurl-devel
 
 #Test and debugging
 RUN dnf -y install gdb xterm perf valgrind
-
-#Frameworks
-RUN dnf -y install qt5-qtscript-devel qt5-qttools-devel qt5-qtsvg-devel qt5-qtx11extras-devel xcb-util-keysyms-devel qt5-qttools-static polkit-devel qt5-qtdeclarative-devel libepoxy-devel qt5-qtwebkit-devel qt5-qtxmlpatterns-devel
 
 #kf5-mime
 RUN dnf -y install cyrus-sasl-devel
 
 #Stuff for kube
-RUN dnf -y install qt5-qtgraphicaleffects qt5-qtquickcontrols qt5-qtquickcontrols2-devel qt5-qtwebengine-devel
-RUN dnf -y install kf5-kpackage-devel kf5-ki18n-devel kf5-kcodecs-devel kf5-kcontacts-devel kf5-kmime-devel kf5-kirigami-devel qgpgme-devel
+RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2-devel qt5-qtwebengine-devel
+RUN dnf -y install kf5-kpackage-devel kf5-ki18n-devel kf5-kcodecs-devel kf5-kcontacts-devel kf5-kmime-devel qgpgme-devel
 
 # Support
 RUN dnf -y install icecream
@@ -35,9 +30,6 @@ RUN dnf -y install xorg-x11-server-Xvfb
 
 # Imap tests
 RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain gnupg2-smime
-
-#For kdav
-RUN dnf -y install kf5-kio-devel
 
 #KCachegrind needs dbus =(
 RUN dnf -y install kcachegrind dbus-x11

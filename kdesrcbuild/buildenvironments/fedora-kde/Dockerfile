@@ -6,7 +6,7 @@ RUN dnf -y install sudo vim
 RUN dnf -y install gcc-c++ git doxygen cmake bzr tar
 RUN dnf -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel strigi-devel qjson-devel libcurl-devel xsd xerces-c xapian-core-devel kdelibs-devel
 #kdesrcbuild deps
-RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
+RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser perl-IPC-Cmd
 #up until kdelibs
 RUN dnf -y install dnf-plugins-core
 RUN dnf builddep -y kdelibs

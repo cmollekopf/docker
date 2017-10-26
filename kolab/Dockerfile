@@ -34,6 +34,9 @@ RUN systemctl enable httpd.service
 RUN systemctl enable amavisd.service
 RUN systemctl enable postfix.service mariadb.service dirsrv.target cyrus-imapd.service wallace.service kolabd.service kolab-saslauthd.service
 
+
+RUN sed -i -e "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
+
 EXPOSE 80 143 443 587 4190
 
 # We can't run setup-kolab during the building process, run the command below and then commit the result

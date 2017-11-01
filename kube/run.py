@@ -21,7 +21,6 @@ def main(kolabcontainer):
         "-u", "developer",
         "--security-opt", "seccomp:unconfined", # Necessary to get gdb to work
         "-v", "{}/kube:/work".format(settings.ROOT),
-        "-v", "{}/testmails:/home/developer/maildir1/testmails".format(BASEPATH),
     ]
     if kolabcontainer:
         runargs.extend([

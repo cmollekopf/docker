@@ -9,7 +9,7 @@ global
     kdedir /work/install
 
     cxxflags -pipe -DQT_STRICT_ITERATORS -DQURL_NO_CAST_FROM_STRING -DQT_NO_HTTP -DQT_NO_FTP -Wformat -Werror=return-type
-    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debug
+    cmake-options -DCMAKE_EXPORT_COMPILE_COMMANDS="ON" -DCMAKE_BUILD_TYPE=debug -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
 
     stop-on-failure true
 end global
@@ -21,12 +21,11 @@ module flatbuffers
 end module
 
 module kasync
-    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     repository kde:kasync
     branch master
 end module
 
-module kimap2 #For Sink
+module kimap2
     repository kde:kimap2
     branch master
 end module
@@ -37,14 +36,11 @@ module kdav2
 end module
 
 module Sink
-    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
-    # custom-build-command ninja-build
     repository kde:sink
     branch develop
 end module
 
 module Kube
-    cmake-options -DCMAKE_C_COMPILER=/usr/bin/clang -DCMAKE_CXX_COMPILER=/usr/bin/clang++
     repository kde:kube
     branch develop
 end module

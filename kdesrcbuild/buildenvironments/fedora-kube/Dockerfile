@@ -7,7 +7,7 @@ RUN dnf -y update
 RUN dnf -y install gcc-c++ git doxygen cmake bzr vim tar ninja-build clang
 
 #kdesrcbuild deps
-RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser
+RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser perl-IPC-Cmd libcxx-devel 
 
 #Sink deps
 RUN dnf -y install extra-cmake-modules qt5-qtbase-devel libgit2-devel lmdb-devel readline-devel libcurl-devel
@@ -19,7 +19,7 @@ RUN dnf -y install gdb xterm perf valgrind
 RUN dnf -y install cyrus-sasl-devel
 
 #Stuff for kube
-RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2-devel qt5-qtwebengine-devel
+RUN dnf -y install qt5-qtquickcontrols qt5-qtquickcontrols2-devel qt5-qtwebengine-devel qt5-qtxmlpatterns-devel
 RUN dnf -y install kf5-kpackage-devel kf5-ki18n-devel kf5-kcodecs-devel kf5-kcontacts-devel kf5-kmime-devel qgpgme-devel
 
 # Support
@@ -33,7 +33,6 @@ RUN dnf -y install cyrus-imapd cyrus-sasl cyrus-sasl-plain gnupg2-smime
 
 #KCachegrind needs dbus =(
 RUN dnf -y install kcachegrind dbus-x11
-
 
 RUN sed -i 's/5.9.0/5.8.0/g' /usr/lib64/cmake/Qt5WebEngineWidgets/Qt5WebEngineWidgetsConfig.cmake
 RUN sed -i 's/5.9.0/5.8.0/g' /usr/lib64/cmake/Qt5WebEngineCore/Qt5WebEngineCoreConfig.cmake

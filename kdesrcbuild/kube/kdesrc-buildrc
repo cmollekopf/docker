@@ -36,6 +36,7 @@ module kdav2
 end module
 
 module Sink
+    cmake-options -DCATCH_ERRORS=ON
     repository kde:sink
     branch develop
 end module

@@ -18,10 +18,10 @@ global
     stop-on-failure true
 end global
 
-module kdelibs
-    repository kolab:KL/kdelibs.git
-    branch kolab/integration/4.14.0
-end module
+# module kdelibs
+#     repository kolab:KL/kdelibs.git
+#     branch kolab/integration/4.14.0
+# end module
 
 module akonadi
     repository kolab:A/akonadi.git

@@ -29,6 +29,7 @@ module akonadi
 end module
 
 module kdepimlibs
+    cmake-options -DKDEPIM_NO_KCAL=TRUE -DKDEPIM_NO_KRESOURCES=TRUE
     repository kolab:KPL/kdepimlibs.git
     branch kolab/integration/4.13.0
 end module

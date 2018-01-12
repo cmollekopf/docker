@@ -1,0 +1,7 @@
+[FreeBusy Retrieve]
+FreeBusyFullDomainRetrieval=true
+FreeBusyRetrieveAuto=true
+FreeBusyRetrievePassword=￈ﾺﾳﾼﾰﾲﾺ￭ￔﾰﾳﾾﾽￌﾦﾬﾫﾺﾲﾬ
+FreeBusyRetrieveSavePassword=true
+FreeBusyRetrieveUrl=http://kolab/freebusy
+FreeBusyRetrieveUser=doe@example.org

@@ -14,7 +14,7 @@ RUN gpg --keyserver keys.gnupg.net --recv-keys 446D5A45
 RUN gpg --export --armor devel@lists.kolab.org > devel.asc
 RUN rpm --import devel.asc
 
-RUN dnf -y install kde-runtime plasma-desktop
+RUN dnf -y install kde-runtime plasma-desktop fedora-obsolete-packages
 RUN dnf -y install kolab-desktop-client zanshin
 RUN dnf -y install kde-l10n-de langpacks-de
 RUN dnf -y install rpmreaper

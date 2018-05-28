@@ -1,0 +1,9 @@
+[Defaults]
+Profile=Default
+
+[PROFILE_Default]
+EmailAddress=doe@example.org
+FullName=John Doe
+Organization=
+ReplyAddr=
+ServerType=

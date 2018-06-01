@@ -1,18 +1,14 @@
 FROM fedora:28
 
 RUN dnf -y update
-RUN dnf -y install wget sed sudo gpg
+RUN dnf -y install wget sed sudo gpg dnf-plugins-core
 
 RUN echo "priority=1" >> /etc/dnf/dnf.conf
 
-RUN cd /etc/yum.repos.d/ && wget https://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Fedora_28/Kontact:4.13:Development.repo
+RUN dnf config-manager --add-repo=http://obs.kolabsys.com/repositories/Kontact:/4.13:/Development/Fedora_28/ --setopt priority=0 Kontact:4.13:Development_Fedora28
 
-RUN for f in /etc/yum.repos.d/Kontact*.repo; do sed -i "s#enabled=1#enabled=1\\npriority=0#g" $f; done
 
-RUN gpg --keyserver keys.gnupg.net --recv-keys 446D5A45
-# RUN gpg --search devel@lists.kolab.org
-RUN gpg --export --armor devel@lists.kolab.org > devel.asc
-RUN rpm --import devel.asc
+RUN wget https://obs.kolabsys.com/projects/Kontact:4.13:Development/public_key -O /tmp/key && rpm --import /tmp/key
 
 RUN dnf -y install kde-runtime plasma-desktop fedora-obsolete-packages
 RUN dnf -y install kolab-desktop-client zanshin

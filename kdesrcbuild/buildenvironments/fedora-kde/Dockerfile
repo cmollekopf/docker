@@ -1,10 +1,10 @@
-FROM fedora:22
+FROM fedora:28
 
 #System deps
 RUN dnf -y erase vim-minimal
 RUN dnf -y install sudo vim
 RUN dnf -y install gcc-c++ git doxygen cmake bzr tar
-RUN dnf -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel strigi-devel qjson-devel libcurl-devel xsd xerces-c xapian-core-devel kdelibs-devel
+RUN dnf -y install qt4-devel automoc phonon-devel qtwebkit-devel attica-devel dbusmenu-qt-devel qjson-devel libcurl-devel xsd xerces-c xapian-core-devel kdelibs-devel
 #kdesrcbuild deps
 RUN dnf -y install sudo perl-libwww-perl perl-JSON perl-JSON-PP perl-XML-Parser perl-IPC-Cmd
 #up until kdelibs
@@ -44,6 +44,11 @@ RUN dnf -y install sqlite-devel
 
 #libkolabxml
 RUN dnf -y install xerces-c-devel
+
+RUN dnf -y install perl-YAML
+RUN dnf -y install perl-YAML-Syck
+RUN dnf -y install make
+RUN dnf -y install kdelibs-webkit-devel
 
 RUN useradd -d /home/developer -m developer
 RUN mkdir /work /qt

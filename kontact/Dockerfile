@@ -1,4 +1,4 @@
-FROM fedora:22
+FROM fedora:28
 
 RUN dnf -y install kdelibs-webkit prison qjson libical xapian-core boost-program-options dbus-x11 grantlee xorg-x11-font* mariadb-server qt-mysql kde-runtime
 RUN dnf -y install mesa-dri-drivers xorg-x11-drv-intel
